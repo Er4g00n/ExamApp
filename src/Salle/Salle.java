@@ -18,57 +18,57 @@ public class Salle {
         this.specificite = specificite;
     }
 
-    protected String getNom(Salle e) {
+    public String getNom(Salle e) {
 
         return e.getNom();
     }
 
-    protected String getNom() {
+    public String getNom() {
 
         return this.nom;
     }
 
-    protected void setNom(String nom) {
+    public void setNom(String nom) {
 
         this.nom = nom;
     }
 
-    protected Integer getCapacite() {
+    public Integer getCapacite() {
 
         return this.capacite;
     }
 
-    protected void setCapacite(Integer capacite) {
+    public void setCapacite(Integer capacite) {
 
         this.capacite = capacite;
     }
 
-    protected Object getDisponibilite() {
+    public Object getDisponibilite() {
 
         return this.disponibilite;
     }
 
-    protected void setDisponibilite(Object disponibilite) {
+    public void setDisponibilite(Object disponibilite) {
 
         this.disponibilite = disponibilite;
     }
 
-    protected Type getType() {
+    public Type getType() {
 
         return this.type;
     }
 
-    protected void setType(Type type) {
+    public void setType(Type type) {
 
         this.type = type;
     }
 
-    protected Specificite getSpecificite() {
+    public Specificite getSpecificite() {
 
         return this.specificite;
     }
 
-    protected void setSpecificite(Specificite specificite) {
+    public void setSpecificite(Specificite specificite) {
 
         this.specificite = specificite;
     }
