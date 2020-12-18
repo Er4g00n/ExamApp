@@ -6,7 +6,9 @@ import Utilisateur.Etudiant;
 import java.util.ArrayList;
 
 /**
- * The type Examen.
+ * Classe Examen.
+ * Permet l'utilisation de l'objet examen
+ * Cet objet a pour role de définir les examens pour le solveur (OptaPlanner)
  */
 public class Examen {
 
@@ -14,134 +16,150 @@ public class Examen {
     private Integer idExamen;
     private String title;
     private double duree;
-    private double horraire;
+    private double horaire;
     private Boolean estFini;
     private ArrayList<Etudiant> listEtudiant;
     private ArrayList<Contrainte> listContrainte;
 
     private Calendrier calendrier;
-    private GestionExamen gestionExamen;
     private Salle salle;
 
+
+    @Override
+    public String toString() {
+        return "Examen{" +
+                "idExamen=" + idExamen +
+                ", title='" + title + '\'' +
+                ", duree=" + duree +
+                ", horraire=" + horaire +
+                ", estFini=" + estFini +
+                ", listEtudiant=" + listEtudiant +
+                ", listContrainte=" + listContrainte +
+                ", calendrier=" + calendrier +
+                ", salle=" + salle +
+                '}';
+    }
+
     /**
-     * Gets id examen.
+     * Retourne id examen.
      *
-     * @return the id examen
+     * @return l 'id examen (de type Integer)
      */
     public Integer getIdExamen() {
         return this.idExamen;
     }
 
     /**
-     * Sets id examen.
+     * Définie id examen.
+     * En cas de besoin de modification de l'id
      *
-     * @param idExamen the id examen
+     * @param idExamen deviendra l'idExamen
      */
     public void setIdExamen(Integer idExamen) {
         this.idExamen = idExamen;
     }
 
     /**
-     * Gets title.
+     * Retourne title.
      *
-     * @return the title
+     * @return le titre de l'examen (de type String)
      */
     public String getTitle() {
         return this.title;
     }
 
     /**
-     * Sets title.
+     * Définie le titre de l'examen.
      *
-     * @param title the title
+     * @param title deviendra le titre
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * Gets duree.
+     * Retourne duree.
      *
-     * @return the duree
+     * @return la durée de l'examen (de type double)
      */
     public double getDuree() {
         return this.duree;
     }
 
     /**
-     * Sets duree.
+     * Définie la duree de l'examen.
      *
-     * @param duree the duree
+     * @param duree deviendra duree
      */
     public void setDuree(double duree) {
         this.duree = duree;
     }
 
     /**
-     * Gets horraire.
+     * Retourne les horaires.
      *
-     * @return the horraire
+     * @return l 'horaire (de type double)
      */
     public double getHorraire() {
-        return this.horraire;
+        return this.horaire;
     }
 
     /**
-     * Sets horraire.
+     * Définie l'horaire.
      *
-     * @param horraire the horraire
+     * @param horraire l'horaire
      */
     public void setHorraire(double horraire) {
-        this.horraire = horraire;
+        this.horaire = horraire;
     }
 
     /**
-     * Gets est fini.
+     * Retourne un boolean qui retourne true si il est fini.
      *
-     * @return the est fini
+     * @return le boolean 'estfini'
      */
     public Boolean getEstFini() {
         return this.estFini;
     }
 
     /**
-     * Sets est fini.
+     * Définie le boolean 'est fini'.
      *
-     * @param estFini the est fini
+     * @param estFini le est fini
      */
     public void setEstFini(Boolean estFini) {
         this.estFini = estFini;
     }
 
     /**
-     * Gets list etudiant.
+     * Retourne la liste des etudiants.
      *
-     * @return the list etudiant
+     * @return la liste des etudiants (de type ArrayList<Etudiant>)
      */
     public ArrayList<Etudiant> getListEtudiant() {
         return listEtudiant;
     }
 
     /**
-     * Sets list etudiant.
+     * Définie la liste d'etudiants.
      *
-     * @param listEtudiant the list etudiant
+     * @param listEtudiant la list etudiant
      */
     public void setListEtudiant(ArrayList<Etudiant> listEtudiant) {
         this.listEtudiant = listEtudiant;
     }
 
     /**
-     * Gets list contrainte.
+     * Retourne la liste des contraintes.
      *
-     * @return the list contrainte
+     * @return la liste des contraintes (de type ArrayList<Contrainte>)
      */
     public ArrayList<Contrainte> getListContrainte() {
         return listContrainte;
     }
 
     /**
-     * Sets list contrainte.
+     * Définie la liste de contraintes.
      *
      * @param listContrainte the list contrainte
      */
@@ -150,16 +168,16 @@ public class Examen {
     }
 
     /**
-     * Gets salle.
+     * Retourne la salle.
      *
-     * @return the salle
+     * @return la salle (de type Salle)
      */
     public Salle getSalle() {
         return this.salle;
     }
 
     /**
-     * Sets salle.
+     * Définie la salle.
      *
      * @param salle the salle
      */
@@ -168,39 +186,20 @@ public class Examen {
     }
 
     /**
-     * Gets calendrier.
+     * Retourne le calendrier.
      *
-     * @return the calendrier
+     * @return le calendrier (de type Calendrier)
      */
     public Calendrier getCalendrier() {
         return this.calendrier;
     }
 
     /**
-     * Sets calendrier.
+     * Définie le calendrier.
      *
      * @param calendrier the calendrier
      */
     public void setCalendrier(Calendrier calendrier) {
         this.calendrier = calendrier;
     }
-
-    /**
-     * Gets gestion examen.
-     *
-     * @return the gestion examen
-     */
-    public GestionExamen getGestionExamen() {
-        return this.gestionExamen;
-    }
-
-    /**
-     * Sets gestion examen.
-     *
-     * @param gestionExamen the gestion examen
-     */
-    public void setGestionExamen(GestionExamen gestionExamen) {
-        this.gestionExamen = gestionExamen;
-    }
-
 }
