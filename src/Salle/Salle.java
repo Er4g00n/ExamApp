@@ -3,15 +3,15 @@ package Salle;
 public class Salle {
     private String nom;
     private Integer capacite;
-    private Object disponibilite;
+
     private Type type;
     private Specificite specificite;
 
 
 
 
-    public Salle(String nom, Integer capacite, Type type, Specificite specificite, Object disponibilite) {
-        this.disponibilite = disponibilite;
+    public Salle(String nom, Integer capacite, Type type, Specificite specificite) {
+
         this.nom = nom;
         this.capacite = capacite;
         this.type = type;
@@ -43,15 +43,6 @@ public class Salle {
         this.capacite = capacite;
     }
 
-    public Object getDisponibilite() {
-
-        return this.disponibilite;
-    }
-
-    public void setDisponibilite(Object disponibilite) {
-
-        this.disponibilite = disponibilite;
-    }
 
     public Type getType() {
 
@@ -77,7 +68,8 @@ public class Salle {
 
     public String toString() {
 
-        return  "nom: "+getNom()+ "capacite: " + this.getCapacite() +"specificite: "+ this.getSpecificite() +"type: "+ this.getType() + "disponibilite: "+this.getDisponibilite();
+            return "{nom: " + getNom() + " capacite: " + this.getCapacite() + " specificite: " + this.getSpecificite() + " type: " + this.getType() +"}";
+
     }
 
 }
