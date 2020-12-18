@@ -4,7 +4,6 @@ public class Salle {
 
     private String nom;
     private Integer capacite;
-    private invalid disponibilite;
     private Type type;
     private Specificite specificite;
     private GestionSalle gestionSalle;
@@ -23,14 +22,6 @@ public class Salle {
 
     private void setCapacite(Integer capacite) {
         this.capacite = capacite;
-    }
-
-    private invalid getDisponibilite() {
-        return this.disponibilite;
-    }
-
-    private void setDisponibilite(invalid disponibilite) {
-        this.disponibilite = disponibilite;
     }
 
     private Type getType() {
