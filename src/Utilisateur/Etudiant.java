@@ -31,6 +31,10 @@ public class Etudiant extends Utilisateur {
 
         this.filiere = filiere;
     }
+
+    public String toString() {
+        return super.toString() +" numero etudiant: "+ getNumeroEtudiant()+" filiere: "+getFiliere()+" }";
+    }
     
     
 }

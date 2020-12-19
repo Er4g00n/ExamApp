@@ -16,4 +16,8 @@ public class Scolarite extends Utilisateur {
     public void setIdScolarite(Integer idScolarite) {
         this.idScolarite = idScolarite;
     }
+
+    public String toString() {
+        return super.toString()+" idScolarite: "+ getIdScolarite()+" }";
+    }
 }

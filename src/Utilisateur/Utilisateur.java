@@ -54,6 +54,11 @@ public abstract class Utilisateur {
     }
 
 
+    public String toString() {
+        return  "{nom: " + getNom() + " prenom: " + getPrenom()  + " email: " + getEmail() ;
+    }
+
+
 
 
 

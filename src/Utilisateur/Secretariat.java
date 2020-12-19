@@ -16,5 +16,9 @@ public class Secretariat extends Utilisateur {
     public void setIdSecretariat(Integer idSecretariat) {
         this.idSecretariat = idSecretariat;
     }
+
+    public String toString() {
+        return super.toString() +" idSecretariat: "+ getIdSecretariat()+" }";
+    }
     
 }
