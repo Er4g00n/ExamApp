@@ -8,10 +8,11 @@
     <artifactId>ExamApp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <dependencies>
-    <dependency>
-        <groupId>org.optaplanner</groupId>
-        <artifactId>optaplanner-core</artifactId>
-        <version>8.0.0.Final</version>
-    </dependency>
+        <dependency>
+            <groupId>org.optaplanner</groupId>
+            <artifactId>optaplanner-core</artifactId>
+            <version>8.0.0.Final</version>
+        </dependency>
     </dependencies>
+
 </project>

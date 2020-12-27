@@ -2,6 +2,8 @@ package Examen;
 
 import Salle.Salle;
 import Utilisateur.Etudiant;
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ import java.util.ArrayList;
  * Permet l'utilisation de l'objet examen
  * Cet objet a pour role de définir les examens pour le solveur (OptaPlanner)
  */
+@PlanningEntity
 public class Examen {
 
 
@@ -82,6 +85,8 @@ public class Examen {
      *
      * @return la durée de l'examen (de type double)
      */
+    @PlanningVariable(
+            valueRangeProviderRefs = {"dureeExamen"})
     public double getDuree() {
         return this.duree;
     }
@@ -100,17 +105,17 @@ public class Examen {
      *
      * @return l 'horaire (de type double)
      */
-    public double getHorraire() {
+    public double getHoraire() {
         return this.horaire;
     }
 
     /**
      * Définie l'horaire.
      *
-     * @param horraire l'horaire
+     * @param horaire l'horaire
      */
-    public void setHorraire(double horraire) {
-        this.horaire = horraire;
+    public void setHoraire(double horaire) {
+        this.horaire = horaire;
     }
 
     /**
