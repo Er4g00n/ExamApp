@@ -4,48 +4,48 @@ public class Salle {
 
     private String nom;
     private Integer capacite;
-    private invalid disponibilite;
+    private Object disponibilite;
     private Type type;
     private Specificite specificite;
     private GestionSalle gestionSalle;
 
-    private String getNom() {
+    public String getNom() {
         return this.nom;
     }
 
-    private void setNom(String nom) {
+    public void setNom(String nom) {
         this.nom = nom;
     }
 
-    private Integer getCapacite() {
+    public Integer getCapacite() {
         return this.capacite;
     }
 
-    private void setCapacite(Integer capacite) {
+    public void setCapacite(Integer capacite) {
         this.capacite = capacite;
     }
 
-    private invalid getDisponibilite() {
+    public Object getDisponibilite() {
         return this.disponibilite;
     }
 
-    private void setDisponibilite(invalid disponibilite) {
+    public void setDisponibilite(Object disponibilite) {
         this.disponibilite = disponibilite;
     }
 
-    private Type getType() {
+    public Type getType() {
         return this.type;
     }
 
-    private void setType(Type type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
-    private Specificite getSpecificite() {
+    public Specificite getSpecificite() {
         return this.specificite;
     }
 
-    private void setSpecificite(Specificite specificite) {
+    public void setSpecificite(Specificite specificite) {
         this.specificite = specificite;
     }
 
