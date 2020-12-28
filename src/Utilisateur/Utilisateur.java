@@ -1,5 +1,7 @@
 package Utilisateur;
 
+import Examen.Examen;
+
 import java.util.ArrayList;
 
 public class Utilisateur {
