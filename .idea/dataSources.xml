@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="u732238065_ExamApp@ftp.er4goon.com" uuid="bce06e3d-c4df-4081-87fc-c4e873017445">
+    <data-source source="LOCAL" name="sql2384112@sql2.freemysqlhosting.net" uuid="314b0dd2-ca87-4e8a-9b0c-33bc084e0522">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://ftp.er4goon.com:3306/u732238065_ExamApp</jdbc-url>
+      <jdbc-url>jdbc:mysql://sql2.freemysqlhosting.net:3306/sql2384112</jdbc-url>
     </data-source>
   </component>
 </project>

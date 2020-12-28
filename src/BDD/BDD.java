@@ -18,12 +18,17 @@ public class BDD {
     }
     public void getData(){
         try{
-            String sql = "select * from Etudiants";
+            String sql = "SELECT * FROM Etudiants E INNER JOIN EtuListes L ON E.idEtuListe = L.idEtuListe";
             rs = st.executeQuery(sql);
             System.out.println("Data from online Database :");
             while(rs.next()){
-                String name = rs.getString("nom");
-                System.out.println("Name :"+name);
+                String numEtudiant = rs.getString("numEtu");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String idEtuListe = rs.getString("idEtuListe");
+                String libelle = rs.getString("libelle");
+
+                System.out.println("[N°Etudiant : "+numEtudiant+" | Nom :"+nom+" | Prenom :"+prenom+" | idEtuListe :"+idEtuListe+" | Libelle :"+libelle+"]");
             }
 
         }catch(Exception ex){
