@@ -9,6 +9,15 @@ public class Salle {
     private Specificite specificite;
     private GestionSalle gestionSalle;
 
+    public Salle(String nom, Integer capacite, Object disponibilite, Type type, Specificite specificite) {
+        this.nom = nom;
+        this.capacite = capacite;
+        this.disponibilite = disponibilite;
+        this.type = type;
+        this.specificite = specificite;
+        this.gestionSalle = gestionSalle;
+    }
+
     public String getNom() {
         return this.nom;
     }

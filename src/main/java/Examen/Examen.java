@@ -15,11 +15,11 @@ import java.util.ArrayList;
 @PlanningEntity
 public class Examen {
 
-
     private Integer idExamen;
     private String title;
-    private double duree;
-    private double horaire;
+    private int duree;
+    private int horaire;
+    private Periode periode;
     private Boolean estFini;
     private ArrayList<Etudiant> listEtudiant;
     private ArrayList<Contrainte> listContrainte;
@@ -27,6 +27,31 @@ public class Examen {
     private Calendrier calendrier;
     private Salle salle;
 
+    public Examen(Integer idExamen, String title, int duree, int horaire, Periode periode, Boolean estFini, ArrayList<Etudiant> listEtudiant, ArrayList<Contrainte> listContrainte, Calendrier calendrier, Salle salle) {
+        this.idExamen = idExamen;
+        this.title = title;
+        this.duree = duree;
+        this.horaire = horaire;
+        this.periode = periode;
+        this.estFini = estFini;
+        this.listEtudiant = listEtudiant;
+        this.listContrainte = listContrainte;
+        this.calendrier = calendrier;
+        this.salle = salle;
+    }
+
+    public Examen() {
+        this.idExamen = null;
+        this.title = null;
+        this.duree = 0;
+        this.horaire = 0;
+        this.periode = null;
+        this.estFini = false;
+        this.listEtudiant = null;
+        this.listContrainte = null;
+        this.calendrier = null;
+        this.salle = null;
+    }
 
     @Override
     public String toString() {
@@ -42,6 +67,17 @@ public class Examen {
                 ", salle=" + salle +
                 '}';
     }
+
+    @PlanningVariable(
+            valueRangeProviderRefs = {"periodesPossible"})
+    public Periode getPeriode() {
+        return periode;
+    }
+
+    public void setPeriode(Periode periode) {
+        this.periode = periode;
+    }
+
 
     /**
      * Retourne id examen.
@@ -85,8 +121,6 @@ public class Examen {
      *
      * @return la durée de l'examen (de type double)
      */
-    @PlanningVariable(
-            valueRangeProviderRefs = {"dureeExamen"})
     public double getDuree() {
         return this.duree;
     }
@@ -96,8 +130,8 @@ public class Examen {
      *
      * @param duree deviendra duree
      */
-    public void setDuree(double duree) {
-        this.duree = duree;
+    public void setDuree(int duree) {
+        this.duree = getPeriode().getDuree();
     }
 
     /**
@@ -114,8 +148,8 @@ public class Examen {
      *
      * @param horaire l'horaire
      */
-    public void setHoraire(double horaire) {
-        this.horaire = horaire;
+    public void setHoraire(int horaire) {
+        this.horaire = getPeriode().getHoraire();
     }
 
     /**
@@ -123,6 +157,8 @@ public class Examen {
      *
      * @return le boolean 'estfini'
      */
+    @PlanningVariable(
+            valueRangeProviderRefs = {"estFini"})
     public Boolean getEstFini() {
         return this.estFini;
     }
@@ -177,6 +213,8 @@ public class Examen {
      *
      * @return la salle (de type Salle)
      */
+    @PlanningVariable(
+            valueRangeProviderRefs = {"sallesPossible"})
     public Salle getSalle() {
         return this.salle;
     }
