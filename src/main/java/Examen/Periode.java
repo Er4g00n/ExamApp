@@ -1,46 +1,48 @@
 package Examen;
 
-public class Periode {
-    private String DateDebut;
-    private int horaire;
-    private int duree;
+import Abstracts.AbstractPersistable;
+import Abstracts.Labeled;
 
-    public Periode(String dateDebut, int horaire, int duree) {
-        DateDebut = dateDebut;
-        this.horaire = horaire;
-        this.duree = duree;
+import static java.util.Objects.requireNonNull;
+
+public class Periode extends AbstractPersistable implements Labeled {
+    private Jour jour;
+    private Timeslot timeslot;
+
+    public Periode(int id, Jour jour, Timeslot timeslot) {
+        super(id);
+        this.jour = requireNonNull(jour);
+        jour.getPeriodList().add(this);
+        this.timeslot = requireNonNull(timeslot);
     }
 
-    public String getDateDebut() {
-        return DateDebut;
+    public Periode() {
     }
 
-    public void setDateDebut(String dateDebut) {
-        DateDebut = dateDebut;
+
+    public Jour getJour() {
+        return jour;
     }
 
-    public int getHoraire() {
-        return horaire;
+    public void setJour(Jour jour) {
+        this.jour = jour;
     }
 
-    public void setHoraire(int horaire) {
-        this.horaire = horaire;
+    public Timeslot getTimeslot() {
+        return timeslot;
     }
 
-    public int getDuree() {
-        return duree;
-    }
-
-    public void setDuree(int duree) {
-        this.duree = duree;
+    public void setTimeslot(Timeslot timeslot) {
+        this.timeslot = timeslot;
     }
 
     @Override
     public String toString() {
-        return "Periode{" +
-                "DateDebut='" + DateDebut + '\'' +
-                ", horaire=" + horaire +
-                ", duree=" + duree +
-                '}';
+        return jour + "-" + timeslot;
+    }
+
+    @Override
+    public String getLabel() {
+        return null;
     }
 }

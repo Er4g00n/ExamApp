@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver xmlns="https://www.optaplanner.org/xsd/solver" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="https://www.optaplanner.org/xsd/solver https://www.optaplanner.org/xsd/solver/solver.xsd">
+  <solutionClass>Examen.Calendrier</solutionClass>
+  <entityClass>Examen.Epreuve</entityClass>
+
+  <scoreDirectorFactory>
+    <scoreDrl>score/curriculumCourseConstraints.drl</scoreDrl>
+  </scoreDirectorFactory>
+
+  <termination>
+    <minutesSpentLimit>5</minutesSpentLimit>
+  </termination>
+  <constructionHeuristic>
+    <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
+  </constructionHeuristic>
+  <localSearch>
+    <acceptor>
+      <lateAcceptanceSize>600</lateAcceptanceSize>
+    </acceptor>
+    <forager>
+      <acceptedCountLimit>4</acceptedCountLimit>
+    </forager>
+  </localSearch>
+</solver>

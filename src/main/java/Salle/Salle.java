@@ -1,14 +1,15 @@
 package Salle;
 
-public class Salle {
+
+import Abstracts.AbstractPersistable;
+import Abstracts.Labeled;
+
+public class Salle extends AbstractPersistable implements Labeled {
     private String nom;
     private Integer capacite;
 
     private Type type;
     private Specificite specificite;
-
-
-
 
     public Salle(String nom, Integer capacite, Type type, Specificite specificite) {
 
@@ -64,12 +65,13 @@ public class Salle {
         this.specificite = specificite;
     }
 
-
-
+    @Override
+    public String getLabel() {
+        return null;
+    }
+    @Override
     public String toString() {
-
-            return "{nom: " + getNom() + " capacite: " + this.getCapacite() + " specificite: " + this.getSpecificite() + " type: " + this.getType() +"}";
-
+        return nom;
     }
 
 }
