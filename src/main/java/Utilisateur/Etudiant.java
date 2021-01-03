@@ -2,24 +2,39 @@ package Utilisateur;
 
 public class Etudiant extends Utilisateur {
 
-    private int numeroEtudiant;
+    private Integer numeroEtudiant;
     private Filiere filiere;
 
-    private int getNumeroEtudiant() {
+
+    public Etudiant(String nom,String prenom,String email,int numeroEtudiant,Filiere filiere){
+        super(nom,prenom,email);
+        this.filiere = filiere;
+        this.numeroEtudiant = numeroEtudiant;
+
+    }
+
+
+
+    public int getNumeroEtudiant() {
+
         return this.numeroEtudiant;
     }
+    public void setNumeroEtudiant(int numeroEtudiant) {
 
-    private void setNumeroEtudiant(int numeroEtudiant) {
         this.numeroEtudiant = numeroEtudiant;
     }
+    public Filiere getFiliere() {
 
-    private Filiere getFiliere() {
         return this.filiere;
     }
+    public void setFiliere(Filiere filiere) {
 
-    private void setFiliere(Filiere filiere) {
         this.filiere = filiere;
     }
 
-
+    public String toString() {
+        return super.toString() +" numero etudiant: "+ getNumeroEtudiant()+" filiere: "+getFiliere()+" }";
+    }
+    
+    
 }

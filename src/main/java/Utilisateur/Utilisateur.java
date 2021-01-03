@@ -4,60 +4,62 @@ import Examen.Examen;
 
 import java.util.ArrayList;
 
-public class Utilisateur {
+public abstract class Utilisateur {
 
     private String nom;
     private String prenom;
     private String email;
 
-    private GestionUtilisateur gestionUtilisateur;
+
     private ArrayList<Examen> listExamenInscrit;
 
-    public ArrayList<Examen> getListExamenInscrit() {
-        return listExamenInscrit;
+
+    public Utilisateur(String nom,String prenom,String email){
+        this.email = email;
+        this.nom = nom;
+        this.prenom = prenom;
+
     }
 
-    public void setListExamenInscrit(ArrayList<Examen> listExamenInscrit) {
-        this.listExamenInscrit = listExamenInscrit;
-    }
 
-    private String getNom() {
+
+
+
+    public String getNom() {
         return this.nom;
     }
 
-    private void setNom(String nom) {
+    public void setNom(String nom) {
         this.nom = nom;
     }
 
 
-    private String getPrenom() {
+    public String getPrenom() {
         return this.prenom;
     }
 
 
-    private void setPrenom(String prenom) {
+    public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
 
-    private String getEmail() {
+    public String getEmail() {
         return this.email;
     }
 
 
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
 
-    public GestionUtilisateur getGestionUtilisateur() {
-        return this.gestionUtilisateur;
+    public String toString() {
+        return  "{nom: " + getNom() + " prenom: " + getPrenom()  + " email: " + getEmail() ;
     }
 
 
-    public void setGestionUtilisateur(GestionUtilisateur gestionUtilisateur) {
-        this.gestionUtilisateur = gestionUtilisateur;
-    }
+
 
 
 }
