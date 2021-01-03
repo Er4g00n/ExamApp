@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="globalLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
+   <top>
+      <BorderPane prefHeight="70.0" prefWidth="960.0" styleClass="background-light" BorderPane.alignment="CENTER">
+         <left>
+            <Label text="Examapp" textFill="WHITE" BorderPane.alignment="CENTER" />
+         </left>
+         <right>
+            <GridPane BorderPane.alignment="CENTER">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="70.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label styleClass="darktext" text="NOM prénom" />
+                  <Label styleClass="darktext" text="email" GridPane.rowIndex="1" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="BLACK" strokeType="INSIDE" width="50.0" GridPane.columnIndex="1" GridPane.rowSpan="2" />
+               </children>
+            </GridPane>
+         </right>
+      </BorderPane>
+   </top>
+   <left>
+      <BorderPane prefHeight="470.0" prefWidth="200.0" styleClass="background-light" BorderPane.alignment="CENTER">
+         <top>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="15.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToSolveurAction" selected="true" styleClass="nav-button" text="Solveur" textAlignment="CENTER" textFill="GREY">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="pageGroup" />
+                     </toggleGroup>
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToPromotionsAction" styleClass="nav-button" text="Promotions" textAlignment="CENTER" textFill="GREY" toggleGroup="$pageGroup">
+                     <font>
+                        <Font size="16.0" />
+                     </font></ToggleButton>
+                  <ToggleButton maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#switchToSallesAction" styleClass="nav-button" text="Salles" textAlignment="CENTER" textFill="GREY" toggleGroup="$pageGroup">
+                     <font>
+                        <Font size="16.0" />
+                     </font></ToggleButton>
+               </children>
+               <padding>
+                  <Insets left="20.0" right="20.0" />
+               </padding>
+            </VBox>
+         </top>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <center>
+            <Separator maxWidth="-Infinity" prefHeight="0.0" prefWidth="100.0" styleClass="delimiter" valignment="BOTTOM" BorderPane.alignment="BOTTOM_CENTER" />
+         </center>
+         <bottom>
+            <ToggleButton fx:id="switchButton" cache="true" mnemonicParsing="false" onAction="#switchLightMode" selected="true" styleClass="lightmode-button" text="Mode clair" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </BorderPane.margin>
+            </ToggleButton>
+         </bottom>
+      </BorderPane>
+   </left>
+   <stylesheets>
+      <URL value="@application.css" />
+      <URL value="@darkmode.css" />
+   </stylesheets>
+</BorderPane>
