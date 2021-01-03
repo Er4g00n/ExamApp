@@ -3,7 +3,9 @@ package Examen;
 import Salle.Salle;
 import Utilisateur.Etudiant;
 
+import java.time.Period;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 public class Examen {
 
@@ -12,60 +14,74 @@ public class Examen {
     private String title;
     private double duree;
     private double horraire;
+    private Periode periode;
     private Boolean estFini;
-    private ArrayList<Etudiant> listEtudiant;
+    private static Hashtable listEtudiantInscrit = new Hashtable();
     private ArrayList<Contrainte> listContrainte;
-
     private Calendrier calendrier;
-    private GestionExamen gestionExamen;
     private Salle salle;
 
-    private Integer getIdExamen() {
+    public Examen(Integer idExamen, String title, double duree, Periode periode, Boolean estFini, Hashtable listEtudiantInscrit, ArrayList<Contrainte> listContrainte, Salle salle) {
+
+        this.idExamen = idExamen;
+        this.title = title;
+        this.duree = duree;
+        this.periode = periode;
+        this.estFini = estFini;
+        this.listEtudiantInscrit = listEtudiantInscrit;
+        this.listContrainte = listContrainte;
+        this.salle = salle;
+
+
+    }
+
+
+    public Integer getIdExamen() {
         return this.idExamen;
     }
 
-    private void setIdExamen(Integer idExamen) {
+    public void setIdExamen(Integer idExamen) {
         this.idExamen = idExamen;
     }
 
-    private String getTitle() {
+    public String getTitle() {
         return this.title;
     }
 
-    private void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    private double getDuree() {
+    public double getDuree() {
         return this.duree;
     }
 
-    private void setDuree(double duree) {
+    public void setDuree(double duree) {
         this.duree = duree;
     }
 
-    private double getHorraire() {
+    public double getHorraire() {
         return this.horraire;
     }
 
-    private void setHorraire(double horraire) {
+    public void setHorraire(double horraire) {
         this.horraire = horraire;
     }
 
-    private Boolean getEstFini() {
+    public Boolean getEstFini() {
         return this.estFini;
     }
 
-    private void setEstFini(Boolean estFini) {
+    public void setEstFini(Boolean estFini) {
         this.estFini = estFini;
     }
 
-    public ArrayList<Etudiant> getListEtudiant() {
-        return listEtudiant;
+    public Hashtable getListEtudiantInscrit() {
+        return listEtudiantInscrit;
     }
 
-    public void setListEtudiant(ArrayList<Etudiant> listEtudiant) {
-        this.listEtudiant = listEtudiant;
+    public void setListEtudiantInscrit(Hashtable listEtudiantInscrit) {
+        this.listEtudiantInscrit = listEtudiantInscrit;
     }
 
     public ArrayList<Contrainte> getListContrainte() {
@@ -92,12 +108,23 @@ public class Examen {
         this.calendrier = calendrier;
     }
 
-    public GestionExamen getGestionExamen() {
-        return this.gestionExamen;
+
+    public Periode getPeriode() {
+        return periode;
     }
 
-    public void setGestionExamen(GestionExamen gestionExamen) {
-        this.gestionExamen = gestionExamen;
+    public void setPeriode(Periode periode) {
+        this.periode = periode;
+    }
+
+    public String toString() {
+
+        return "{Id de l'examen: " + this.getIdExamen() + " Titre: " + this.getTitle() + " Duree: " + this.getDuree()
+                + " Periode: " + this.getPeriode() +" L'examen est fini: " + this.getEstFini()+" Liste d'etudiant inscrit: " + this.getListEtudiantInscrit()
+                +" liste des contrainte: " + this.getListContrainte()  +" Salle assigné: " + this.getSalle()+"}";
+
     }
 
 }
+
+
