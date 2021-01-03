@@ -12,7 +12,6 @@
 
 
 .nav-button:selected {
-    -fx-background-color: #4d47fc;
     -fx-text-fill: black;
 }
 
@@ -33,7 +32,7 @@
 }
 
 .tableau .check-box:selected .mark {
-    -fx-background-color: white;
+    -fx-background-color: black;
 }
 
 .tableau .button {

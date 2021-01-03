@@ -9,6 +9,8 @@ import promotion.Promotion;
 import salle.Salle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.TableView;
 
 
@@ -16,6 +18,8 @@ public class Main extends Application {
 
 	private String darktheme = getClass().getResource("darkmode.css").toExternalForm();
 	private String lighttheme = getClass().getResource("lightmode.css").toExternalForm();
+	private Label nbExamenLabel;
+	private Label nbEtuLabel;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -28,19 +32,24 @@ public class Main extends Application {
 		TableView<Promotion> promotionTable = sampleController.getPromotionTable();
 		TableView<Salle> salleTable = sampleController.getSalleTable();
 
+		sampleController.setPrimaryStage(primaryStage);
 		sampleController.setThemes(root, darktheme, lighttheme);
 		
 		Scene scene = new Scene(root);
 		primaryStage.setTitle("Examapp");
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
+
+		nbExamenLabel = sampleController.getNbExamenLabel();
+		nbEtuLabel = sampleController.getNbEtuLabel();
 
 		primaryStage.focusedProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue) {
 				examenTable.refresh();
 				promotionTable.refresh();
 				salleTable.refresh();
+				nbExamenLabel.setText(String.valueOf(Examen.getExamens().size()));
+				nbEtuLabel.setText(String.valueOf(Etudiant.getEtudiants().size()));
 			}
 		});
 
@@ -51,7 +60,7 @@ public class Main extends Application {
 		Promotion promo_a = new Promotion("L1Info", "L1 : Informatique");
 		Promotion promo_b = new Promotion("L3Info", "L3 : Informatique");
 		Promotion promo_c = new Promotion("L2Math", "L3 : Informatique");
-		Promotion promo_d = new Promotion("L1Math", "L3 : Informatique", new Etudiant("21902170", "Quelque", "un"), new Etudiant("21902170", "Quelque", "un"), new Etudiant("21902170", "Quelque", "un"), new Etudiant("21902170", "Quelque", "un"), new Etudiant("21902170", "Quelque", "un"));
+		Promotion promo_d = new Promotion("L1Math", "L3 : Informatique");
 		new Examen("info",promo_a,"dispo");
 		new Examen("abcd",promo_a,"pas dispo");
 		new Examen("bureau",promo_b,"pas dispo");
@@ -80,6 +89,8 @@ public class Main extends Application {
 		promo_b.ajouterEtudiant(b);
 		promo_b.ajouterEtudiant(c);
 		promo_c.ajouterEtudiant(c);
+		promo_d.ajouterEtudiant(a);
+		promo_d.ajouterEtudiant(d);
 
 		launch(args);
 	}

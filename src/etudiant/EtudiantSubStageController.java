@@ -39,12 +39,16 @@ public class EtudiantSubStageController implements Initializable {
 					etudiant.setNom(nomField.getText());
 					etudiant.setPrenom(PrenomField.getText());
 					etudiant.setNumEtudiant(numEtuField.getText());
-					System.out.println("Modifier");
 				}
 				else {
+					if (Etudiant.getEtudiants().stream().filter(etu -> etu.getNumEtudiant().equals(numEtuField.getText())).count() == 1L) {
+						Etudiant etudiant = (Etudiant) Etudiant.getEtudiants().stream().filter(etu ->etu.getNumEtudiant().equals(numEtuField.getText())).toArray()[0];
+						promotion.ajouterEtudiant(etudiant);
+					}
+					else {
 					Etudiant e = new Etudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
 					promotion.ajouterEtudiant(e);
-					System.out.println("Créer");
+					}
 				}
 
 				((Stage) validationButton.getScene().getWindow()).close();

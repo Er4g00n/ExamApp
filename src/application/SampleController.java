@@ -11,10 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import promotion.Promotion;
 import promotion.PromotionViewController;
 import salle.Salle;
@@ -45,6 +47,10 @@ public class SampleController implements Initializable {
 	TableView<Examen> examenTable;
 	TableView<Promotion> promotionTable;
 	TableView<Salle> salleTable;
+	
+	private Stage primaryStage;
+	private Label nbExamenLabel;
+	private Label nbEtuLabel;
 
 	public TableView<Examen> getExamenTable() {
 		return examenTable;
@@ -68,6 +74,10 @@ public class SampleController implements Initializable {
 			solveurView = solveurLoader.load();
 			solveurController = solveurLoader.getController();
 			examenTable = solveurController.getExamenTable();
+			solveurController.setPrimaryStage(primaryStage);
+			
+			nbExamenLabel = solveurController.getNbExamenLabel();
+			nbEtuLabel = solveurController.getNbEtuLabel();
 
 			FXMLLoader promotionLoader = new FXMLLoader(getClass().getResource("../promotion/PromotionView.fxml"));
 			promotionView = promotionLoader.load();
@@ -88,6 +98,8 @@ public class SampleController implements Initializable {
 				oldValue.setSelected(true);
 			}
 		});
+		
+		
 
 
 	}
@@ -144,4 +156,15 @@ public class SampleController implements Initializable {
 		return this.switchButton;
 	}
 
+	public void setPrimaryStage(Stage primaryStage) {
+		this.primaryStage = primaryStage;
+	}
+
+	public Label getNbExamenLabel() {
+		return nbExamenLabel;
+	}
+
+	public Label getNbEtuLabel() {
+		return this.nbEtuLabel;
+	}
 }

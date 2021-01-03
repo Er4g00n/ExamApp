@@ -3,11 +3,48 @@
 
 /* Ne change pas selon le mode */
 
+#text-app {
+    -fx-text-fill: #412cff;
+}
+
 .nav-button {
     -fx-background-color: transparent;
     -fx-font-size: 16;
     -fx-background-radius: 8;
     -fx-cursor: hand;
+}
+
+#file-chooser {
+    -fx-background-color: grey;
+    -fx-background-radius: 8;
+}
+
+#file-chooser .button {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+	-fx-border-width : 0 0 0 1;
+	-fx-border-color : black;
+}
+
+#file-button-field {
+    -fx-background-color: transparent;
+	-fx-border-width : 0 0 1 0;
+	-fx-border-color : black;
+}
+
+#generer-button {
+    -fx-background-color: #4d47fc;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+
+#generer-button:pressed {
+	
+    -fx-background-color: #2d27dc;
+}
+
+.nav-button:selected {
+    -fx-background-color: #4d47fc;
 }
 
 .lightmode-button {

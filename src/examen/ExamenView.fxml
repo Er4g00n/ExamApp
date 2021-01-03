@@ -13,11 +13,92 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="examen.ExamenViewController">
    <top>
-      <HBox prefHeight="0.0" prefWidth="760.0" BorderPane.alignment="CENTER" />
+      <HBox prefHeight="75.0" prefWidth="720.0" spacing="15.0">
+         <children>
+            <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" spacing="10.0">
+               <styleClass>
+                  <String fx:value="background-light" />
+                  <String fx:value="center-content" />
+               </styleClass>
+               <children>
+                  <Label text="Nombre d'examens">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nbExamenLabel" text="0">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="75.0" prefWidth="125.0" spacing="10.0">
+               <styleClass>
+                  <String fx:value="background-light" />
+                  <String fx:value="center-content" />
+               </styleClass>
+               <children>
+                  <Label text="Nombre d'étudiants">
+                     <font>
+                        <Font size="8.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="nbEtuLabel" text="0">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </VBox>
+            <HBox id="file-chooser" alignment="CENTER" prefHeight="82.0" prefWidth="269.0" spacing="2.0">
+               <children>
+                  <TextField id="file-button-field" fx:id="path" prefWidth="190.0" />
+                  <Button fx:id="fileButton" mnemonicParsing="false" onAction="#fileButtonAction" text="Parcourir" />
+               </children>
+               <HBox.margin>
+                  <Insets bottom="25.0" top="25.0" />
+               </HBox.margin>
+            </HBox>
+            <Button id="generer-button" mnemonicParsing="false" prefHeight="82.4" prefWidth="150.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+               <font>
+                  <Font size="13.0" />
+               </font>
+               <graphic>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Générer">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <Label text="le planning">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+               </graphic>
+            </Button>
+         </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" />
+         </BorderPane.margin></HBox>
    </top>
    <center>
       <GridPane alignment="CENTER" vgap="5.0" BorderPane.alignment="CENTER">
@@ -28,8 +109,8 @@
           <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="51.4" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="376.79999084472655" minHeight="10.0" prefHeight="376.79999084472655" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="52.79998722076416" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="376.79999084472655" minHeight="10.0" prefHeight="279.40001277923585" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Examen" textFill="WHITE">

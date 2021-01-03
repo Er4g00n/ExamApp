@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
@@ -16,10 +17,7 @@
 
 <BorderPane fx:id="globalLayout" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" styleClass="background" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SampleController">
    <top>
-      <BorderPane prefHeight="70.0" prefWidth="960.0" styleClass="background-light" BorderPane.alignment="CENTER">
-         <left>
-            <Label text="Examapp" textFill="WHITE" BorderPane.alignment="CENTER" />
-         </left>
+      <BorderPane prefHeight="58.0" prefWidth="960.0" styleClass="background-light" BorderPane.alignment="CENTER">
          <right>
             <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
@@ -37,6 +35,25 @@
                </children>
             </GridPane>
          </right>
+         <left>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Exam" textFill="WHITE">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+                  <Label id="text-app" text="app." textFill="#412cff">
+                     <font>
+                        <Font size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </HBox>
+         </left>
       </BorderPane>
    </top>
    <left>

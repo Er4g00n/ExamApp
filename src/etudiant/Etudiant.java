@@ -1,5 +1,7 @@
 package etudiant;
 
+import java.util.ArrayList;
+
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -11,10 +13,10 @@ public class Etudiant {
 	private CheckBox statut;
 	private Button modifier;
 	
-	//private static ArrayList<Etudiant> etudiants = new ArrayList<Etudiant>();
+	private static ArrayList<Etudiant> etudiants = new ArrayList<Etudiant>();
 	
 	public Etudiant(String num, String nom, String prenom) {
-		//etudiants.add(this);
+		etudiants.add(this);
 		this.numEtudiant = num;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -56,8 +58,8 @@ public class Etudiant {
 	public Button getModifier() {
 		return modifier;
 	}
-//
-//	public static ArrayList<Etudiant> getEtudiants() {
-//		return etudiants;
-//	}
+
+	public static ArrayList<Etudiant> getEtudiants() {
+		return etudiants;
+	}
 }
