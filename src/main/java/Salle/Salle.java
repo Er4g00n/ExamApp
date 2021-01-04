@@ -69,6 +69,7 @@ public class Salle extends AbstractPersistable implements Labeled {
     public String getLabel() {
         return null;
     }
+
     @Override
     public String toString() {
         return nom;

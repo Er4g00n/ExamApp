@@ -57,7 +57,7 @@ public class Epreuve extends AbstractPersistable {
     }
 
     @PlanningVariable(valueRangeProviderRefs = {
-            "periodRange" }, strengthWeightFactoryClass = PeriodStrengthWeightFactory.class)
+            "periodRange"}, strengthWeightFactoryClass = PeriodStrengthWeightFactory.class)
     public Periode getPeriode() {
         return periode;
     }
@@ -66,7 +66,7 @@ public class Epreuve extends AbstractPersistable {
         this.periode = periode;
     }
 
-    @PlanningVariable(valueRangeProviderRefs = { "roomRange" }, strengthWeightFactoryClass = RoomStrengthWeightFactory.class)
+    @PlanningVariable(valueRangeProviderRefs = {"roomRange"}, strengthWeightFactoryClass = RoomStrengthWeightFactory.class)
     public Salle getSalle() {
         return salle;
     }

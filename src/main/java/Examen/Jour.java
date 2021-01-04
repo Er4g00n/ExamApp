@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Jour extends AbstractPersistable {
 
-    private static final String[] WEEKDAYS = { "Mo", "Tu", "We", "Th", "Fr", "Sat", "Sun" };
+    private static final String[] WEEKDAYS = {"Mo", "Tu", "We", "Th", "Fr", "Sat", "Sun"};
 
     private int dayIndex;
 

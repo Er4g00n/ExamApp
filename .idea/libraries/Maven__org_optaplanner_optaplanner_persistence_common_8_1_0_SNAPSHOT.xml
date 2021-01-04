@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.optaplanner:optaplanner-persistence-common:8.1.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/optaplanner/optaplanner-persistence-common/8.1.0-SNAPSHOT/optaplanner-persistence-common-8.1.0-20210103.020555-91.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/optaplanner/optaplanner-persistence-common/8.1.0-SNAPSHOT/optaplanner-persistence-common-8.1.0-20210104.015531-93.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/optaplanner/optaplanner-persistence-common/8.1.0-SNAPSHOT/optaplanner-persistence-common-8.1.0-20210103.020555-91-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/optaplanner/optaplanner-persistence-common/8.1.0-SNAPSHOT/optaplanner-persistence-common-8.1.0-20210104.015531-93-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/optaplanner/optaplanner-persistence-common/8.1.0-SNAPSHOT/optaplanner-persistence-common-8.1.0-20210103.020555-91-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/optaplanner/optaplanner-persistence-common/8.1.0-SNAPSHOT/optaplanner-persistence-common-8.1.0-20210104.015531-93-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

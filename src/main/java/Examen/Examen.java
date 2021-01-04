@@ -4,7 +4,6 @@ import Abstracts.AbstractPersistable;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 
 
-
 import static java.util.Objects.requireNonNull;
 
 /**

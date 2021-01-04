@@ -17,7 +17,7 @@ import static org.optaplanner.core.api.score.stream.Joiners.equal;
 public class Contrainte implements ConstraintProvider {
     @Override
     public Constraint[] defineConstraints(ConstraintFactory factory) {
-        return new Constraint[] {
+        return new Constraint[]{
                 conflictingLecturesDifferentCourseInSamePeriod(factory),
                 conflictingLecturesSameCourseInSamePeriod(factory),
                 roomOccupancy(factory),
