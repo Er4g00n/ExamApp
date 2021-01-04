@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 /**
- * Calculated during initialization, not modified during score calculation.
+ * Cette classe permet pendant l'initiation de vérifié les conflits entre Examen
  */
 public class CourseConflict implements Comparable<CourseConflict> {
 
@@ -19,20 +19,42 @@ public class CourseConflict implements Comparable<CourseConflict> {
     private final Examen rightCourse;
     private final int conflictCount;
 
+    /**
+     * Instantie un Course conflict.
+     *
+     * @param leftCourse    left course
+     * @param rightCourse   right course
+     * @param conflictCount conflict count
+     */
     public CourseConflict(Examen leftCourse, Examen rightCourse, int conflictCount) {
         this.leftCourse = leftCourse;
         this.rightCourse = rightCourse;
         this.conflictCount = conflictCount;
     }
 
+    /**
+     * Gets left course.
+     *
+     * @return the left course
+     */
     public Examen getLeftCourse() {
         return leftCourse;
     }
 
+    /**
+     * Gets right course.
+     *
+     * @return the right course
+     */
     public Examen getRightCourse() {
         return rightCourse;
     }
 
+    /**
+     * Gets conflict count.
+     *
+     * @return the conflict count
+     */
     public int getConflictCount() {
         return conflictCount;
     }

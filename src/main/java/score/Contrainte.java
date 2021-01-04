@@ -14,6 +14,9 @@ import static org.optaplanner.core.api.score.stream.ConstraintCollectors.countDi
 import static org.optaplanner.core.api.score.stream.Joiners.equal;
 
 
+/**
+ * Le type Contrainte.
+ */
 public class Contrainte implements ConstraintProvider {
     @Override
     public Constraint[] defineConstraints(ConstraintFactory factory) {
@@ -32,6 +35,12 @@ public class Contrainte implements ConstraintProvider {
     // Hard constraints
     // ************************************************************************
 
+    /**
+     * Conférences contradictoires cours différent dans la même contrainte de période.
+     *
+     * @param factory the factory
+     * @return the constraint
+     */
     Constraint conflictingLecturesDifferentCourseInSamePeriod(ConstraintFactory factory) {
         return factory.from(CourseConflict.class)
                 .join(Epreuve.class,
@@ -44,6 +53,12 @@ public class Contrainte implements ConstraintProvider {
                         (courseConflict, lecture1, lecture2) -> courseConflict.getConflictCount());
     }
 
+    /**
+     * Conférences contradictoires même cours dans la même contrainte de période.
+     *
+     * @param factory the factory
+     * @return the constraint
+     */
     Constraint conflictingLecturesSameCourseInSamePeriod(ConstraintFactory factory) {
         return factory.fromUniquePair(Epreuve.class,
                 equal(Epreuve::getPeriode),
@@ -51,6 +66,12 @@ public class Contrainte implements ConstraintProvider {
                 .penalize("conflictingLecturesSameCourseInSamePeriod", ONE_HARD);
     }
 
+    /**
+     * Contrainte d'occupation des salles.
+     *
+     * @param factory the factory
+     * @return the constraint
+     */
     Constraint roomOccupancy(ConstraintFactory factory) {
         return factory.fromUniquePair(Epreuve.class,
                 equal(Epreuve::getSalle),
@@ -58,6 +79,12 @@ public class Contrainte implements ConstraintProvider {
                 .penalize("roomOccupancy", ONE_HARD);
     }
 
+    /**
+     * Contrainte de pénalité de période indisponible.
+     *
+     * @param factory the factory
+     * @return the constraint
+     */
     Constraint unavailablePeriodPenalty(ConstraintFactory factory) {
         return factory.from(UnavailablePeriodPenalty.class)
                 .join(Epreuve.class,
@@ -70,6 +97,12 @@ public class Contrainte implements ConstraintProvider {
     // Soft constraints
     // ************************************************************************
 
+    /**
+     * Contrainte de capacité de la salle.
+     *
+     * @param factory the factory
+     * @return the constraint
+     */
     Constraint roomCapacity(ConstraintFactory factory) {
         return factory.from(Epreuve.class)
                 .filter(epreuve -> epreuve.getStudentSize() > epreuve.getSalle().getCapacite())
@@ -77,6 +110,12 @@ public class Contrainte implements ConstraintProvider {
                         lecture -> lecture.getStudentSize() - lecture.getSalle().getCapacite());
     }
 
+    /**
+     * Contrainte de jours minimum.
+     *
+     * @param factory the factory
+     * @return the constraint
+     */
     Constraint minimumWorkingDays(ConstraintFactory factory) {
         return factory.from(Epreuve.class)
                 .groupBy(Epreuve::getExamen, countDistinct(Epreuve::getJour))
@@ -85,6 +124,12 @@ public class Contrainte implements ConstraintProvider {
                         (course, dayCount) -> course.getMinWorkingDaySize() - dayCount);
     }
 
+    /**
+     * Contrainte de stabilité de la pièce.
+     *
+     * @param factory the factory
+     * @return the constraint
+     */
     Constraint roomStability(ConstraintFactory factory) {
         return factory.from(Epreuve.class)
                 .groupBy(Epreuve::getExamen, countDistinct(Epreuve::getSalle))

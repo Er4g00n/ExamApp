@@ -12,6 +12,9 @@ import static java.util.Comparator.comparing;
 import static java.util.Comparator.comparingInt;
 import static java.util.function.Function.identity;
 
+/**
+ * Usine de poids de résistance de type Période.
+ */
 public class PeriodStrengthWeightFactory implements SelectionSorterWeightFactory<Calendrier, Periode> {
 
     @Override
@@ -25,6 +28,9 @@ public class PeriodStrengthWeightFactory implements SelectionSorterWeightFactory
         return new PeriodStrengthWeight(periode, unavailablePeriodPenaltyCount);
     }
 
+    /**
+     * Le poids de résistance de type Période.
+     */
     public static class PeriodStrengthWeight implements Comparable<PeriodStrengthWeight> {
 
         // The higher unavailablePeriodPenaltyCount, the weaker
@@ -39,6 +45,12 @@ public class PeriodStrengthWeightFactory implements SelectionSorterWeightFactory
         private final Periode period;
         private final int unavailablePeriodPenaltyCount;
 
+        /**
+         * Instancie un nouveau poids de force Période.
+         *
+         * @param period                        the period
+         * @param unavailablePeriodPenaltyCount the unavailable period penalty count
+         */
         public PeriodStrengthWeight(Periode period, int unavailablePeriodPenaltyCount) {
             this.period = period;
             this.unavailablePeriodPenaltyCount = unavailablePeriodPenaltyCount;

@@ -3,6 +3,10 @@ package Abstracts;
 
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
+/**
+ * Cette classe provient des classes communes des exemples d'optaplanner
+ * Cette classe centralise le toString() dans le projet
+ */
 public abstract class AbstractPersistable {
 
     protected Long id;
@@ -14,39 +18,24 @@ public abstract class AbstractPersistable {
         this.id = id;
     }
 
+    /**
+     * Renvoie l'id de l'element
+     * Est utilisé par Optaplanner comme id
+     * @return the id
+     */
     @PlanningId
     public Long getId() {
         return id;
     }
 
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
-    // This part is currently commented out because it's probably a bad thing to mix identification with equality
-
-    //    public boolean equals(Object o) {
-    //        if (this == o) {
-    //            return true;
-    //        }
-    //        if (id == null || !(o instanceof AbstractPersistable)) {
-    //            return false;
-    //        } else {
-    //            AbstractPersistable other = (AbstractPersistable) o;
-    //            return getClass().equals(other.getClass()) && id.equals(other.id);
-    //        }
-    //    }
-    //
-    //    public int hashCode() {
-    //        if (id == null) {
-    //            return super.hashCode();
-    //        } else {
-    //            // A direct implementation (instead of HashCodeBuilder) to avoid dependencies
-    //            return (((17 * 37)
-    //                    + getClass().hashCode())) * 37
-    //                    + id.hashCode();
-    //        }
-    //    }
 
     @Override
     public String toString() {

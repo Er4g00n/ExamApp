@@ -1,33 +1,45 @@
 package Examen.solver;
 
+import Examen.Calendrier;
+import Salle.Salle;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
-import org.optaplanner.examples.curriculumcourse.domain.CourseSchedule;
 import org.optaplanner.examples.curriculumcourse.domain.Room;
 
 import java.util.Comparator;
 
 import static java.util.Comparator.comparingInt;
 
-public class RoomStrengthWeightFactory implements SelectionSorterWeightFactory<CourseSchedule, Room> {
+/**
+ * Le type Usine de poids de résistance de la pièce.
+ */
+public class RoomStrengthWeightFactory implements SelectionSorterWeightFactory<Calendrier, Salle> {
 
     @Override
-    public RoomStrengthWeight createSorterWeight(CourseSchedule schedule, Room room) {
-        return new RoomStrengthWeight(room);
+    public RoomStrengthWeight createSorterWeight(Calendrier calendrier, Salle salle) {
+        return new RoomStrengthWeight(salle);
     }
 
+    /**
+     * Le type Poids de résistance de la pièce.
+     */
     public static class RoomStrengthWeight implements Comparable<RoomStrengthWeight> {
 
-        private static final Comparator<Room> COMPARATOR = comparingInt(Room::getCapacity).thenComparingLong(Room::getId);
+        private static final Comparator<Salle> COMPARATOR = comparingInt(Salle::getCapacite).thenComparingLong(Salle::getId);
 
-        private final Room room;
+        private final Salle salle;
 
-        public RoomStrengthWeight(Room room) {
-            this.room = room;
+        /**
+         * Instancie un nouveau poids de résistance de la pièce.
+         *
+         * @param salle the room
+         */
+        public RoomStrengthWeight(Salle salle) {
+            this.salle = salle;
         }
 
         @Override
         public int compareTo(RoomStrengthWeight other) {
-            return COMPARATOR.compare(room, other.room);
+            return COMPARATOR.compare(salle, other.salle);
         }
     }
 }

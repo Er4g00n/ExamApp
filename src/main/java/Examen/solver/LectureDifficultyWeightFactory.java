@@ -11,6 +11,9 @@ import java.util.Comparator;
 import static java.util.Comparator.comparingInt;
 import static java.util.Comparator.comparingLong;
 
+/**
+ * Cette classe permet le calcule des poids des Epreuves
+ */
 public class LectureDifficultyWeightFactory implements SelectionSorterWeightFactory<Calendrier, Epreuve> {
 
     @Override
@@ -25,6 +28,9 @@ public class LectureDifficultyWeightFactory implements SelectionSorterWeightFact
         return new LectureDifficultyWeight(epreuve, unavailablePeriodPenaltyCount);
     }
 
+    /**
+     * Le poids de difficulté de type Lecture.
+     */
     public static class LectureDifficultyWeight implements Comparable<LectureDifficultyWeight> {
 
         private static final Comparator<LectureDifficultyWeight> COMPARATOR = comparingInt(
@@ -37,6 +43,12 @@ public class LectureDifficultyWeightFactory implements SelectionSorterWeightFact
         private final Epreuve epreuve;
         private final int unavailablePeriodPenaltyCount;
 
+        /**
+         * Instancie un nouveau poids de difficulté a l'épreuve.
+         *
+         * @param epreuve                       the epreuve
+         * @param unavailablePeriodPenaltyCount the unavailable period penalty count
+         */
         public LectureDifficultyWeight(Epreuve epreuve, int unavailablePeriodPenaltyCount) {
             this.epreuve = epreuve;
             this.unavailablePeriodPenaltyCount = unavailablePeriodPenaltyCount;
