@@ -129,8 +129,9 @@ public class Salle extends AbstractPersistable implements Labeled {
 
     @Override
     public String toString() {
-        return nom;
+        return "nom: "+getNom()+" capacite: "+getCapacite()+" type de salle: "+getType()+" specificite: "+ getSpecificite();
     }
+
 
 }
 
