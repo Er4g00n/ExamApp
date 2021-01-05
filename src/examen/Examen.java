@@ -1,58 +1,109 @@
 package examen;
 
+import abstracts.AbstractPersistable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import promotion.Promotion;
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import static java.util.Objects.requireNonNull;
 
-public class Examen {
+@PlanningEntity
+public class Examen extends AbstractPersistable {
 
-	private String nom, duree;
-	private Promotion filiere;
 	private CheckBox statut;
 	private Button modifier;
 	private static ObservableList<Examen> examens = FXCollections.observableArrayList();
 
-	public Examen(String nom, Promotion filiere, String duree) {
+	private String title;
+	private Boolean estFini;
+	private int studentSize;
+	private int minWorkingDaySize;
+
+	/**
+	 * Instancie un nouvel examen.
+	 *
+	 * @param id                the id
+	 * @param title             the title
+	 * @param studentSize       the student size
+	 * @param minWorkingDaySize the min working day size
+	 */
+	public Examen(int id, String title, int studentSize, int minWorkingDaySize) {
+		super(id);
+		this.title = requireNonNull(title);
+		this.minWorkingDaySize = minWorkingDaySize;
+		this.studentSize = studentSize;
+
 		examens.add(this);
-		this.nom = nom;
-		this.filiere = filiere;
-		this.duree = duree;
 		this.statut = new CheckBox();
 		this.statut.setOnAction(event -> ExamenViewController.updateNumberSelectedExamen((Button) (this.statut.getScene().lookup("#examDel"))));
 		this.modifier = new Button("Modifier");
 		this.modifier.setOnAction(new ExamenModifierEventHandler(this));
 	}
 
-
-	public String getNom() {
-		return nom;
+	/**
+	 * Instancie un nouvel examen.
+	 */
+	public Examen() {
 	}
 
-
-	public void setNom(String nom) {
-		this.nom = nom;
+	/**
+	 * Obtient le code.
+	 *
+	 * @return the code
+	 */
+	public String getCode() {
+		return title;
 	}
 
-
-	public Promotion getFiliere() {
-		return filiere;
+	/**
+	 * DÃ©finit le code.
+	 *
+	 * @param title the title
+	 */
+	public void setCode(String title) {
+		this.title = title;
 	}
 
-
-	public void setFiliere(Promotion filiere) {
-		this.filiere = filiere;
+	/**
+	 * Obtient la taille minimale de la journÃ©e de travail.
+	 *
+	 * @return the min working day size
+	 */
+	public int getMinWorkingDaySize() {
+		return minWorkingDaySize;
 	}
 
-
-	public String getDuree() {
-		return duree;
+	/**
+	 * DÃ©finit la taille minimale de la journÃ©e de travail.
+	 *
+	 * @param minWorkingDaySize the min working day size
+	 */
+	public void setMinWorkingDaySize(int minWorkingDaySize) {
+		this.minWorkingDaySize = minWorkingDaySize;
 	}
 
+	/**
+	 * Obtient la taille de l'Ã©tudiant.
+	 *
+	 * @return the student size
+	 */
+	public int getStudentSize() {
+		return studentSize;
+	}
 
-	public void setDuree(String duree) {
-		this.duree = duree;
+	/**
+	 * DÃ©finit la taille de l'Ã©tudiant.
+	 *
+	 * @param studentSize the student size
+	 */
+	public void setStudentSize(int studentSize) {
+		this.studentSize = studentSize;
+	}
+
+	@Override
+	public String toString() {
+		return title;
 	}
 
 
@@ -79,7 +130,5 @@ public class Examen {
 	public static ObservableList<Examen> getExamens() {
 		return examens;
 	}
-
-
 
 }

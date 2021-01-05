@@ -1,7 +1,7 @@
 
 package score;
 
-import Examen.Examen;
+import examen.Examen;
 import examen.Calendrier;
 import examen.Epreuve;
 import examen.Timeslot;
@@ -9,7 +9,7 @@ import examen.Jour;
 import examen.Periode;
 import examen.solver.CourseConflict;
 import examen.UnavailablePeriodPenalty;
-import Salle.Salle;
+import salle.Salle;
 import salle.Type;
 import salle.Specificite;
 import org.junit.jupiter.api.Test;
@@ -17,11 +17,11 @@ import org.optaplanner.test.api.score.stream.ConstraintVerifier;
 
 public class ContrainteTest {
 
-    private static final Examen COURSE_1 = new Examen(1, "Exam1", 10, 20, 3);
-    private static final Examen COURSE_2 = new Examen(2, "Exam2", 10, 10, 2);
-    private static final Examen COURSE_3 = new Examen(3, "Exam3", 10, 5, 1);
-    private static final Salle ROOM_1 = new Salle("Salle1", 10, Type.Salle, Specificite.None);
-    private static final Salle ROOM_2 = new Salle("Salle2", 20, Type.Salle, Specificite.None);
+    private static final Examen COURSE_1 = new Examen(1, "Exam1", 20, 3);
+    private static final Examen COURSE_2 = new Examen(2, "Exam2", 10, 2);
+    private static final Examen COURSE_3 = new Examen(3, "Exam3", 5, 1);
+    private static final Salle ROOM_1 = new Salle("Salle1", 10);
+    private static final Salle ROOM_2 = new Salle("Salle2", 20);
     private static final Timeslot FIRST_TIMESLOT = new Timeslot(0);
     private static final Timeslot SECOND_TIMESLOT = new Timeslot(1);
     private static final Jour MONDAY = new Jour(0);

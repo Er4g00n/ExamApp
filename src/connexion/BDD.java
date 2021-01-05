@@ -1,6 +1,7 @@
 package connexion;
 
 import utilisateur.Etudiant;
+import salle.Salle;
 import examen.Examen;
 import promotion.Promotion;
 
@@ -105,8 +106,10 @@ public class BDD {
                 String db_numEtu = rs.getString("numEtu");
                 String db_nom = rs.getString("nom");
                 String db_prenom = rs.getString("prenom");
+                String db_email = rs.getString("email");
+                String db_filliere = rs.getString("filiere");
 
-                Etudiant a = new Etudiant(db_numEtu, db_nom, db_prenom);
+                Etudiant a = new Etudiant(db_nom, db_prenom, db_email, db_numEtu, db_filliere);
 
                 for (Promotion promotion : Promotion.getPromotions()) {
                     if(promotion.getNom().equals(db_idEtuListe)){
@@ -129,7 +132,7 @@ public class BDD {
                 String db_idSalle = rs.getString("idSalle");
                 String db_libelle = rs.getString("libelle");
                 String db_capacite = rs.getString("capacite");
-                new Salle(db_libelle, Integer.parseInt(db_capacite), "no data");
+                new Salle(db_libelle, Integer.parseInt(db_capacite));
             }
 
         }catch(Exception ex){
@@ -143,7 +146,7 @@ public class BDD {
             rs = st.executeQuery(sql);
 
             while(rs.next()){
-                String db_idExamen = rs.getString("idExamen");
+                int db_idExamen = Integer.parseInt(rs.getString("idExamen"));
                 String db_libelle = rs.getString("libelle");
                 String db_duree = rs.getString("duree");
                 String db_idSalle = rs.getString("idSalle");
@@ -153,10 +156,9 @@ public class BDD {
 
                 for (Promotion promotion : Promotion.getPromotions()) {
                     if(promotion.getNom().equals(db_idEtuListe)){
-                        new Examen(db_libelle, promotion, db_duree);
+                        new Examen(db_idExamen, db_libelle, promotion.getNbetu(),1);
                     }
                 }
-
             }
 
         }catch(Exception ex){

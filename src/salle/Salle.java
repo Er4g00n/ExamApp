@@ -1,16 +1,14 @@
 package salle;
 
 
-import Abstracts.AbstractPersistable;
-import Abstracts.Labeled;
+import abstracts.AbstractPersistable;
+import abstracts.Labeled;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import salle.SalleModifierEventHandler;
 import salle.SalleViewController;
-import salle.Specificite;
-import salle.Type;
 
 /**
  * Le type salle
@@ -33,17 +31,14 @@ public class Salle extends AbstractPersistable implements Labeled {
 	 *
 	 * @param nom         the nom
 	 * @param capacite    the capacite
-	 * @param type        the type
-	 * @param specificite the specificite
 	 */
-	public Salle(String nom, Integer capacite, Type type, Specificite specificite, String dispo) {
+	public Salle(String nom, Integer capacite) {
 
 		this.nom = nom;
 		this.capacite = capacite;
 		this.type = type;
 		this.specificite = specificite;
 
-		this.dispo=dispo;
 		this.statut = new CheckBox();
 		this.statut.setOnAction(event -> SalleViewController.updateNumberSelectedSalle((Button) (this.statut.getScene().lookup("#salleDel"))));
 		this.modifier = new Button("Modifier");
@@ -153,14 +148,6 @@ public class Salle extends AbstractPersistable implements Labeled {
 
 	public static ObservableList<salle.Salle> getSalles() {
 		return salles;
-	}
-
-	public String getDispo() {
-		return dispo;
-	}
-
-	public void setDispo(String dispo) {
-		this.dispo = dispo;
 	}
 
 	@Override

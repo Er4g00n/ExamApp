@@ -1,6 +1,6 @@
 package examen.solver;
 
-import Examen.Examen;
+import examen.Examen;
 
 import java.util.Comparator;
 import java.util.Objects;

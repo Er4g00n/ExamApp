@@ -1,7 +1,7 @@
 package utilisateur;
 
 
-import Salle.Salle;
+import salle.Salle;
 import promotion.Promotion;
 
 import java.util.Hashtable;

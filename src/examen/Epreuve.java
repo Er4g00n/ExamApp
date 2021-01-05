@@ -1,10 +1,11 @@
 package examen;
 
-import Abstracts.AbstractPersistable;
+
+import abstracts.AbstractPersistable;
 import examen.solver.LectureDifficultyWeightFactory;
 import examen.solver.PeriodStrengthWeightFactory;
 import examen.solver.RoomStrengthWeightFactory;
-import Salle.Salle;
+import salle.Salle;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.entity.PlanningPin;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;

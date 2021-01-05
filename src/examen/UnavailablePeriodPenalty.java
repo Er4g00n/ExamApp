@@ -1,7 +1,7 @@
 
 package examen;
 
-import Abstracts.AbstractPersistable;
+import abstracts.AbstractPersistable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 import static java.util.Objects.requireNonNull;
