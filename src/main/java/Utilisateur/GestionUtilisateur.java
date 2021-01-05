@@ -1,8 +1,5 @@
 package Utilisateur;
 
-
-import Salle.Salle;
-
 import java.util.Hashtable;
 
 /**
@@ -40,15 +37,14 @@ public class GestionUtilisateur {
      * @param nom         the nom
      * @param prenom      the prenom
      * @param email       the email
-     * @param idScolarite the id scolarite
      */
-    public static void creerScolarite(String nom,String prenom,String email,Integer idScolarite) {
-        if (listScolarite.containsKey(idScolarite))
-            System.out.println(nom +" "+prenom +"est deja dans la liste de la scolarite");
+    public static void creerScolarite(String nom,String prenom,String email) {
+        if (listScolarite.containsKey(email))
+            System.out.println("cet email"+email+" est deja prise ou "+nom +" "+prenom +"est deja dans la liste de la scolarite");
         else
             {
-                Scolarite e = new Scolarite(nom, prenom, email, idScolarite);
-                listScolarite.put(e.getIdScolarite(), e);
+                Scolarite e = new Scolarite(nom, prenom, email);
+                listScolarite.put(e.getEmail(), e);
             }
     }
 
@@ -58,15 +54,14 @@ public class GestionUtilisateur {
      * @param nom           the nom
      * @param prenom        the prenom
      * @param email         the email
-     * @param idSecretariat the id secretariat
      */
-    public static void creerSecretairiat(String nom,String prenom,String email,Integer idSecretariat) {
-        if (listSecretariat.containsKey(idSecretariat))
-            System.out.println(nom +" "+prenom +"est deja dans la liste du secretariat");
+    public static void creerSecretairiat(String nom,String prenom,String email) {
+        if (listSecretariat.containsKey(email))
+            System.out.println("cet email"+email+" est deja prise ou "+nom +" "+prenom +"est deja dans la liste du secretariat");
         else
             {
-                Secretariat e = new Secretariat(nom, prenom, email, idSecretariat);
-                listSecretariat.put(e.getIdSecretariat(), e);
+                Secretariat e = new Secretariat(nom, prenom, email);
+                listSecretariat.put(e.getEmail(), e);
             }
     }
 
@@ -74,48 +69,45 @@ public class GestionUtilisateur {
     /**
      * Supprimer etudiant.
      *
-     * @param e the e
+     * @param e the numero etudiant
      */
     public static void supprimerEtudiant(Integer e) {
-        try {
+        if (listEtudiant.containsKey(e))
             listEtudiant.remove(e);
-        }
-        catch(Exception a)
-        {
-            System.out.println("un probleme est survenue lors de la suppression");
-        }
+
+         else
+                 System.out.println(e+" ne correspond a aucun etudiant");
 
     }
 
     /**
      * Supprimer scolarite.
      *
-     * @param e the e
+     * @param e the email
      */
-    public static void supprimerScolarite(Integer e) {
-        try {
+    public static void supprimerScolarite(String e) {
+        if (listScolarite.containsKey(e))
             listScolarite.remove(e);
-        }
-        catch(Exception a)
-        {
-            System.out.println("un probleme est survenue lors de la suppression");
-        }
+
+        else
+            System.out.println(e+" ne correspond a aucun membre");
+
 
     }
 
     /**
      * Supprimer secretariat.
      *
-     * @param e the e
+     * @param e the email
      */
-    public static void supprimerSecretariat(Integer e) {
-        try {
+    public static void supprimerSecretariat(String e) {
+        if (listSecretariat.containsKey(e))
             listSecretariat.remove(e);
-        }
-        catch(Exception a)
-        {
-            System.out.println("un probleme est survenue lors de la suppression");
-        }
+
+        else
+
+            System.out.println(e+" ne correspond a aucun membre");
+
 
     }
 
@@ -148,72 +140,6 @@ public class GestionUtilisateur {
     /**
      * Modifier etudiant.
      *
-     * @param numeroEtudiant the numero etudiant
-     * @param nom            the nom
-     * @param prenom         the prenom
-     */
-    public void modifierEtudiant(Integer numeroEtudiant,String nom,String prenom) {
-
-        if (listEtudiant.containsKey(numeroEtudiant))
-        {
-            Etudiant e = new Etudiant(  nom,
-                                        prenom,
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getEmail(),
-                                        numeroEtudiant,
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getFiliere());
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-        }
-        else
-            System.out.println(numeroEtudiant+" n'exite pas");
-
-    }
-
-    /**
-     * Modifier etudiant.
-     *
-     * @param numeroEtudiant the numero etudiant
-     * @param email          the email
-     */
-    public void modifierEtudiant(Integer numeroEtudiant,String email) {
-        if (listEtudiant.containsKey(numeroEtudiant))
-        {
-            Etudiant e = new Etudiant(  ((Etudiant)listEtudiant.get(numeroEtudiant)).getNom(),
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getPrenom(),
-                                        email,
-                                        numeroEtudiant,
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getFiliere());
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-        }
-        else
-            System.out.println(numeroEtudiant+" n'exite pas");
-    }
-
-    /**
-     * Modifier etudiant.
-     *
-     * @param numeroEtudiant the numero etudiant
-     * @param filiere        the filiere
-     */
-    public void modifierEtudiant(Integer numeroEtudiant,Filiere filiere) {
-        if (listEtudiant.containsKey(numeroEtudiant))
-        {
-            Etudiant e = new Etudiant(  ((Etudiant)listEtudiant.get(numeroEtudiant)).getNom(),
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getPrenom(),
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getEmail(),
-                                        numeroEtudiant,
-                                        filiere);
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-        }
-        else
-            System.out.println(numeroEtudiant+" n'exite pas");
-    }
-
-    /**
-     * Modifier etudiant.
-     *
      * @param numeroEtudiant    the numero etudiant
      * @param newNumeroEtudiant the new numero etudiant
      */
@@ -240,89 +166,43 @@ public class GestionUtilisateur {
      * @param nom         the nom
      * @param prenom      the prenom
      * @param email       the email
-     * @param idScolarite the id scolarite
      */
-    public void modifierScolarite(String nom,String prenom,String email,Integer idScolarite) {
-        if (listScolarite.containsKey(idScolarite))
+    public void modifierScolarite(String nom,String prenom,String email) {
+        if (listScolarite.containsKey(email))
         {
             Scolarite e = new Scolarite(    nom,
                                             prenom,
                                             email,
-                                            idScolarite);
+                                            ((Scolarite)listScolarite.get(email)).getIdScolarite());
 
 
-            listScolarite.put(e.getIdScolarite(), e);
+            listScolarite.put(e.getEmail(), e);
 
         }
         else
-            System.out.println(idScolarite+" n'exite pas");
+            System.out.println(email+" ne correspond a aucun membre");
     }
 
     /**
      * Modifier scolarite.
      *
-     * @param idScolarite the id scolarite
-     * @param nom         the nom
-     * @param prenom      the prenom
+     * @param email    the email
+     * @param newEmail the new email
      */
-    public void modifierScolarite(Integer idScolarite,String nom,String prenom) {
-        if (listScolarite.containsKey(idScolarite))
+    public void modifierScolarite(String email,String newEmail) {
+        if (listScolarite.containsKey(email))
         {
-            Scolarite e = new Scolarite(    nom,
-                                            prenom,
-                                            ((Scolarite)listScolarite.get(idScolarite)).getEmail(),
-                                            idScolarite);
+            Scolarite e = new Scolarite(    ((Scolarite)listScolarite.get(email)).getNom(),
+                                            ((Scolarite)listScolarite.get(email)).getPrenom(),
+                                            newEmail,
+                                            ((Scolarite)listScolarite.get(email)).getIdScolarite());
 
 
-            listScolarite.put(e.getIdScolarite(), e);
-
+            listScolarite.put(e.getEmail(), e);
+            supprimerScolarite(email);
         }
         else
-            System.out.println(idScolarite+" n'exite pas");
-    }
-
-    /**
-     * Modifier scolarite.
-     *
-     * @param idScolarite the id scolarite
-     * @param email       the email
-     */
-    public void modifierScolarite(Integer idScolarite,String email) {
-        if (listScolarite.containsKey(idScolarite))
-    {
-        Scolarite e = new Scolarite(    ((Scolarite)listScolarite.get(idScolarite)).getNom(),
-                                        ((Scolarite)listScolarite.get(idScolarite)).getPrenom(),
-                                        email,
-                                        idScolarite);
-
-
-        listScolarite.put(e.getIdScolarite(), e);
-
-    }
-    else
-        System.out.println(idScolarite+" n'exite pas");
-    }
-
-    /**
-     * Modifier scolarite.
-     *
-     * @param idScolarite    the id scolarite
-     * @param newIdScolarite the new id scolarite
-     */
-    public void modifierScolarite(Integer idScolarite,Integer newIdScolarite) {
-        if (listScolarite.containsKey(idScolarite))
-        {
-            Scolarite e = new Scolarite(    ((Scolarite)listScolarite.get(idScolarite)).getNom(),
-                                            ((Scolarite)listScolarite.get(idScolarite)).getPrenom(),
-                                            ((Scolarite)listScolarite.get(idScolarite)).getEmail(),
-                                            newIdScolarite);
-
-
-            listScolarite.put(e.getIdScolarite(), e);
-            supprimerScolarite(idScolarite);
-        }
-        else
-            System.out.println(idScolarite+" n'exite pas");
+            System.out.println(email +" ne correspond a aucun membre");
     }
 
 
@@ -332,89 +212,43 @@ public class GestionUtilisateur {
      * @param nom           the nom
      * @param prenom        the prenom
      * @param email         the email
-     * @param idSecretariat the id secretariat
      */
-    public void modifierSecretariat(String nom,String prenom,String email,Integer idSecretariat) {
-        if (listSecretariat.containsKey(idSecretariat))
+    public void modifierSecretariat(String nom,String prenom,String email) {
+        if (listSecretariat.containsKey(email))
         {
             Secretariat e = new Secretariat(    nom,
                                                 prenom,
                                                 email,
-                                                idSecretariat);
+                                                ((Secretariat)listSecretariat.get(email)).getIdSecretariat());
 
 
-            listSecretariat.put(e.getIdSecretariat(), e);
+            listSecretariat.put(e.getEmail(), e);
 
         }
         else
-            System.out.println(idSecretariat+" n'exite pas");
+            System.out.println(email +" ne correspond a aucun membre");
     }
 
     /**
      * Modifier secretariat.
      *
-     * @param idSecretariat the id secretariat
-     * @param nom           the nom
-     * @param prenom        the prenom
+     * @param email   the email
+     * @param newEmail the new email
      */
-    public void modifierSecretariat(Integer idSecretariat,String nom,String prenom) {
-        if (listSecretariat.containsKey(idSecretariat))
+    public void modifierSecretariat(String email,String newEmail) {
+        if (listSecretariat.containsKey(email))
         {
-            Secretariat e = new Secretariat(    nom,
-                                                prenom,
-                                                ((Secretariat)listSecretariat.get(idSecretariat)).getEmail(),
-                                                idSecretariat);
+            Secretariat e = new Secretariat(    ((Secretariat)listSecretariat.get(email)).getNom(),
+                    ((Secretariat)listSecretariat.get(email)).getPrenom(),
+                    newEmail,
+                    ((Secretariat)listSecretariat.get(email)).getIdSecretariat());
 
 
-            listSecretariat.put(e.getIdSecretariat(), e);
-
+            listSecretariat.put(e.getEmail(), e);
+            supprimerSecretariat(email);
         }
         else
-            System.out.println(idSecretariat+" n'exite pas");
-    }
-
-    /**
-     * Modifier secretariat.
-     *
-     * @param idSecretariat the id secretariat
-     * @param email         the email
-     */
-    public void modifierSecretariat(Integer idSecretariat,String email) {
-        if (listSecretariat.containsKey(idSecretariat))
-        {
-            Secretariat e = new Secretariat(    ((Secretariat)listSecretariat.get(idSecretariat)).getNom(),
-                                                ((Secretariat)listSecretariat.get(idSecretariat)).getPrenom(),
-                                                email,
-                                                idSecretariat);
-
-
-            listSecretariat.put(e.getIdSecretariat(), e);
-
-        }
-        else
-            System.out.println(idSecretariat+" n'exite pas");
-    }
-
-    /**
-     * Modifier secretariat.
-     *
-     * @param idSecretariat    the id secretariat
-     * @param newIdSecretariat the new id secretariat
-     */
-    public void modifierSecretariat(Integer idSecretariat,Integer newIdSecretariat) {
-        if (listSecretariat.containsKey(idSecretariat))
-        {
-            Secretariat e = new Secretariat(    ((Secretariat)listSecretariat.get(idSecretariat)).getNom(),
-                    ((Secretariat)listSecretariat.get(idSecretariat)).getPrenom(),
-                    ((Secretariat)listSecretariat.get(idSecretariat)).getEmail(),
-                    newIdSecretariat);
-
-
-            listSecretariat.put(e.getIdSecretariat(), e);
-            supprimerSecretariat(idSecretariat);
-        }
-        else
-            System.out.println(idSecretariat+" n'exite pas");
+            System.out.println(email +" ne correspond a aucun membre");
     }
 
 
