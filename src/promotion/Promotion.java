@@ -25,6 +25,7 @@ public class Promotion {
 		this.nbetu = 0;
 		this.nom = name;
 		this.filiere = fil;
+
 		this.statut = new CheckBox();
 		this.statut.setOnAction(event -> PromotionViewController.updateNumberSelectedPromotion((Button) (this.statut.getScene().lookup("#promoDel"))));
 		this.modifier = new Button("Modifier");
@@ -53,6 +54,14 @@ public class Promotion {
 			this.etudiants.remove(e);
 			this.nbetu--;
 		}
+	}
+
+	public static Promotion nomToPromotion(String promotionName){
+		Promotion filliere = getPromotions().stream()
+				.filter(fil -> promotionName.equals(fil.getNom()))
+				.findAny()
+				.orElse(null);
+		return filliere;
 	}
 
 	@Override

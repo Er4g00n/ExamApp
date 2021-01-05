@@ -2,7 +2,7 @@ package examen.solver;
 
 import examen.Calendrier;
 import examen.Epreuve;
-import Examen.Examen;
+import examen.Examen;
 import examen.UnavailablePeriodPenalty;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
 
@@ -35,7 +35,6 @@ public class LectureDifficultyWeightFactory implements SelectionSorterWeightFact
 
         private static final Comparator<LectureDifficultyWeight> COMPARATOR = comparingInt(
                 (LectureDifficultyWeight c) -> c.unavailablePeriodPenaltyCount)
-                .thenComparingInt(c -> c.epreuve.getExamen().getLectureSize())
                 .thenComparingInt(c -> c.epreuve.getExamen().getStudentSize())
                 .thenComparing(c -> c.epreuve.getExamen().getMinWorkingDaySize())
                 .thenComparing(c -> c.epreuve, comparingLong(Epreuve::getId));

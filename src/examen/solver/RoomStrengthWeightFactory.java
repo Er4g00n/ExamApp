@@ -1,7 +1,7 @@
 package examen.solver;
 
 import examen.Calendrier;
-import Salle.Salle;
+import salle.Salle;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
 
 import java.util.Comparator;

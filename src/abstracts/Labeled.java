@@ -15,5 +15,4 @@ public interface Labeled {
      * @return the label
      */
     String getLabel();
-
 }

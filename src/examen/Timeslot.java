@@ -1,6 +1,6 @@
 package examen;
 
-import Abstracts.AbstractPersistable;
+import abstracts.AbstractPersistable;
 
 /**
  * Le type Timeslot.

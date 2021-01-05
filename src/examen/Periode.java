@@ -1,7 +1,7 @@
 package examen;
 
-import Abstracts.AbstractPersistable;
-import Abstracts.Labeled;
+import abstracts.AbstractPersistable;
+import abstracts.Labeled;
 
 import static java.util.Objects.requireNonNull;
 

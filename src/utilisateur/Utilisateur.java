@@ -1,6 +1,6 @@
 package utilisateur;
 
-import Examen.Examen;
+import examen.Examen;
 
 import java.util.ArrayList;
 

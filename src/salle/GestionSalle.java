@@ -13,7 +13,7 @@ public class GestionSalle {
             System.out.println("la salle " + nom + " existe deja");
 
         else {
-            Salle e = new Salle(nom, capacite, type, specificite, dispo);
+            Salle e = new Salle(nom, capacite);
             listSalle.put(e.getNom(), e);
         }
     }
@@ -32,9 +32,7 @@ public class GestionSalle {
     public static void modifierSalle(String nom, Integer capacite, Type type, Specificite specificite, String dispo) {
         if (listSalle.containsKey(nom)) {
             Salle e = new Salle(nom,
-                    capacite,
-                    type,
-                    specificite, dispo);
+                    capacite);
 
             listSalle.put(e.getNom(), e);
         } else

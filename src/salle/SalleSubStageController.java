@@ -36,14 +36,13 @@ public class SalleSubStageController implements Initializable {
 
 				if (salle != null) {
 					salle.setNom(nomField.getText());
-					salle.setDispo(dispoField.getText());
 					salle.setCapacite(cap);
 				}
 				else {
 					/*
 					* Modification des parametres
 					*/
-					new Salle(nomField.getText(), cap, dispoField.getText());
+					new Salle(nomField.getText(), cap);
 				}
 
 				((Stage) validationButton.getScene().getWindow()).close();
@@ -55,7 +54,6 @@ public class SalleSubStageController implements Initializable {
 	public void setSalle(Salle s) {
 		this.salle = s;
 		this.nomField.setText(s.getNom());
-		this.dispoField.setText(s.getDispo());
 		this.capaciteField.setText(String.valueOf(s.getCapacite()));
 	}
 

@@ -6,6 +6,10 @@ import examen.Examen;
 import promotion.Promotion;
 
 import java.sql.*;
+import java.util.List;
+
+import static promotion.Promotion.getPromotions;
+import static promotion.Promotion.nomToPromotion;
 
 public class BDD {
     private Connection con;
@@ -109,9 +113,11 @@ public class BDD {
                 String db_email = rs.getString("email");
                 String db_filliere = rs.getString("filiere");
 
-                Etudiant a = new Etudiant(db_nom, db_prenom, db_email, db_numEtu, db_filliere);
+                Promotion filliere = nomToPromotion(db_filliere);
 
-                for (Promotion promotion : Promotion.getPromotions()) {
+                Etudiant a = new Etudiant(db_nom, db_prenom, db_email, db_numEtu, filliere);
+
+                for (Promotion promotion : getPromotions()) {
                     if(promotion.getNom().equals(db_idEtuListe)){
                         promotion.ajouterEtudiant(a);
                     }
@@ -154,7 +160,7 @@ public class BDD {
                 String db_date = rs.getString("date");
                 String db_idEtuListe = rs.getString("idEtuListe");
 
-                for (Promotion promotion : Promotion.getPromotions()) {
+                for (Promotion promotion : getPromotions()) {
                     if(promotion.getNom().equals(db_idEtuListe)){
                         new Examen(db_idExamen, db_libelle, promotion.getNbetu(),1);
                     }

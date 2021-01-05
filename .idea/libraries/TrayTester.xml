@@ -2,6 +2,7 @@
   <library name="TrayTester">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/../Java/Librairies/TrayNotification-master/TrayTester.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/TrayNotification.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

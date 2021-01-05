@@ -17,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import promotion.Promotion;
 
+import static promotion.Promotion.nomToPromotion;
+
 public class EtudiantSubStageController implements Initializable {
 
 	@FXML
@@ -27,12 +29,17 @@ public class EtudiantSubStageController implements Initializable {
 	private TextField PrenomField;
 	@FXML
 	private TextField numEtuField;
+	@FXML
+	private TextField EmailField;
+	@FXML
+	private ChoiceBox filliere;
 
 	private Etudiant etudiant;
 	private Promotion promotion;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		filliere.setItems(Promotion.getPromotions());
 		validationButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent arg0) {
@@ -46,7 +53,7 @@ public class EtudiantSubStageController implements Initializable {
 					connexion.modifierEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
 				}
 				else {
-					Etudiant e = new Etudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
+					Etudiant e = new Etudiant(nomField.getText(), PrenomField.getText(), EmailField.getText(), numEtuField.getText(), nomToPromotion((String) filliere.getValue()));
 					BDD connexion = new BDD();
 					connexion.ajouterEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText(), Integer.parseInt(promotion.getNom()));
 					promotion.ajouterEtudiant(e);

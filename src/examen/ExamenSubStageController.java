@@ -33,9 +33,9 @@ public class ExamenSubStageController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				if (examen != null) {
-					examen.setNom(nomField.getText());
-					examen.setFiliere(filiereBox.getValue());
-					examen.setDuree(dureeField.getText());
+					examen.setCode(nomField.getText());
+					//examen.setFiliere(filiereBox.getValue());
+					//examen.setDuree(dureeField.getText());
 				}
 				else {
 					new Examen(nomField.getText(), filiereBox.getValue(), dureeField.getText());

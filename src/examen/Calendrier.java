@@ -1,8 +1,9 @@
 package examen;
 
-import Abstracts.AbstractPersistable;
+import abstracts.AbstractPersistable;
+import abstracts.AbstractPersistable;
 import examen.solver.CourseConflict;
-import Salle.Salle;
+import salle.Salle;
 import com.thoughtworks.xstream.annotations.XStreamConverter;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;

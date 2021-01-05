@@ -170,26 +170,6 @@ public class GestionUtilisateur {
 
     }
 
-    /**
-     * Modifier etudiant.
-     *
-     * @param numeroEtudiant the numero etudiant
-     * @param email          the email
-     */
-    public void modifierEtudiant(String numeroEtudiant,String email) {
-        if (listEtudiant.containsKey(numeroEtudiant))
-        {
-            Etudiant e = new Etudiant(  ((Etudiant)listEtudiant.get(numeroEtudiant)).getNom(),
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getPrenom(),
-                                        email,
-                                        numeroEtudiant,
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getFiliere());
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-        }
-        else
-            System.out.println(numeroEtudiant+" n'exite pas");
-    }
 
     /**
      * Modifier etudiant.
