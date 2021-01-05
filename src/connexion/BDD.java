@@ -1,13 +1,10 @@
 package connexion;
 
-import etudiant.Etudiant;
+import utilisateur.Etudiant;
 import examen.Examen;
 import promotion.Promotion;
-import salle.Salle;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BDD {
     private Connection con;

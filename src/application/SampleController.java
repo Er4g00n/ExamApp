@@ -17,7 +17,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import promotion.Promotion;
 import promotion.PromotionViewController;
-import salle.Salle;
 import salle.SalleViewController;
 
 public class SampleController implements Initializable {

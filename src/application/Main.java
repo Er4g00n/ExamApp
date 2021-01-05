@@ -1,19 +1,14 @@
 package application;
 
 import connexion.BDD;
-import etudiant.Etudiant;
 import examen.Examen;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import promotion.Promotion;
-import salle.Salle;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class Main extends Application {

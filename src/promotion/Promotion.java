@@ -1,6 +1,6 @@
 package promotion;
 
-import etudiant.Etudiant;
+import utilisateur.Etudiant;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;

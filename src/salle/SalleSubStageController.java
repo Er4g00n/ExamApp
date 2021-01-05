@@ -40,6 +40,9 @@ public class SalleSubStageController implements Initializable {
 					salle.setCapacite(cap);
 				}
 				else {
+					/*
+					* Modification des parametres
+					*/
 					new Salle(nomField.getText(), cap, dispoField.getText());
 				}
 
