@@ -46,7 +46,7 @@
             <TableView fx:id="promotionTable" prefHeight="200.0" prefWidth="200.0" styleClass="tableau" GridPane.columnSpan="4" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="promotionCheckColumn" prefWidth="75.0" sortable="false" />
-                <TableColumn fx:id="promotionNomColumn" prefWidth="175.0" text="Nom" />
+                <TableColumn fx:id="promotionNomColumn" prefWidth="175.0" text="ID Filière" />
                   <TableColumn fx:id="promotionFiliereColumn" prefWidth="190.0" text="Filière" />
                   <TableColumn fx:id="promotionNbEtuColumn" prefWidth="130.0" text="Nombre d'étudiants" />
                   <TableColumn fx:id="promotionModifColumn" prefWidth="128.0" sortable="false" text="Modifcation" />

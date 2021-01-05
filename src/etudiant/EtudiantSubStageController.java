@@ -3,6 +3,7 @@ package etudiant;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import connexion.BDD;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,9 +41,13 @@ public class EtudiantSubStageController implements Initializable {
 					etudiant.setPrenom(PrenomField.getText());
 					etudiant.setNumEtudiant(numEtuField.getText());
 					System.out.println("Modifier");
+					BDD connexion = new BDD();
+					connexion.modifierEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
 				}
 				else {
 					Etudiant e = new Etudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
+					BDD connexion = new BDD();
+					connexion.ajouterEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText(), Integer.parseInt(promotion.getNom()));
 					promotion.ajouterEtudiant(e);
 					System.out.println("Créer");
 				}
