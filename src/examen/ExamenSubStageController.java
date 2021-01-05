@@ -31,25 +31,25 @@ public class ExamenSubStageController implements Initializable {
 		filiereBox.setItems(Promotion.getPromotions());
 		validationButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent arg0) {
-				if (examen != null) {
-					examen.setCode(nomField.getText());
-					//examen.setFiliere(filiereBox.getValue());
-					//examen.setDuree(dureeField.getText());
-				}
-				else {
-					new Examen(nomField.getText(), filiereBox.getValue(), dureeField.getText());
-				}
-				((Stage) validationButton.getScene().getWindow()).close();
+		public void handle(ActionEvent arg0) {
+//				if (examen != null) {
+//					examen.setCode(nomField.getText());
+//					examen.setFiliere(filiereBox.getValue());
+//					examen.setDuree(dureeField.getText());
+//				}
+//				else {
+//					new Examen(nomField.getText(), filiereBox.getValue(), dureeField.getText());
+//				}
+//				((Stage) validationButton.getScene().getWindow()).close();
 			}
 		});
 	}
 
 	public void setExamen(Examen e) {
-		this.examen = e;
-		this.nomField.setText(e.getNom());
-		this.dureeField.setText(e.getDuree());
-		this.filiereBox.setValue(e.getFiliere());
+//		this.examen = e;
+//		this.nomField.setText(e.getNom());
+//		this.dureeField.setText(e.getDuree());
+//		this.filiereBox.setValue(e.getFiliere());
 	}
 
 }
