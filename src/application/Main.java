@@ -2,6 +2,7 @@ package application;
 
 import connexion.BDD;
 import examen.Examen;
+import salle.Salle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;

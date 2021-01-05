@@ -1,5 +1,5 @@
 
-package abstract;
+package abstracts;
 
 import org.optaplanner.examples.common.swingui.components.LabeledComboBoxRenderer;
 

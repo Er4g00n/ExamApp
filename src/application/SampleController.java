@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import examen.Examen;
+import salle.Salle;
 import examen.ExamenViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
