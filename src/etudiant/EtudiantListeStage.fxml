@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" styleClass="fondnoir" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="etudiant.EtudiantListeStageController">
+   <top>
+      <HBox prefHeight="0.0" prefWidth="760.0" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <GridPane alignment="CENTER" vgap="5.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="52.8" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="376.79999084472655" minHeight="10.0" prefHeight="347.2" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label fx:id="nomPromo" text="[NomPromo]" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </Label>
+            <TextField promptText="Rechercher" GridPane.columnIndex="1" />
+            <Button fx:id="etudiantDelButton" mnemonicParsing="false" onAction="#delButtonAction" styleClass="delButton" text="-    Supprimer" GridPane.columnIndex="2" />
+            <Button fx:id="etudiantAddButton" mnemonicParsing="false" onAction="#addButtonAction" styleClass="addButton" text="+    Ajouter" GridPane.columnIndex="3" />
+            <TableView fx:id="etudiantTable" prefHeight="200.0" prefWidth="200.0" styleClass="table" GridPane.columnSpan="4" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="etudiantCheckColumn" prefWidth="75.0" sortable="false" />
+                <TableColumn fx:id="etudiantNumEtuColumn" prefWidth="139.20001220703125" text="Numéro d'étudiant" />
+                  <TableColumn fx:id="etudiantNomColumn" prefWidth="176.800048828125" text="Nom" />
+                  <TableColumn fx:id="etudiantPrenomColumn" prefWidth="180.7999267578125" text="Prénom" />
+                  <TableColumn fx:id="etudiantModifColumn" prefWidth="128.0" sortable="false" text="Modifcation" />
+              </columns>
+            </TableView>
+         </children>
+         <styleClass>
+            <String fx:value="view" />
+            <String fx:value="noir" />
+         </styleClass>
+      </GridPane>
+   </center>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <bottom>
+      <Button fx:id="terminer" mnemonicParsing="false" onAction="#terminerAction" text="Terminer" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </Button>
+   </bottom>
+</BorderPane>
