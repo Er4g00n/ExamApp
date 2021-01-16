@@ -1,7 +1,6 @@
 package score;
 
 import examen.Epreuve;
-import examen.UnavailablePeriodPenalty;
 import examen.solver.CourseConflict;
 import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;

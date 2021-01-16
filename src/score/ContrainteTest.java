@@ -7,60 +7,58 @@ import examen.Epreuve;
 import examen.Timeslot;
 import examen.Jour;
 import examen.Periode;
-import examen.solver.CourseConflict;
-import examen.UnavailablePeriodPenalty;
 import salle.Salle;
-import salle.Type;
-import salle.Specificite;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.test.api.score.stream.ConstraintVerifier;
 
 public class ContrainteTest {
 
-    private static final Examen COURSE_1 = new Examen(1, "Exam1", 20, 3);
-    private static final Examen COURSE_2 = new Examen(2, "Exam2", 10, 2);
+    private static final Examen EXAMEN1 = new Examen(1, "Exam1", 20, 3);
+    private static final Examen EXAMEN2 = new Examen(2, "Exam2", 10, 2);
     private static final Examen COURSE_3 = new Examen(3, "Exam3", 5, 1);
-    private static final Salle ROOM_1 = new Salle("Salle1", 10);
+    private static final Salle SALLE1 = new Salle("Salle1", 10);
     private static final Salle ROOM_2 = new Salle("Salle2", 20);
     private static final Timeslot FIRST_TIMESLOT = new Timeslot(0);
     private static final Timeslot SECOND_TIMESLOT = new Timeslot(1);
     private static final Jour MONDAY = new Jour(0);
     private static final Jour TUESDAY = new Jour(1);
-    private static final Periode PERIOD_1_MONDAY = new Periode(0, MONDAY, FIRST_TIMESLOT);
-    private static final Periode PERIOD_2_MONDAY = new Periode(1, MONDAY, SECOND_TIMESLOT);
-    private static final Periode PERIOD_1_TUESDAY = new Periode(2, TUESDAY, FIRST_TIMESLOT);
+    private static final Periode LUNDI = new Periode(0, MONDAY, FIRST_TIMESLOT);
+    private static final Periode LUNDI2 = new Periode(1, MONDAY, SECOND_TIMESLOT);
+    private static final Periode LUNDI3 = new Periode(2, TUESDAY, FIRST_TIMESLOT);
 
     private final ConstraintVerifier<Contrainte, Calendrier> constraintVerifier =
             ConstraintVerifier.build(new Contrainte(), Calendrier.class, Epreuve.class);
+    @SuppressWarnings("all")
 
+/**
+ * Test permetant de tester la class ConflitEpreuve
+ * Test de calcule de conflit
+*/
     @Test
-    public void conflictingLecturesDifferentCourseInSamePeriod() {
-        int conflictCount = 2;
-        CourseConflict courseConflict = new CourseConflict(COURSE_1, COURSE_2, conflictCount);
+    public void conflitEpreuveDansLaMemeDuree() {
+        int compteur = 2; // limite de conflit
+        ConflitEpreuve conflitEpreuve = new ConflitEpreuve(EXAMEN1, EXAMEN2, compteur);
 
-        // Make sure that unassigned lectures are ignored.
-        Epreuve unassignedLecture1 = new Epreuve(0, COURSE_1, null, null);
-        Epreuve unassignedLecture2 = new Epreuve(1, COURSE_1, null, null);
-        // Make sure that different rooms are irrelevant.
-        Epreuve assignedLecture1 = new Epreuve(2, COURSE_1, PERIOD_1_MONDAY, ROOM_1);
-        Epreuve assignedLecture2 = new Epreuve(3, COURSE_2, PERIOD_1_MONDAY, ROOM_2);
+        // Voir si des epreuves sans periode ne seront pas comptabilise.
+        Epreuve epreuve1SansPeriode = new Epreuve(0, EXAMEN1, null, null);
+        Epreuve epreuve2SansPeriode = new Epreuve(1, EXAMEN1, null, null);
+        // Voir si des epreuves sur la meme periode genere un conflit
+        Epreuve epreuve1AvecPeriode = new Epreuve(2, EXAMEN1, LUNDI, SALLE1);
+        Epreuve epreuve2AvecPeriode = new Epreuve(3, EXAMEN2, LUNDI, SALLE1);
         constraintVerifier.verifyThat(Contrainte::conflictingLecturesDifferentCourseInSamePeriod)
-                .given(courseConflict, unassignedLecture1, unassignedLecture2, assignedLecture1, assignedLecture2)
-                .penalizesBy(conflictCount);
+                .given(conflitEpreuve, epreuve1SansPeriode, epreuve2SansPeriode, epreuve1AvecPeriode, epreuve2AvecPeriode)
+                .penalizesBy(compteur);
     }
 
     @Test
-    public void conflictingLecturesSameCourseInSamePeriod() {
-        // Make sure that unassigned lectures are ignored.
-        Epreuve unassignedLecture1 = new Epreuve(0, COURSE_1, null, null);
-        Epreuve unassignedLecture2 = new Epreuve(1, COURSE_1, null, null);
-        // Make sure that different rooms are irrelevant.
-        Epreuve assignedLecture1 = new Epreuve(2, COURSE_1, PERIOD_1_MONDAY, ROOM_1);
-        Epreuve assignedLecture2 = new Epreuve(3, COURSE_1, PERIOD_1_MONDAY, ROOM_2);
-        // Make sure that only pairs with the same course and same period are counted.
-        Epreuve assignedLecture3 = new Epreuve(4, COURSE_2, PERIOD_1_MONDAY, ROOM_1);
+    public void conflitEpreuveMemeHoraireMemeExamen() {
+        // Test de piece differente
+        Epreuve epreuve1AvecPeriode = new Epreuve(2, EXAMEN1, LUNDI, SALLE1);
+        Epreuve epreuve2AvecPeriode = new Epreuve(3, EXAMEN1, LUNDI, SALLE2);
+        // Test, si le cours est different, il n'est pas comptabilise dans le compteur de conflit
+        Epreuve epreuve3AvecPeriode = new Epreuve(4, EXAMEN2, LUNDI, SALLE1);
         constraintVerifier.verifyThat(Contrainte::conflictingLecturesSameCourseInSamePeriod)
-                .given(unassignedLecture1, unassignedLecture2, assignedLecture1, assignedLecture2, assignedLecture3)
+                .given(epreuve1AvecPeriode, epreuve2AvecPeriode, epreuve3AvecPeriode)
                 .penalizesBy(2);
     }
 

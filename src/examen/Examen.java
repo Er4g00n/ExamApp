@@ -35,10 +35,10 @@ public class Examen extends AbstractPersistable {
 		this.studentSize = studentSize;
 
 		examens.add(this);
-		this.statut = new CheckBox();
-		this.statut.setOnAction(event -> ExamenViewController.updateNumberSelectedExamen((Button) (this.statut.getScene().lookup("#examDel"))));
-		this.modifier = new Button("Modifier");
-		this.modifier.setOnAction(new ExamenModifierEventHandler(this));
+		//this.statut = new CheckBox();
+		//this.statut.setOnAction(event -> ExamenViewController.updateNumberSelectedExamen((Button) (this.statut.getScene().lookup("#examDel"))));
+		//this.modifier = new Button("Modifier");
+		//this.modifier.setOnAction(new ExamenModifierEventHandler(this));
 	}
 
 	/**

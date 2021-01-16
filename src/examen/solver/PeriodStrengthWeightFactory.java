@@ -2,7 +2,6 @@ package examen.solver;
 
 import examen.Calendrier;
 import examen.Periode;
-import examen.UnavailablePeriodPenalty;
 import org.optaplanner.core.impl.heuristic.selector.common.decorator.SelectionSorterWeightFactory;
 
 import java.util.Comparator;

@@ -39,10 +39,10 @@ public class Salle extends AbstractPersistable implements Labeled {
 		this.type = type;
 		this.specificite = specificite;
 
-		this.statut = new CheckBox();
-		this.statut.setOnAction(event -> SalleViewController.updateNumberSelectedSalle((Button) (this.statut.getScene().lookup("#salleDel"))));
-		this.modifier = new Button("Modifier");
-		this.modifier.setOnAction(new SalleModifierEventHandler(this));
+//		this.statut = new CheckBox();
+	//	this.statut.setOnAction(event -> SalleViewController.updateNumberSelectedSalle((Button) (this.statut.getScene().lookup("#salleDel"))));
+	//	this.modifier = new Button("Modifier");
+	//	this.modifier.setOnAction(new SalleModifierEventHandler(this));
 		salles.add(this);
 	}
 
