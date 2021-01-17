@@ -2,6 +2,7 @@ package optaplanner;
 
 import abstracts.AbstractPersistable;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
+import utilisateur.Etudiant;
 
 import java.util.List;
 import java.util.Set;

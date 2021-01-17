@@ -2,6 +2,10 @@ package optaplanner;
 
 import abstracts.AbstractPersistable;
 import com.thoughtworks.xstream.annotations.XStreamInclude;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import optaplanner.solver.ExamenPoidDetermination;
 import optaplanner.solver.SallePoidDetermination;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
@@ -15,6 +19,10 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 public abstract class Examen extends AbstractPersistable {
 
     protected Epreuve epreuve;
+
+    private CheckBox statut;
+    private Button modifier;
+    private static ObservableList<Examen> examens = FXCollections.observableArrayList();
 
     // Planning variables: changes during planning, between score calculations.
     protected Salle salle;
@@ -79,6 +87,30 @@ public abstract class Examen extends AbstractPersistable {
             return false;
         }
         return periode.isFrontLoadLast();
+    }
+
+    public CheckBox getStatut() {
+        return statut;
+    }
+
+
+    public void setStatut(CheckBox statut) {
+        this.statut = statut;
+    }
+
+
+    public Button getModifier() {
+        return modifier;
+    }
+
+
+    public void setModifier(Button modifier) {
+        this.modifier = modifier;
+    }
+
+
+    public static ObservableList<Examen> getExamens() {
+        return examens;
     }
 
     public String getLabel() {

@@ -1,7 +1,7 @@
 package optaplanner;
 
 public enum PeriodePenaliteType {
-    EXAM_COINCIDENCE, // TODO rename to coincidence?
+    EXAM_COINCIDENCE,
     EXCLUSION,
     AFTER
 }

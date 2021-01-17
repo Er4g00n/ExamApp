@@ -1,8 +1,8 @@
 package connexion;
 
+import optaplanner.Examen;
 import utilisateur.Etudiant;
 import salle.Salle;
-import examen.Examen;
 import promotion.Promotion;
 
 import java.sql.*;
@@ -115,7 +115,7 @@ public class BDD {
 
                 Promotion filliere = nomToPromotion(db_filliere);
 
-                Etudiant a = new Etudiant(db_nom, db_prenom, db_email, db_numEtu, filliere);
+                Etudiant a = new Etudiant(db_nom, db_prenom, db_email, db_numEtu, filliere, null);
 
                 for (Promotion promotion : getPromotions()) {
                     if(promotion.getNom().equals(db_idEtuListe)){
@@ -162,7 +162,7 @@ public class BDD {
 
                 for (Promotion promotion : getPromotions()) {
                     if(promotion.getNom().equals(db_idEtuListe)){
-                        new Examen(db_idExamen, db_libelle, promotion.getNbetu(),1);
+                       // new Examen(db_idExamen, db_libelle, promotion.getNbetu(),1);
                     }
                 }
             }

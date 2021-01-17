@@ -1,6 +1,6 @@
 package utilisateur;
 
-import examen.Examen;
+import optaplanner.Examen;
 
 import java.util.ArrayList;
 
@@ -20,10 +20,6 @@ public abstract class Utilisateur {
         this.prenom = prenom;
 
     }
-
-
-
-
 
     public String getNom() {
         return this.nom;

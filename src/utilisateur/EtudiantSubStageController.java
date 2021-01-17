@@ -53,7 +53,8 @@ public class EtudiantSubStageController implements Initializable {
 					connexion.modifierEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
 				}
 				else {
-					Etudiant e = new Etudiant(nomField.getText(), PrenomField.getText(), EmailField.getText(), numEtuField.getText(), nomToPromotion((String) filliere.getValue()));
+					Etudiant e = new Etudiant(nomField.getText(), PrenomField.getText(), EmailField.getText(), numEtuField.getText(),
+							nomToPromotion((String) filliere.getValue()), null);
 					BDD connexion = new BDD();
 					connexion.ajouterEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText(), Integer.parseInt(promotion.getNom()));
 					promotion.ajouterEtudiant(e);

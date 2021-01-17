@@ -1,4 +1,4 @@
-package examen;
+package optaplanner;
 
 import java.io.IOException;
 

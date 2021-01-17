@@ -1,27 +1,30 @@
 package utilisateur;
 
+import abstracts.AbstractPersistable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 import promotion.Promotion;
 
 public class Etudiant extends Utilisateur {
 
     private String numeroEtudiant;
     private Promotion filiere;
+    protected Long id;
 
     private CheckBox statut;
     private Button modifier;
 
 
-    public Etudiant(String nom,String prenom,String email,String numeroEtudiant,Promotion filiere){
+    public Etudiant(String nom,String prenom,String email,String numeroEtudiant,Promotion filiere, Long id){
         super(nom,prenom,email);
         this.filiere = filiere;
         this.numeroEtudiant = numeroEtudiant;
 
-        this.statut = new CheckBox();
-        //this.statut.setOnAction(event -> EtudiantListeStageController.updateNumberSelectedEtudiant((Button) (this.statut.getScene().lookup("#etuDel"))));
-        this.modifier = new Button("Modifier");
-        this.modifier.setOnAction(new EtudiantModifierEventHandler(this));
+//       this.statut = new CheckBox();
+//        //this.statut.setOnAction(event -> EtudiantListeStageController.updateNumberSelectedEtudiant((Button) (this.statut.getScene().lookup("#etuDel"))));
+//        this.modifier = new Button("Modifier");
+//        this.modifier.setOnAction(new EtudiantModifierEventHandler(this));
 
     }
 
@@ -55,6 +58,20 @@ public class Etudiant extends Utilisateur {
     public String toString() {
         return super.toString() +" numero etudiant: "+ getNumeroEtudiant()+" filiere: "+getFiliere()+" }";
     }
+    @PlanningId
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * Sets id.
+     *
+     * @param id the id
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     
     
 }

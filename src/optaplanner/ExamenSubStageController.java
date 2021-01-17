@@ -1,4 +1,4 @@
-package examen;
+package optaplanner;
 
 import java.net.URL;
 import java.util.ResourceBundle;

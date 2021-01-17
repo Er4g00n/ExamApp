@@ -12,13 +12,13 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
  * <p>
  * Each {@link Calendrier} has only 1 instance of this class.
  */
-@ConstraintConfiguration(constraintPackage = "org.optaplanner.examenples.calendrier.solver")
+@ConstraintConfiguration(constraintPackage = "optaplanner.solver")
 @XStreamAlias("CalendrierContraintes")
 public class CalendrierContraintes extends AbstractPersistable {
     // Hard constraints
-    private int conflictingExamensInSamePeriodePenalite = 1;
-    private int periodeDureeTooShortPenalite = 1;
-    private int salleCapaciteTooSmallPenalite = 1;
+    private int conflitExamenDansLaMemePeriode = 1;
+    private int periodeDureeTropCourte = 1;
+    private int capaciteSalleTropPetite = 1;
     private int periodePenaliteExamenCoincidencePenalite = 1;
     private int periodePenaliteExclusionPenalite = 1;
     private int periodePenaliteAfterPenalite = 1;
@@ -41,37 +41,37 @@ public class CalendrierContraintes extends AbstractPersistable {
     // ************************************************************************
 
     // Hard constraints
-    @ConstraintWeight("conflictingExamensInSamePeriode")
-    public HardSoftScore getConflictingExamensInSamePeriodePenaliteAsScore() {
-        return HardSoftScore.ofHard(conflictingExamensInSamePeriodePenalite);
+    @ConstraintWeight("conflitExamenDansLaMemePeriode")
+    public HardSoftScore getConflitExamenDansLaMemePeriodeAsScore() {
+        return HardSoftScore.ofHard(conflitExamenDansLaMemePeriode);
     }
 
-    @ConstraintWeight("periodeDureeTooShort")
-    public HardSoftScore getPeriodeDureeTooShortPenaliteAsScore() {
-        return HardSoftScore.ofHard(periodeDureeTooShortPenalite);
+    @ConstraintWeight("periodeDureeTropCourte")
+    public HardSoftScore getPeriodeDureeTropCourteAsScore() {
+        return HardSoftScore.ofHard(periodeDureeTropCourte);
     }
 
-    @ConstraintWeight("salleCapaciteTooSmall")
-    public HardSoftScore getSalleCapaciteTooSmallPenaliteAsScore() {
-        return HardSoftScore.ofHard(salleCapaciteTooSmallPenalite);
+    @ConstraintWeight("capaciteSalleTropPetite")
+    public HardSoftScore getCapaciteSalleTropPetiteAsScore() {
+        return HardSoftScore.ofHard(capaciteSalleTropPetite);
     }
 
-    @ConstraintWeight("periodePenaliteExamenCoincidence")
+    @ConstraintWeight("periodePenaliteExamenCoincidencePenalite")
     public HardSoftScore getPeriodePenaliteExamenCoincidencePenaliteAsScore() {
         return HardSoftScore.ofHard(periodePenaliteExamenCoincidencePenalite);
     }
 
-    @ConstraintWeight("periodePenaliteExclusion")
+    @ConstraintWeight("periodePenaliteExclusionPenalite")
     public HardSoftScore getPeriodePenaliteExclusionPenaliteAsScore() {
         return HardSoftScore.ofHard(periodePenaliteExclusionPenalite);
     }
 
-    @ConstraintWeight("periodePenaliteAfter")
+    @ConstraintWeight("periodePenaliteAfterPenalite")
     public HardSoftScore getPeriodePenaliteAfterPenaliteAsScore() {
         return HardSoftScore.ofHard(periodePenaliteAfterPenalite);
     }
 
-    @ConstraintWeight("sallePenaliteExclusive")
+    @ConstraintWeight("sallePenaliteExclusivePenalite")
     public HardSoftScore getSallePenaliteExclusivePenaliteAsScore() {
         return HardSoftScore.ofHard(sallePenaliteExclusivePenalite);
     }
@@ -117,28 +117,28 @@ public class CalendrierContraintes extends AbstractPersistable {
     // ************************************************************************
 
     // Hard constraint functions
-    public int getConflictingExamensInSamePeriodePenalite() {
-        return conflictingExamensInSamePeriodePenalite;
+    public int getConflitExamenDansLaMemePeriode() {
+        return conflitExamenDansLaMemePeriode;
     }
 
-    public void setConflictingExamensInSamePeriodePenalite(int conflictingExamensInSamePeriodePenalite) {
-        this.conflictingExamensInSamePeriodePenalite = conflictingExamensInSamePeriodePenalite;
+    public void setConflitExamenDansLaMemePeriode(int conflitExamenDansLaMemePeriode) {
+        this.conflitExamenDansLaMemePeriode = conflitExamenDansLaMemePeriode;
     }
 
-    public int getPeriodeDureeTooShortPenalite() {
-        return periodeDureeTooShortPenalite;
+    public int getPeriodeDureeTropCourte() {
+        return periodeDureeTropCourte;
     }
 
-    public void setPeriodeDureeTooShortPenalite(int periodeDureeTooShortPenalite) {
-        this.periodeDureeTooShortPenalite = periodeDureeTooShortPenalite;
+    public void setPeriodeDureeTropCourte(int periodeDureeTropCourte) {
+        this.periodeDureeTropCourte = periodeDureeTropCourte;
     }
 
-    public int getSalleCapaciteTooSmallPenalite() {
-        return salleCapaciteTooSmallPenalite;
+    public int getCapaciteSalleTropPetite() {
+        return capaciteSalleTropPetite;
     }
 
-    public void setSalleCapaciteTooSmallPenalite(int salleCapaciteTooSmallPenalite) {
-        this.salleCapaciteTooSmallPenalite = salleCapaciteTooSmallPenalite;
+    public void setCapaciteSalleTropPetite(int capaciteSalleTropPetite) {
+        this.capaciteSalleTropPetite = capaciteSalleTropPetite;
     }
 
     public int getPeriodePenaliteExamenCoincidencePenalite() {
@@ -258,18 +258,18 @@ public class CalendrierContraintes extends AbstractPersistable {
     // With methods
     // ************************************************************************
 
-    public CalendrierContraintes withConflictingExamensInSamePeriodePenalite(int conflictingExamensInSamePeriodePenalite) {
-        this.setConflictingExamensInSamePeriodePenalite(conflictingExamensInSamePeriodePenalite);
+    public CalendrierContraintes withConflitExamenDansLaMemePeriode(int conflitExamenDansLaMemePeriode) {
+        this.setConflitExamenDansLaMemePeriode(conflitExamenDansLaMemePeriode);
         return this;
     }
 
-    public CalendrierContraintes withPeriodeDureeTooShortPenalite(int periodeDureeTooShortPenalite) {
-        this.setPeriodeDureeTooShortPenalite(periodeDureeTooShortPenalite);
+    public CalendrierContraintes withPeriodeDureeTropCourte(int periodeDureeTropCourte) {
+        this.setPeriodeDureeTropCourte(periodeDureeTropCourte);
         return this;
     }
 
-    public CalendrierContraintes withSalleCapaciteTooSmallPenalite(int salleCapaciteTooSmallPenalite) {
-        this.setSalleCapaciteTooSmallPenalite(salleCapaciteTooSmallPenalite);
+    public CalendrierContraintes withCapaciteSalleTropPetite(int capaciteSalleTropPetite) {
+        this.setCapaciteSalleTropPetite(capaciteSalleTropPetite);
         return this;
     }
 

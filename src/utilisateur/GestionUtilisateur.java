@@ -25,12 +25,12 @@ public class GestionUtilisateur {
      * @param numeroEtudiant the numero etudiant
      * @param filiere        the filiere
      */
-    public static void creerEtudiant(String nom, String prenom, String email, String numeroEtudiant, Promotion filiere) {
+    public static void creerEtudiant(String nom, String prenom, String email, String numeroEtudiant, Promotion filiere, Long id) {
         if (listEtudiant.containsKey(numeroEtudiant))
             System.out.println(nom +" "+prenom +"est deja dans la liste des etudiant");
         else
             {
-                Etudiant e = new Etudiant(nom, prenom, email, numeroEtudiant, filiere);
+                Etudiant e = new Etudiant(nom, prenom, email, numeroEtudiant, filiere, id);
                 listEtudiant.put(e.getNumeroEtudiant(), e);
             }
     }
@@ -130,7 +130,7 @@ public class GestionUtilisateur {
      * @param numeroEtudiant the numero etudiant
      * @param filiere        the filiere
      */
-    public void modifierEtudiant(String nom,String prenom,String email,String numeroEtudiant,Promotion filiere) {
+    public void modifierEtudiant(String nom,String prenom,String email,String numeroEtudiant,Promotion filiere, Long id) {
 
         if (listEtudiant.containsKey(numeroEtudiant))
         {
@@ -138,7 +138,7 @@ public class GestionUtilisateur {
                                         prenom,
                                         email,
                                         numeroEtudiant,
-                                        filiere);
+                                        filiere, id);
             listEtudiant.put(e.getNumeroEtudiant(), e);
         }
         else
@@ -146,73 +146,6 @@ public class GestionUtilisateur {
 
     }
 
-    /**
-     * Modifier etudiant.
-     *
-     * @param numeroEtudiant the numero etudiant
-     * @param nom            the nom
-     * @param prenom         the prenom
-     */
-    public void modifierEtudiant(String numeroEtudiant,String nom,String prenom) {
-
-        if (listEtudiant.containsKey(numeroEtudiant))
-        {
-            Etudiant e = new Etudiant(  nom,
-                                        prenom,
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getEmail(),
-                                        numeroEtudiant,
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getFiliere());
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-        }
-        else
-            System.out.println(numeroEtudiant+" n'exite pas");
-
-    }
-
-
-    /**
-     * Modifier etudiant.
-     *
-     * @param numeroEtudiant the numero etudiant
-     * @param filiere        the filiere
-     */
-    public void modifierEtudiant(String numeroEtudiant,Promotion filiere) {
-        if (listEtudiant.containsKey(numeroEtudiant))
-        {
-            Etudiant e = new Etudiant(  ((Etudiant)listEtudiant.get(numeroEtudiant)).getNom(),
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getPrenom(),
-                                        ((Etudiant)listEtudiant.get(numeroEtudiant)).getEmail(),
-                                        numeroEtudiant,
-                                        filiere);
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-        }
-        else
-            System.out.println(numeroEtudiant+" n'exite pas");
-    }
-
-    /**
-     * Modifier etudiant.
-     *
-     * @param numeroEtudiant    the numero etudiant
-     * @param newNumeroEtudiant the new numero etudiant
-     */
-    public void modifierEtudiant(String numeroEtudiant, String newNumeroEtudiant) {
-        if (listEtudiant.containsKey(numeroEtudiant))
-        {
-            Etudiant e = new Etudiant(  ((Etudiant)listEtudiant.get(numeroEtudiant)).getNom(),
-                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getPrenom(),
-                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getEmail(),
-                    newNumeroEtudiant,
-                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getFiliere());
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-            supprimerEtudiant(numeroEtudiant);
-        }
-        else
-            System.out.println(numeroEtudiant+" n'exite pas");
-    }
 
 
     /**

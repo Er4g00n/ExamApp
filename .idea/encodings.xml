@@ -25,6 +25,8 @@
     <file url="file://$PROJECT_DIR$/src/optaplanner/solver/ExamenPoidDetermination.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/optaplanner/solver/PeriodeUpdatingVariableListener.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/optaplanner/solver/SallePoidDetermination.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/score/examinationConstraints.drl" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/score/examinationSolverConfig.xml" charset="UTF-8" />
     <file url="PROJECT" charset="windows-1252" />
   </component>
 </project>

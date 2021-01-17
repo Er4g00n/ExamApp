@@ -1,7 +1,7 @@
 package application;
 
 import connexion.BDD;
-import examen.Examen;
+import optaplanner.Examen;
 import salle.Salle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
