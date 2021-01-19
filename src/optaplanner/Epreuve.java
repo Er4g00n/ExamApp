@@ -91,4 +91,9 @@ public class Epreuve extends AbstractPersistable {
         this.setCoincidenceEpreuveSet(coincidenceEpreuveSet);
         return this;
     }
+
+    @Override
+    public Long getId() {
+        return super.getId();
+    }
 }

@@ -213,7 +213,7 @@ public class ContrainteTest {
 
         Epreuve epreuve1 = new Epreuve();
         Epreuve epreuve2 = new Epreuve();
-        EpreuveConflit epreuveConflict = new EpreuveConflit(epreuve1, epreuve2, 3);
+        EpreuveConflit epreuveConflit = new EpreuveConflit(epreuve1, epreuve2, 3);
 
         ExamenEnCours exam1 = new ExamenEnCours()
                 .withEpreuve(epreuve1)
@@ -227,7 +227,7 @@ public class ContrainteTest {
         // Periode index saturation: 0, 0
         // Should trigger when periode spread length is 1.
         constraintVerifier.verifyThat(Contrainte::periodeSpread)
-                .given(config, epreuveConflict, exam1, exam2)
+                .given(config, epreuveConflit, exam1, exam2)
                 .penalizesBy(3);
 
         // Periode index saturation: 0, 1
@@ -235,14 +235,14 @@ public class ContrainteTest {
         exam2.setPeriode(new Periode().withPeriodeIndex(1));
 
         constraintVerifier.verifyThat(Contrainte::periodeSpread)
-                .given(config, epreuveConflict, exam1, exam2)
+                .given(config, epreuveConflit, exam1, exam2)
                 .penalizesBy(3);
 
         // Periode index saturation: 0, 2
         exam2.setPeriode(new Periode().withPeriodeIndex(2));
 
         constraintVerifier.verifyThat(Contrainte::periodeSpread)
-                .given(config, epreuveConflict, exam1, exam2)
+                .given(config, epreuveConflit, exam1, exam2)
                 .penalizesBy(0);
     }
 

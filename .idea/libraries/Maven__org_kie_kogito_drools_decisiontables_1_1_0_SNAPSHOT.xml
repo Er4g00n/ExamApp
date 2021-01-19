@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: org.kie.kogito:drools-decisiontables:1.1.0-SNAPSHOT">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/kie/kogito/drools-decisiontables/1.1.0-SNAPSHOT/drools-decisiontables-1.1.0-20210105.004025-15.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/kie/kogito/drools-decisiontables/1.1.0-SNAPSHOT/drools-decisiontables-1.1.0-20210115.005237-25.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/kie/kogito/drools-decisiontables/1.1.0-SNAPSHOT/drools-decisiontables-1.1.0-20210105.004025-15-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/kie/kogito/drools-decisiontables/1.1.0-SNAPSHOT/drools-decisiontables-1.1.0-20210115.005237-25-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/kie/kogito/drools-decisiontables/1.1.0-SNAPSHOT/drools-decisiontables-1.1.0-20210105.004025-15-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/org/kie/kogito/drools-decisiontables/1.1.0-SNAPSHOT/drools-decisiontables-1.1.0-20210115.005237-25-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

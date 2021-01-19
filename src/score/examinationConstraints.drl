@@ -38,36 +38,36 @@ global HardSoftScoreHolder scoreHolder;
 // Hard constraints
 // ############################################################################
 
-// Two exams in the same periode which share students.
+// Two exams in the same periode which share etudiants.
 rule "conflitExamenDansLaMemePeriode"
     when
-        $epreuveConflict : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
+        $epreuveConflit : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
         $leftExam : Examen(epreuve == $leftEpreuve, $periode : periode, periode != null)
         $rightExam : Examen(epreuve == $rightEpreuve, periode == $periode)
     then
-        scoreHolder.penalize(kcontext, $epreuveConflict.getStudentSize());
+        scoreHolder.penalize(kcontext, $epreuveConflit.getEtudiantSize());
 end
 
 // More time required during a periode than available in that periode.
 rule "periodeDureeTropCourte"
     when
-        $exam : Examen(epreuveDuration > periodeDuration, periode != null)
+        $exam : Examen(epreuveDuree > periodeDuree, periode != null)
     then
-        scoreHolder.penalize(kcontext, $exam.getEpreuveStudentSize());
+        scoreHolder.penalize(kcontext, $exam.getEpreuveEtudiantSize());
 end
 
-// More seating required during a periode in a room than available in that room.
+// More seating required during a periode in a salle than available in that salle.
 rule "capaciteSalleTropPetite"
     when
         $periode : Periode()
-        $room : Salle($capacity : capacity)
+        $salle : Salle($capacite : capacite)
         accumulate(
-            Examen(periode == $periode, room == $room, $studentSize : epreuveStudentSize);
-            $totalStudentSize : sum($studentSize);
-            $totalStudentSize > $capacity
+            Examen(periode == $periode, salle == $salle, $etudiantSize : epreuveEtudiantSize);
+            $totalEtudiantSize : sum($etudiantSize);
+            $totalEtudiantSize > $capacite
         )
     then
-        scoreHolder.penalize(kcontext, $capacity - $totalStudentSize);
+        scoreHolder.penalize(kcontext, $capacite - $totalEtudiantSize);
 end
 
 // Period hard constraints
@@ -80,9 +80,9 @@ rule "periodePenaliteExamenCoincidencePenalite"
         )
         $leftExam : Examen(epreuve == $leftEpreuve, $leftPeriod : periode, periode != null)
         $rightExam : Examen(epreuve == $rightEpreuve, periode != $leftPeriod, periode != null)
-        // Left and right don't share a student because those are filtered out in ExaminationImporter
+        // Left and right don't share a etudiant because those are filtered out in ExaminationImporter
     then
-        scoreHolder.penalize(kcontext, $leftEpreuve.getStudentSize() + $rightEpreuve.getStudentSize());
+        scoreHolder.penalize(kcontext, $leftEpreuve.getEtudiantSize() + $rightEpreuve.getEtudiantSize());
 end
 rule "periodePenaliteExclusionPenalite"
     when
@@ -94,7 +94,7 @@ rule "periodePenaliteExclusionPenalite"
         $leftExam : Examen(epreuve == $leftEpreuve, $leftPeriod : periode, periode != null)
         $rightExam : Examen(epreuve == $rightEpreuve, periode == $leftPeriod)
     then
-        scoreHolder.penalize(kcontext, $leftEpreuve.getStudentSize() + $rightEpreuve.getStudentSize());
+        scoreHolder.penalize(kcontext, $leftEpreuve.getEtudiantSize() + $rightEpreuve.getEtudiantSize());
 end
 rule "periodePenaliteAfterPenalite"
     when
@@ -106,77 +106,77 @@ rule "periodePenaliteAfterPenalite"
         $leftExam : Examen(epreuve == $leftEpreuve, $leftPeriodIndex : periodeIndex, periode != null)
         $rightExam : Examen(epreuve == $rightEpreuve, $leftPeriodIndex <= periodeIndex, periode != null)
     then
-        scoreHolder.penalize(kcontext, $leftEpreuve.getStudentSize() + $rightEpreuve.getStudentSize());
+        scoreHolder.penalize(kcontext, $leftEpreuve.getEtudiantSize() + $rightEpreuve.getEtudiantSize());
 end
 
 // Room hard constraints
 rule "sallePenaliteExclusivePenalite"
     when
-        $roomPenalty : RoomPenalty(
-            roomPenaltyType == RoomPenaltyType.ROOM_EXCLUSIVE,
+        $sallePenalty : RoomPenalty(
+            sallePenaltyType == RoomPenaltyType.ROOM_EXCLUSIVE,
             $epreuve : epreuve
         )
-        $leftExam : Examen(epreuve == $epreuve, $room : room, room != null, $periode : periode, periode != null)
-        $rightExam : Examen(room == $room, periode == $periode, epreuve != $epreuve, $otherEpreuve : epreuve)
+        $leftExam : Examen(epreuve == $epreuve, $salle : salle, salle != null, $periode : periode, periode != null)
+        $rightExam : Examen(salle == $salle, periode == $periode, epreuve != $epreuve, $otherEpreuve : epreuve)
     then
-        scoreHolder.penalize(kcontext, $epreuve.getStudentSize() + $otherEpreuve.getStudentSize());
+        scoreHolder.penalize(kcontext, $epreuve.getEtudiantSize() + $otherEpreuve.getEtudiantSize());
 end
 
 // ############################################################################
 // Soft constraints
 // ############################################################################
 
-// Two exams in a row which share students
+// Two exams in a row which share etudiants
 rule "twoInARowPenalite"
     when
-        $epreuveConflict : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
+        $epreuveConflit : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
         $leftExam : Examen(epreuve == $leftEpreuve, $leftDayIndex : dayIndex, $leftPeriodIndex : periodeIndex, periode != null)
         $rightExam : Examen(epreuve == $rightEpreuve, dayIndex == $leftDayIndex,
             Math.abs($leftPeriodIndex - periodeIndex) == 1)
     then
-        scoreHolder.penalize(kcontext, $epreuveConflict.getStudentSize());
+        scoreHolder.penalize(kcontext, $epreuveConflit.getEtudiantSize());
 end
 
 // TODO check if merging twoExamsInARow and twoExamsInADay can be a noticeable performance boost
-// Two exams in a day which share students
+// Two exams in a day which share etudiants
 rule "twoInAJourPenalite"
     when
-        $epreuveConflict : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
+        $epreuveConflit : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
         $leftExam : Examen(epreuve == $leftEpreuve, $leftDayIndex : dayIndex, $leftPeriodIndex : periodeIndex, periode != null)
         $rightExam : Examen(epreuve == $rightEpreuve, dayIndex == $leftDayIndex,
             Math.abs($leftPeriodIndex - periodeIndex) > 1)
     then
-        scoreHolder.penalize(kcontext, $epreuveConflict.getStudentSize());
+        scoreHolder.penalize(kcontext, $epreuveConflit.getEtudiantSize());
 end
 
-// Exams which share students have to few periodes between them
+// Exams which share etudiants have to few periodes between them
 rule "periodeSpreadLength"
     when
         $constraintConfiguration : ExaminationConstraintConfiguration()
-        $epreuveConflict : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
+        $epreuveConflit : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
         $leftExam : Examen(epreuve == $leftEpreuve, $leftPeriodIndex : periodeIndex, periode != null)
         $rightExam : Examen(epreuve == $rightEpreuve, periode != null,
             Math.abs($leftPeriodIndex - periodeIndex) < ($constraintConfiguration.getPeriodSpreadLength() + 1))
     then
-        scoreHolder.penalize(kcontext, $epreuveConflict.getStudentSize());
+        scoreHolder.penalize(kcontext, $epreuveConflit.getEtudiantSize());
 end
 
-// Several exams in the same room and periode have different durations
+// Several exams in the same salle and periode have different durations
 rule "mixedDureePenalite"
     when
-        $leftExam : Examen($leftId : id, periode != null, $periode : periode, room != null, $room : room,
-            $leftEpreuveDuration : epreuveDuration)
+        $leftExam : Examen($leftId : id, periode != null, $periode : periode, salle != null, $salle : salle,
+            $leftEpreuveDuree : epreuveDuree)
         // 4 mixed durations of 100, 150, 200 and 200 should only result in 2 penalties (for 100&150 and 100&200)
-        // leftExam has lowest id of the periode+room combo
-        not Examen(periode == $periode, room == $room, id < $leftId)
+        // leftExam has lowest id of the periode+salle combo
+        not Examen(periode == $periode, salle == $salle, id < $leftId)
         // rightExam has a different duration
-        $rightExam : Examen(periode == $periode, room == $room, id > $leftId,
-            epreuveDuration != $leftEpreuveDuration,
-            $rightId : id, $rightEpreuveDuration : epreuveDuration
+        $rightExam : Examen(periode == $periode, salle == $salle, id > $leftId,
+            epreuveDuree != $leftEpreuveDuree,
+            $rightId : id, $rightEpreuveDuree : epreuveDuree
         )
-        // rightExam has the lowest id of the periode+room+rightDuration combo
-        not Examen(periode == $periode, room == $room, id < $rightId,
-            epreuveDuration == $rightEpreuveDuration
+        // rightExam has the lowest id of the periode+salle+rightDuree combo
+        not Examen(periode == $periode, salle == $salle, id < $rightId,
+            epreuveDuree == $rightEpreuveDuree
         )
     then
         scoreHolder.penalize(kcontext);
@@ -202,8 +202,8 @@ end
 // Room Penalty
 rule "sallePenalitePenalite"
     when
-        $room : Salle(penalty != 0)
-        $exam: Examen(room == $room)
+        $salle : Salle(penalty != 0)
+        $exam: Examen(salle == $salle)
     then
-        scoreHolder.penalize(kcontext, $room.getPenalty());
+        scoreHolder.penalize(kcontext, $salle.getPenalty());
 end

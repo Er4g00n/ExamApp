@@ -13,6 +13,11 @@ public class Promotion {
 	private CheckBox statut;
 	private Button modifier;
 	private static ObservableList<Promotion> promotions = FXCollections.observableArrayList();
+
+	public void setEtudiants(ObservableList<Etudiant> etudiants) {
+		this.etudiants = etudiants;
+	}
+
 	private ObservableList<Etudiant> etudiants;
 
 	public ObservableList<Etudiant> getEtudiants() {
@@ -26,10 +31,10 @@ public class Promotion {
 		this.nom = name;
 		this.filiere = fil;
 
-		this.statut = new CheckBox();
-		this.statut.setOnAction(event -> PromotionViewController.updateNumberSelectedPromotion((Button) (this.statut.getScene().lookup("#promoDel"))));
-		this.modifier = new Button("Modifier");
-		this.modifier.setOnAction(new PromotionModifierEventHandler(this));
+//		this.statut = new CheckBox();
+//		this.statut.setOnAction(event -> PromotionViewController.updateNumberSelectedPromotion((Button) (this.statut.getScene().lookup("#promoDel"))));
+//		this.modifier = new Button("Modifier");
+//		this.modifier.setOnAction(new PromotionModifierEventHandler(this));
 	}
 
 	//Pas utilisé

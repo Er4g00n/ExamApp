@@ -18,8 +18,6 @@
     <orderEntry type="library" name="mysql-connector-java-8.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.kie.kogito:drools-decisiontables:2.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.4.15" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.kie.kogito:drools-decisiontables:1.1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.thoughtworks.xstream:xstream:1.4.14" level="project" />
     <orderEntry type="library" name="Maven: org.optaplanner:optaplanner-core:8.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.kie.kogito:kogito-api:1.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.kie.kogito:kogito-internal:1.0.0.Final" level="project" />
@@ -68,12 +66,12 @@
     <orderEntry type="library" name="Maven: org.optaplanner:optaplanner-persistence-jaxb:8.1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.freemarker:freemarker:2.3.28" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Maven: org.kie.kogito:drools-decisiontables:1.1.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.drools:drools-decisiontables:7.47.0.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.drools:drools-templates:7.47.0.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.drools:drools-mvel:7.47.0.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.kie.soup:kie-soup-project-datamodel-commons:7.47.0.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.kie.soup:kie-soup-project-datamodel-api:7.47.0.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Maven: org.mvel:mvel2:2.4.10.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.drools:drools-decisiontables:7.48.0.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.drools:drools-templates:7.48.0.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.drools:drools-mvel:7.48.0.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.kie.soup:kie-soup-project-datamodel-commons:7.48.0.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.kie.soup:kie-soup-project-datamodel-api:7.48.0.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.mvel:mvel2:2.4.11.Final" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.6" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish:jakarta.json:1.1.6" level="project" />
     <orderEntry type="library" name="Maven: org.jfree:jfreechart:1.5.0" level="project" />

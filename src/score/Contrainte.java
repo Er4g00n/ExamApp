@@ -45,12 +45,12 @@ public class Contrainte implements ConstraintProvider {
         return constraintFactory.from(EpreuveConflit.class)
                 .join(Examen.class,
                         equal(EpreuveConflit::getLeftEpreuve, Examen::getEpreuve),
-                        filtering((epreuveConflict, leftExam) -> leftExam.getPeriode() != null))
+                        filtering((epreuveConflit, leftExam) -> leftExam.getPeriode() != null))
                 .ifExists(Examen.class,
-                        equal((epreuveConflict, leftExam) -> epreuveConflict.getRightEpreuve(), Examen::getEpreuve),
-                        equal((epreuveConflict, leftExam) -> leftExam.getPeriode(), Examen::getPeriode))
+                        equal((epreuveConflit, leftExam) -> epreuveConflit.getRightEpreuve(), Examen::getEpreuve),
+                        equal((epreuveConflit, leftExam) -> leftExam.getPeriode(), Examen::getPeriode))
                 .penalizeConfigurable("conflictingExamensInSamePeriode",
-                        (epreuveConflict, leftExam) -> epreuveConflict.getEtudiantSize());
+                        (epreuveConflit, leftExam) -> epreuveConflit.getEtudiantSize());
     }
 
     protected Constraint periodeDureeTooShort(ConstraintFactory constraintFactory) {
@@ -131,43 +131,43 @@ public class Contrainte implements ConstraintProvider {
         return constraintFactory.from(EpreuveConflit.class)
                 .join(Examen.class,
                         equal(EpreuveConflit::getLeftEpreuve, Examen::getEpreuve),
-                        filtering((epreuveConflict, leftExam) -> leftExam.getPeriode() != null))
+                        filtering((epreuveConflit, leftExam) -> leftExam.getPeriode() != null))
                 .join(Examen.class,
-                        equal((epreuveConflict, leftExam) -> epreuveConflict.getRightEpreuve(), Examen::getEpreuve),
-                        equal((epreuveConflict, leftExam) -> leftExam.getJourIndex(), Examen::getJourIndex),
-                        filtering((epreuveConflict, leftExam,
+                        equal((epreuveConflit, leftExam) -> epreuveConflit.getRightEpreuve(), Examen::getEpreuve),
+                        equal((epreuveConflit, leftExam) -> leftExam.getJourIndex(), Examen::getJourIndex),
+                        filtering((epreuveConflit, leftExam,
                                    rightExam) -> getPeriodeIndexDifferenceBetweenExams(leftExam, rightExam) == 1))
-                .penalizeConfigurable("twoExamensInARow", (epreuveConflict, leftExam, rightExam) -> epreuveConflict.getEtudiantSize());
+                .penalizeConfigurable("twoExamensInARow", (epreuveConflit, leftExam, rightExam) -> epreuveConflit.getEtudiantSize());
     }
 
     protected Constraint twoExamensInAJour(ConstraintFactory constraintFactory) {
         return constraintFactory.from(EpreuveConflit.class)
                 .join(Examen.class,
                         equal(EpreuveConflit::getLeftEpreuve, Examen::getEpreuve),
-                        filtering((epreuveConflict, leftExam) -> leftExam.getPeriode() != null))
+                        filtering((epreuveConflit, leftExam) -> leftExam.getPeriode() != null))
                 .join(Examen.class,
-                        equal((epreuveConflict, leftExam) -> epreuveConflict.getRightEpreuve(), Examen::getEpreuve),
-                        equal((epreuveConflict, leftExam) -> leftExam.getJourIndex(), Examen::getJourIndex),
+                        equal((epreuveConflit, leftExam) -> epreuveConflit.getRightEpreuve(), Examen::getEpreuve),
+                        equal((epreuveConflit, leftExam) -> leftExam.getJourIndex(), Examen::getJourIndex),
                         // Find exams in a jour, but not being held right after each other. That case is handled in the twoExamsInARow constraint.
-                        filtering((epreuveConflict, leftExam,
+                        filtering((epreuveConflit, leftExam,
                                    rightExam) -> getPeriodeIndexDifferenceBetweenExams(leftExam, rightExam) > 1))
-                .penalizeConfigurable("twoExamensInAJour", (epreuveConflict, leftExam, rightExam) -> epreuveConflict.getEtudiantSize());
+                .penalizeConfigurable("twoExamensInAJour", (epreuveConflit, leftExam, rightExam) -> epreuveConflit.getEtudiantSize());
     }
 
     protected Constraint periodeSpread(ConstraintFactory constraintFactory) {
         return constraintFactory.from(CalendrierContraintes.class)
                 .join(EpreuveConflit.class)
                 .join(Examen.class,
-                        equal((config, epreuveConflict) -> epreuveConflict.getLeftEpreuve(), Examen::getEpreuve),
-                        filtering((config, epreuveConflict, leftExam) -> leftExam.getPeriode() != null))
+                        equal((config, epreuveConflit) -> epreuveConflit.getLeftEpreuve(), Examen::getEpreuve),
+                        filtering((config, epreuveConflit, leftExam) -> leftExam.getPeriode() != null))
                 .join(Examen.class,
-                        equal((config, epreuveConflict, leftExam) -> epreuveConflict.getRightEpreuve(), Examen::getEpreuve),
-                        filtering((config, epreuveConflict, leftExam, rightExam) -> rightExam.getPeriode() != null),
-                        filtering((config, epreuveConflict, leftExam,
+                        equal((config, epreuveConflit, leftExam) -> epreuveConflit.getRightEpreuve(), Examen::getEpreuve),
+                        filtering((config, epreuveConflit, leftExam, rightExam) -> rightExam.getPeriode() != null),
+                        filtering((config, epreuveConflit, leftExam,
                                    rightExam) -> getPeriodeIndexDifferenceBetweenExams(leftExam,
                                 rightExam) < (config.getPeriodeSpreadLength() + 1)))
                 .penalizeConfigurable("periodeSpread",
-                        (config, epreuveConflict, leftExam, rightExam) -> epreuveConflict.getEtudiantSize());
+                        (config, epreuveConflit, leftExam, rightExam) -> epreuveConflit.getEtudiantSize());
     }
 
     protected Constraint mixedDurees(ConstraintFactory constraintFactory) {
