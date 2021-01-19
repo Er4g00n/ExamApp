@@ -1,12 +1,10 @@
 package connexion;
 
-import optaplanner.Examen;
 import utilisateur.Etudiant;
 import salle.Salle;
 import promotion.Promotion;
 
 import java.sql.*;
-import java.util.List;
 
 import static promotion.Promotion.getPromotions;
 import static promotion.Promotion.nomToPromotion;
@@ -18,15 +16,15 @@ public class BDD {
 
     public BDD(){
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://sql2.freemysqlhosting.net:3306/sql2384991","sql2384991","rD7*wI2!");
+            con = DriverManager.getConnection("jdbc:mariadb://er4goon.com/er4g_ExamApp","er4g_DevExamApp2","5Fo#ivMoexM9^kix");
+//            con = DriverManager.getConnection("jdbc:mysql://sql2.freemysqlhosting.net/sql2387911","sql2387911","cJ4!xA1!");
             st = con.createStatement();
 
         }catch(Exception ex){
             System.out.println("Error is found :"+ex);
         }
 
-        Controller notification = new Controller();
+        ConnexionController notification = new ConnexionController();
     }
     public void getData(String sql){
         try{
@@ -54,7 +52,7 @@ public class BDD {
             rs = st.executeQuery(sql);
 
             if (!rs.isBeforeFirst()) {
-                Controller notification = new Controller();
+                ConnexionController notification = new ConnexionController();
                 notification.notification("Cette adresse Email n'est pas enregistrée !", "INFORMATION", 1.0);
                 return false;
             }
@@ -66,11 +64,11 @@ public class BDD {
 
                 if (email.toLowerCase().equals(db_email.toLowerCase()) && mdp.equals(db_mdp)){
                     login = true;
-                    Controller notification = new Controller();
+                    ConnexionController notification = new ConnexionController();
                     notification.notification("Connexion réussi !", "SUCCES", 1.0);
                 }
                 else {
-                    Controller notification = new Controller();
+                    ConnexionController notification = new ConnexionController();
                     notification.notification("Erreur identifiants !", "ERROR", 1.0);
                 }
             }

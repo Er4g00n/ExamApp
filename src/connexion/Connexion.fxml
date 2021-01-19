@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="AnchorPaneParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #24242F;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="connexion.Controller">
+<AnchorPane fx:id="AnchorPaneParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #24242F;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="connexion.ConnexionController">
    <children>
       <AnchorPane fx:id="AnchorPaneLogin" layoutX="362.0" layoutY="227.0" prefHeight="266.0" prefWidth="357.0" style="-fx-background-color: #2C2C37; -fx-background-radius: 10;">
          <children>

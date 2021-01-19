@@ -26,7 +26,7 @@ import java.util.ResourceBundle;
 
 
 
-public class Controller implements Initializable{
+public class ConnexionController implements Initializable{
 
     @FXML
     private TextField txtEmail;
@@ -46,17 +46,14 @@ public class Controller implements Initializable{
             notification("Vous devez remplir tous les champs !", "WARNING", 1.0);
             return;
         }
-        Connection con = dbConnexion.connect();
-        PreparedStatement stat = null;
-        ResultSet rs = null;
-        String sql = "SELECT * FROM Personnels WHERE email ? AND password = ?";
+
         try {
             BDD connct = new BDD();
             boolean checkLogin = connct.checkLogin(txtEmail.getText().toString(), txtPassword.getText().toString());
             txtPassword.setText("");
             if (checkLogin != true){
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/sample.fxml"));
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/Sample.fxml"));
                     Stage stage = (Stage) (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
                     Scene scene = new Scene(loader.load());
                     stage.setScene(scene);

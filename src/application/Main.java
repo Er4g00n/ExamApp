@@ -1,6 +1,13 @@
 package application;
 
 import connexion.BDD;
+import javafx.animation.FadeTransition;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.paint.Color;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import optaplanner.Examen;
 import salle.Salle;
 import javafx.application.Application;
@@ -13,15 +20,26 @@ import javafx.scene.control.TableView;
 
 
 public class Main extends Application {
+	@FXML
+	private ProgressBar progressBar;
+
+	@FXML
+	private Label labelTitre;
+
+	private FadeTransition fadeIn = new FadeTransition(
+			Duration.millis(3000)
+	);
 
 	private String darktheme = getClass().getResource("darkmode.css").toExternalForm();
 	private String lighttheme = getClass().getResource("lightmode.css").toExternalForm();
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("../connexion/Connexion.fxml"));
+
+		Parent root = FXMLLoader.load(getClass().getResource("../loader/SplashScreen.fxml"));
 		primaryStage.setTitle("ExamApp | Connexion");
-		primaryStage.setScene(new Scene(root));
+		primaryStage.setScene(new Scene(root, Color.TRANSPARENT));
+		primaryStage.initStyle(StageStyle.TRANSPARENT);
 		primaryStage.setResizable(false);
 		primaryStage.show();
 
