@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" styleClass="fondnoir" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="promotion.PromotionViewController">
+<BorderPane fx:id="borderPanePromotions" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" styleClass="fondnoir" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="promotion.PromotionViewController">
    <top>
       <HBox prefHeight="0.0" prefWidth="760.0" BorderPane.alignment="CENTER" />
    </top>

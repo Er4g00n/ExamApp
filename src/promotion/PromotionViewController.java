@@ -3,25 +3,28 @@ package promotion;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import connexion.BDD;
+import javafx.animation.FadeTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class PromotionViewController implements Initializable {
 
+	@FXML
+	public BorderPane borderPanePromotions;
 	@FXML
 	public TableView<Promotion> promotionTable;
 	@FXML
@@ -44,7 +47,6 @@ public class PromotionViewController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		promotionDelButton.setId("promoDel");
 		promotionNomColumn.setReorderable(false);
 		promotionFiliereColumn.setReorderable(false);
@@ -79,12 +81,30 @@ public class PromotionViewController implements Initializable {
 
 	}
 
+	// Met à jour la couleur le nombre de sélection
 	public static void updateNumberSelectedPromotion(Button del) {
-		del.setText("-    Supprimer ("+Promotion.getPromotions().stream().filter(e -> e.getStatut().isSelected()).count()+")");
+		long number = Promotion.getPromotions().stream().filter(e -> e.getStatut().isSelected()).count();
+		if (number > 0){
+			del.setStyle("-fx-opacity: 1;");
+		}
+		else {
+			del.setStyle("-fx-opacity: 0.5;");
+		}
+		del.setText("-    Supprimer ("+number+")");
 	}
+
 	@FXML
 	private void delButtonAction(ActionEvent event) {
+		for (Promotion element : promotionTable.getItems()) {
+			BDD bdd = new BDD();
+			if (element.getStatut().isSelected() == true){
+				bdd.supprimerPromotion(element.getFiliere());
+			}
+
+		}
 		promotionTable.getItems().removeIf(p -> p.getStatut().isSelected());
+
+
 		updateNumberSelectedPromotion(promotionDelButton);
 	}
 

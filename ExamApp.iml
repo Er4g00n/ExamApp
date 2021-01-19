@@ -86,7 +86,6 @@
     <orderEntry type="library" name="Maven: org.optaplanner:optaplanner-persistence-xstream:8.0.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.optaplanner:optaplanner-persistence-common:8.0.0.Final" level="project" />
     <orderEntry type="library" name="javafx-swt" level="project" />
-    <orderEntry type="library" name="mysql-connector-java-8.0.22" level="project" />
     <orderEntry type="library" name="org.mariadb.jdbc:mariadb-java-client:2.7.1" level="project" />
   </component>
 </module>

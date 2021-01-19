@@ -31,7 +31,7 @@
     -fx-font-size: 16;
     -fx-background-radius: 8;
     -fx-cursor: hand;
-    -fx-text-fill : rgb(144, 232, 179);
+    -fx-text-fill : #ffffff;
 }
 
 
@@ -45,11 +45,11 @@
     -fx-font-size: 16;
     -fx-background-radius: 8;
     -fx-cursor: hand;
-    -fx-text-fill : rgb(255, 132, 122);
+    -fx-text-fill : #ffffff;
 }
 
 .delButton:pressed {
-	-fx-opacity : 1;
+	-fx-opacity : 0.5;
 }
 
 .center-content {
