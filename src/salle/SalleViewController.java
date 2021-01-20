@@ -3,8 +3,10 @@ package salle;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import connexion.BDD;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +21,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import promotion.Promotion;
 
 public class SalleViewController implements Initializable {
 
@@ -27,7 +30,7 @@ public class SalleViewController implements Initializable {
 	@FXML
 	private TableColumn<Salle, String> salleNomColumn;
 	@FXML
-	private TableColumn<Salle, String> salleDispoColumn;
+	private TableColumn<Salle, String> salleTypeColumn;
 	@FXML
 	private TableColumn<Salle, Integer> salleCapaciteColumn;
 	@FXML
@@ -41,18 +44,19 @@ public class SalleViewController implements Initializable {
 
 	private CheckBox salleSelectAll = new CheckBox();
 
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		salleDelButton.setId("salleDel");
 		salleNomColumn.setReorderable(false);
-		salleDispoColumn.setReorderable(false);
+		salleTypeColumn.setReorderable(false);
 		salleCapaciteColumn.setReorderable(false);
 		salleCheckColumn.setReorderable(false);
 		salleModifColumn.setReorderable(false);
 
 		salleNomColumn.setCellValueFactory(new PropertyValueFactory<Salle, String>("nom"));
-		salleDispoColumn.setCellValueFactory(new PropertyValueFactory<Salle, String>("dispo"));
+		salleTypeColumn.setCellValueFactory(new PropertyValueFactory<Salle, String>("type"));
 		salleCapaciteColumn.setCellValueFactory(new PropertyValueFactory<Salle, Integer>("capacite"));
 		salleModifColumn.setCellValueFactory(new PropertyValueFactory<Salle, Void>("modifier"));
 		salleCheckColumn.setCellValueFactory(new PropertyValueFactory<Salle, Void>("statut"));
@@ -79,17 +83,39 @@ public class SalleViewController implements Initializable {
 
 	}
 
+	// Met à jour la couleur le nombre de sélection
 	public static void updateNumberSelectedSalle(Button del) {
-		del.setText("-    Supprimer ("+Salle.getSalles().stream().filter(e -> e.getStatut().isSelected()).count()+")");
+		long number = Salle.getSalles().stream().filter(e -> e.getStatut().isSelected()).count();
+		if (number > 0){
+			del.setStyle("-fx-opacity: 1;");
+		}
+		else {
+			del.setStyle("-fx-opacity: 0.5;");
+		}
+		del.setText("-    Supprimer ("+number+")");
 	}
 	@FXML
 	private void delButtonAction(ActionEvent event) {
+		BDD bdd = new BDD();
+		for (Salle element : salleTable.getItems()) {
+			if (element.getStatut().isSelected() == true){
+				bdd.supprimerSalle(element.getNom());
+			}
+		}
 		salleTable.getItems().removeIf(p -> p.getStatut().isSelected());
 		updateNumberSelectedSalle(salleDelButton);
 	}
 
 	@FXML
 	private void addButtonAction(ActionEvent event) throws Exception {
+
+		SalleSubStageController salleSubStageController = new SalleSubStageController();
+		for (Salle element : salleTable.getItems()) {
+			if (element.getStatut().isSelected() == true){
+				salleSubStageController.initializeTypeSalle(element.getType());
+			}
+		}
+
 		Parent root = FXMLLoader.load(getClass().getResource("SalleSubStage.fxml"));
 		Scene scene = new Scene(root);
 		Stage subStage = new Stage();

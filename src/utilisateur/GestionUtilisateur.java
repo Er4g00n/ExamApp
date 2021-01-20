@@ -1,7 +1,7 @@
 package utilisateur;
 
 
-import salle.Salle;
+import javafx.collections.ObservableList;
 import promotion.Promotion;
 
 import java.util.Hashtable;
@@ -10,10 +10,9 @@ import java.util.Hashtable;
  * The type Gestion utilisateur.
  */
 public class GestionUtilisateur {
-
-    private static Hashtable listEtudiant ;
-    private static Hashtable listScolarite ;
-    private static Hashtable listSecretariat ;
+    private static Hashtable listEtudiant;
+    private static Hashtable listScolarite;
+    private static Hashtable listSecretariat;
 
 
     /**
@@ -25,14 +24,9 @@ public class GestionUtilisateur {
      * @param numeroEtudiant the numero etudiant
      * @param filiere        the filiere
      */
-    public static void creerEtudiant(String nom, String prenom, String email, String numeroEtudiant, Promotion filiere, Long id) {
-        if (listEtudiant.containsKey(numeroEtudiant))
-            System.out.println(nom +" "+prenom +"est deja dans la liste des etudiant");
-        else
-            {
-                Etudiant e = new Etudiant(nom, prenom, email, numeroEtudiant, filiere, id);
-                listEtudiant.put(e.getNumeroEtudiant(), e);
-            }
+    public static Etudiant creerEtudiant(String nom, String prenom, String email, String numeroEtudiant, Promotion filiere, Long id) {
+        Etudiant e = new Etudiant(nom, prenom, email, numeroEtudiant, filiere, id);
+        return e;
     }
 
     /**

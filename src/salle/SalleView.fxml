@@ -47,8 +47,8 @@
               <columns>
                 <TableColumn fx:id="salleCheckColumn" prefWidth="75.0" sortable="false" />
                 <TableColumn fx:id="salleNomColumn" prefWidth="175.0" text="Nom" />
-                  <TableColumn fx:id="salleDispoColumn" prefWidth="190.0" text="Plage de disponibilité" />
                   <TableColumn fx:id="salleCapaciteColumn" prefWidth="130.0" text="Capacité" />
+                  <TableColumn fx:id="salleTypeColumn" prefWidth="190.0" text="Type" />
                   <TableColumn fx:id="salleModifColumn" prefWidth="128.0" sortable="false" text="Modifcation" />
               </columns>
             </TableView>

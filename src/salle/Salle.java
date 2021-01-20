@@ -16,11 +16,8 @@ import salle.SalleViewController;
 public class Salle extends AbstractPersistable implements Labeled {
 	private String nom;
 	private Integer capacite;
+	private String type;
 
-	private Type type;
-	private Specificite specificite;
-
-	private String dispo;
 	private CheckBox statut;
 	private Button modifier;
 	private static ObservableList<salle.Salle> salles = FXCollections.observableArrayList();
@@ -32,17 +29,16 @@ public class Salle extends AbstractPersistable implements Labeled {
 	 * @param nom         the nom
 	 * @param capacite    the capacite
 	 */
-	public Salle(String nom, Integer capacite) {
+	public Salle(String nom, Integer capacite, String type) {
 
 		this.nom = nom;
 		this.capacite = capacite;
 		this.type = type;
-		this.specificite = specificite;
 
-//		this.statut = new CheckBox();
-	//	this.statut.setOnAction(event -> SalleViewController.updateNumberSelectedSalle((Button) (this.statut.getScene().lookup("#salleDel"))));
-	//	this.modifier = new Button("Modifier");
-	//	this.modifier.setOnAction(new SalleModifierEventHandler(this));
+		this.statut = new CheckBox();
+		this.statut.setOnAction(event -> SalleViewController.updateNumberSelectedSalle((Button) (this.statut.getScene().lookup("#salleDel"))));
+		this.modifier = new Button("Modifier");
+		this.modifier.setOnAction(new SalleModifierEventHandler(this));
 		salles.add(this);
 	}
 
@@ -103,8 +99,7 @@ public class Salle extends AbstractPersistable implements Labeled {
 	 *
 	 * @return the type
 	 */
-	public Type getType() {
-
+	public String getType() {
 		return this.type;
 	}
 
@@ -113,29 +108,8 @@ public class Salle extends AbstractPersistable implements Labeled {
 	 *
 	 * @param type the type
 	 */
-	public void setType(Type type) {
-
+	public void setType(String type) {
 		this.type = type;
-	}
-
-	/**
-	 * Obtient specificite.
-	 *
-	 * @return the specificite
-	 */
-	public Specificite getSpecificite() {
-
-		return this.specificite;
-	}
-
-	/**
-	 * Definit specificite.
-	 *
-	 * @param specificite the specificite
-	 */
-	public void setSpecificite(Specificite specificite) {
-
-		this.specificite = specificite;
 	}
 
 	public CheckBox getStatut() {

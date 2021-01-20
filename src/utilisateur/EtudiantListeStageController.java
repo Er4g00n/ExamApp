@@ -47,8 +47,11 @@ public class EtudiantListeStageController implements Initializable {
 	private CheckBox etudiantSelectAll = new CheckBox();
 	
 	private Promotion cPromotion;
-	
-	@Override
+
+    public static void updateNumberSelectedEtudiant(Button lookup) {
+    }
+
+    @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
@@ -65,7 +68,7 @@ public class EtudiantListeStageController implements Initializable {
 		
 		etudiantNomColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, String>("nom"));
 		etudiantPrenomColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, String>("prenom"));
-		etudiantNumEtuColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Integer>("numEtudiant"));
+		etudiantNumEtuColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Integer>("numEtu"));
 		etudiantModifColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Void>("modifier"));
 		etudiantCheckColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Void>("statut"));
 		etudiantCheckColumn.setGraphic(etudiantSelectAll);

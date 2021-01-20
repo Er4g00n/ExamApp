@@ -64,6 +64,18 @@ public class Promotion {
 		return filliere;
 	}
 
+
+	// Récupère un objet promotion à partir d'un noim de promotion
+	public static Promotion getPromotionFromName(String libelle){
+		Promotion promotion = null;
+		for (Promotion element : getPromotions()) {
+			if (element.getFiliere().equals(libelle)){
+				promotion = element;
+			}
+		}
+		return promotion;
+	}
+
 	@Override
 	public String toString() {
 		return idFiliere;

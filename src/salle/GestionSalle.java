@@ -8,12 +8,12 @@ public class GestionSalle {
     private static final Hashtable listSalle = new Hashtable();
 
 
-    public static void creerSalle(String nom, Integer capacite, Type type, Specificite specificite, String dispo) {
+    public static void creerSalle(String nom, Integer capacite, String type) {
         if (listSalle.containsKey(nom))
             System.out.println("la salle " + nom + " existe deja");
 
         else {
-            Salle e = new Salle(nom, capacite);
+            Salle e = new Salle(nom, capacite, type);
             listSalle.put(e.getNom(), e);
         }
     }
@@ -29,10 +29,9 @@ public class GestionSalle {
     }
 
 
-    public static void modifierSalle(String nom, Integer capacite, Type type, Specificite specificite, String dispo) {
+    public static void modifierSalle(String nom, Integer capacite, String type) {
         if (listSalle.containsKey(nom)) {
-            Salle e = new Salle(nom,
-                    capacite);
+            Salle e = new Salle(nom, capacite, type);
 
             listSalle.put(e.getNom(), e);
         } else

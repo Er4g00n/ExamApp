@@ -3,12 +3,15 @@ package connexion;
  * Classe qui initialise la connexion à une base de données
  * Cette Classe contient toutes les méthodes qui interagissent avec la base de données
  */
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import utilisateur.Etudiant;
 import salle.Salle;
 import promotion.Promotion;
+import utilisateur.GestionUtilisateur;
 
 import java.sql.*;
+import java.util.Hashtable;
 
 import static promotion.Promotion.*;
 
@@ -129,17 +132,11 @@ public class BDD {
                 String db_nom = rs.getString("nom");
                 String db_prenom = rs.getString("prenom");
                 String db_email = rs.getString("email");
-                String db_filliere = rs.getString("libelle");
+                String db_libelle = rs.getString("libelle");
 
-                Promotion filliere = nomToPromotion(db_filliere);
-
-                Etudiant a = new Etudiant(db_nom, db_prenom, db_email, db_numEtu, filliere, null);
-
-                for (Promotion promotion : getPromotions()) {
-                    if(promotion.getIdFiliere().equals(db_idEtuListe)){
-                        promotion.ajouterEtudiant(a);
-                    }
-                }
+                Promotion filliere = Promotion.getPromotionFromName(db_libelle);
+                Etudiant a = GestionUtilisateur.creerEtudiant(db_nom, db_prenom, db_email, db_numEtu, filliere, null);
+                filliere.ajouterEtudiant(a);
             }
 
         }catch(Exception ex){
@@ -150,14 +147,15 @@ public class BDD {
     // Récupère dans la base de données les Salles et les initialisent
     public void loadSalles(){
         try{
-            String sql = "SELECT * FROM Salles";
+            String sql = "SELECT idSalle, Salles.libelle, capacite, SalleTypes.libelle  AS 'type' FROM Salles INNER JOIN SalleTypes ON Salles.idType = SalleTypes.idType";
             rs = st.executeQuery(sql);
 
             while(rs.next()){
                 String db_idSalle = rs.getString("idSalle");
                 String db_libelle = rs.getString("libelle");
-                String db_capacite = rs.getString("capacite");
-                new Salle(db_libelle, Integer.parseInt(db_capacite));
+                int db_capacite = rs.getInt("capacite");
+                String db_type = rs.getString("type");
+                new Salle(db_libelle, db_capacite, db_type);
             }
 
         }catch(Exception ex){
@@ -293,8 +291,104 @@ public class BDD {
             }
 
         }catch(Exception ex){
-            System.out.println("Error is found to loadEtudiants :"+ex);
+            System.out.println("Error is found to getLastIdPromotion :"+ex);
         }
         return lastID;
     }
+
+    public ObservableList<Object> getTypeSalle() {
+        ObservableList<Object> type = FXCollections.observableArrayList();
+        try{
+            String sql = "SELECT libelle FROM SalleTypes";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                type.add(rs.getString("libelle"));
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getTypeSalle :"+ex);
+        }
+        return type;
+    }
+
+    // Suprime Salle dans bdd
+    public void supprimerSalle(String nom) {
+        try{
+            String query = "DELETE FROM Salles WHERE libelle = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nom);
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add delete Salle :"+ex);
+        }
+    }
+
+    public void modifierSalle(String nom, int capacite, int idType, int idSalle) {
+        try{
+            String query = "UPDATE Salles SET libelle = ?, capacite = ?, idType = ? WHERE idSalle = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nom);
+            preparedStmt.setInt(2, capacite);
+            preparedStmt.setInt(3, idType);
+            preparedStmt.setInt(4, idSalle);
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to modify Salle :"+ex);
+        }
+    }
+
+    public int getIdFromSalle(String libelle) {
+        int idFromSalle = 0;
+
+        try{
+            String query = "SELECT idSalle FROM Salles WHERE libelle = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libelle);
+            preparedStmt.executeUpdate();
+            while(rs.next()){
+                idFromSalle = rs.getInt("idSalle");
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getIdFromSalle :"+ex);
+        }
+        return idFromSalle;
+    }
+
+    public int getIdTypeFromlibelle(String libelle) {
+        int IdType = 0;
+        try{
+            String sql = "SELECT idType, libelle FROM SalleTypes";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                if (rs.getString("libelle").equals(libelle)){
+                    IdType = rs.getInt("idType");
+                }
+            }
+        }catch(Exception ex){
+            System.out.println("Error is found to getIdTypeFromlibelle :"+ex);
+        }
+        return IdType;
+    }
+
+
+    public void ajouterSalle(String nom, int capacite, int idType) {
+        try{
+            String query = "INSERT INTO Salles (libelle, capacite, idType) VALUES (?, ?, ?)";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nom);
+            preparedStmt.setInt(2, capacite);
+            preparedStmt.setInt(3, idType);
+
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add Salle :"+ex);
+        }
+    }
+
 }
