@@ -46,8 +46,8 @@ public class ConnexionController implements Initializable{
         }
 
         try {
-            BDD connct = new BDD();
-            boolean checkLogin = connct.checkLogin(txtEmail.getText().toString(), txtPassword.getText().toString());
+            BDD bdd = new BDD();
+            boolean checkLogin = bdd.checkLogin(txtEmail.getText().toString(), txtPassword.getText().toString());
             txtPassword.setText("");
             if (checkLogin != true){
                 try {

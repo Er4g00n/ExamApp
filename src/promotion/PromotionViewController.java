@@ -1,13 +1,14 @@
 package promotion;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.SampleController;
 import connexion.BDD;
-import javafx.animation.FadeTransition;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,16 +20,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.Duration;
+import loader.SplashScreenController;
+import org.drools.model.Model;
 
 public class PromotionViewController implements Initializable {
 
 	@FXML
-	public BorderPane borderPanePromotions;
+	public BorderPane borderPane1;
 	@FXML
 	public TableView<Promotion> promotionTable;
 	@FXML
-	private TableColumn<Promotion, String> promotionNomColumn;
+	private TableColumn<Promotion, String> promotionIdFiliereColumn;
 	@FXML
 	private TableColumn<Promotion, String> promotionFiliereColumn;
 	@FXML
@@ -44,17 +46,16 @@ public class PromotionViewController implements Initializable {
 
 	private CheckBox promotionSelectAll = new CheckBox();
 
-
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		promotionDelButton.setId("promoDel");
-		promotionNomColumn.setReorderable(false);
+		promotionIdFiliereColumn.setReorderable(false);
 		promotionFiliereColumn.setReorderable(false);
 		promotionNbEtuColumn.setReorderable(false);
 		promotionCheckColumn.setReorderable(false);
 		promotionModifColumn.setReorderable(false);
 
-		promotionNomColumn.setCellValueFactory(new PropertyValueFactory<Promotion, String>("nom"));
+		promotionIdFiliereColumn.setCellValueFactory(new PropertyValueFactory<Promotion, String>("idFiliere"));
 		promotionFiliereColumn.setCellValueFactory(new PropertyValueFactory<Promotion, String>("filiere"));
 		promotionNbEtuColumn.setCellValueFactory(new PropertyValueFactory<Promotion, Integer>("nbetu"));
 		promotionModifColumn.setCellValueFactory(new PropertyValueFactory<Promotion, Void>("modifier"));
@@ -95,16 +96,13 @@ public class PromotionViewController implements Initializable {
 
 	@FXML
 	private void delButtonAction(ActionEvent event) {
+		BDD bdd = new BDD();
 		for (Promotion element : promotionTable.getItems()) {
-			BDD bdd = new BDD();
 			if (element.getStatut().isSelected() == true){
 				bdd.supprimerPromotion(element.getFiliere());
 			}
-
 		}
 		promotionTable.getItems().removeIf(p -> p.getStatut().isSelected());
-
-
 		updateNumberSelectedPromotion(promotionDelButton);
 	}
 
@@ -128,4 +126,5 @@ public class PromotionViewController implements Initializable {
 	public TableView<Promotion> getPromotionTable() {
 		return promotionTable;
 	}
+
 }

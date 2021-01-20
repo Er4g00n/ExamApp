@@ -67,12 +67,7 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		BDD loadDataBDD = new BDD();
-		loadDataBDD.loadPromotions();
-		loadDataBDD.loadSalles();
-		loadDataBDD.loadEtudiants();
-		loadDataBDD.loadExamens();
-
+		BDD bdd = new BDD();
 		launch(args);
 	}
 

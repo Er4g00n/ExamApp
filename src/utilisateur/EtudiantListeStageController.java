@@ -3,7 +3,6 @@ package utilisateur;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import utilisateur.Etudiant;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -127,7 +126,7 @@ public class EtudiantListeStageController implements Initializable {
 
 	public void setPromotion(Promotion p) {
 		this.cPromotion = p;
-		this.nomPromo.setText(cPromotion.getNom());
+		this.nomPromo.setText(cPromotion.getIdFiliere());
 		etudiantTable.setItems(cPromotion.getEtudiants());
 		
 	}

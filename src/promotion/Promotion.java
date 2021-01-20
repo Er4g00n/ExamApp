@@ -8,7 +8,7 @@ import javafx.scene.control.CheckBox;
 
 public class Promotion {
 
-	private String nom, filiere;
+	private String idFiliere, filiere;
 	private int nbetu;
 	private CheckBox statut;
 	private Button modifier;
@@ -23,7 +23,7 @@ public class Promotion {
 		this.etudiants = FXCollections.observableArrayList();
 		promotions.add(this);
 		this.nbetu = 0;
-		this.nom = name;
+		this.idFiliere = name;
 		this.filiere = fil;
 
 		this.statut = new CheckBox();
@@ -58,7 +58,7 @@ public class Promotion {
 
 	public static Promotion nomToPromotion(String promotionName){
 		Promotion filliere = getPromotions().stream()
-				.filter(fil -> promotionName.equals(fil.getNom()))
+				.filter(fil -> promotionName.equals(fil.getIdFiliere()))
 				.findAny()
 				.orElse(null);
 		return filliere;
@@ -66,15 +66,15 @@ public class Promotion {
 
 	@Override
 	public String toString() {
-		return nom;
+		return idFiliere;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getIdFiliere() {
+		return idFiliere;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setIdFiliere(String idFiliere) {
+		this.idFiliere = idFiliere;
 	}
 
 	public String getFiliere() {
@@ -91,6 +91,10 @@ public class Promotion {
 
 	public static ObservableList<Promotion> getPromotions() {
 		return promotions;
+	}
+
+	public static void clearPromotion() {
+		promotions = FXCollections.observableArrayList();
 	}
 
 	public Button getModifier() {
