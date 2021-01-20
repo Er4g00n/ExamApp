@@ -22,13 +22,13 @@ public class Contrainte implements ConstraintProvider {
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
         return new Constraint[] {
                 // Hard constraints
-                conflictingExamensInSamePeriode(constraintFactory),
-                periodeDureeTooShort(constraintFactory),
-                salleCapaciteTooSmall(constraintFactory),
-                periodePenaliteExamenCoincidence(constraintFactory),
-                periodePenaliteExclusion(constraintFactory),
-                periodePenaliteAfter(constraintFactory),
-                sallePenaliteExclusive(constraintFactory),
+                conflitExamenDansLaMemePeriode(constraintFactory),
+                periodeDureeTropCourte(constraintFactory),
+                capaciteSalleTropPetite(constraintFactory),
+                periodePenaliteExamenCoincidencePenalite(constraintFactory),
+                periodePenaliteExclusionPenalite(constraintFactory),
+                periodePenaliteAfterPenalite(constraintFactory),
+                sallePenaliteExclusivePenalite(constraintFactory),
 
                 // Soft constraints
                 twoExamensInARow(constraintFactory),
@@ -41,7 +41,7 @@ public class Contrainte implements ConstraintProvider {
         };
     }
 
-    protected Constraint conflictingExamensInSamePeriode(ConstraintFactory constraintFactory) {
+    protected Constraint conflitExamenDansLaMemePeriode(ConstraintFactory constraintFactory) {
         return constraintFactory.from(EpreuveConflit.class)
                 .join(Examen.class,
                         equal(EpreuveConflit::getLeftEpreuve, Examen::getEpreuve),
@@ -49,27 +49,27 @@ public class Contrainte implements ConstraintProvider {
                 .ifExists(Examen.class,
                         equal((epreuveConflit, leftExam) -> epreuveConflit.getRightEpreuve(), Examen::getEpreuve),
                         equal((epreuveConflit, leftExam) -> leftExam.getPeriode(), Examen::getPeriode))
-                .penalizeConfigurable("conflictingExamensInSamePeriode",
+                .penalizeConfigurable("conflitExamenDansLaMemePeriode",
                         (epreuveConflit, leftExam) -> epreuveConflit.getEtudiantSize());
     }
 
-    protected Constraint periodeDureeTooShort(ConstraintFactory constraintFactory) {
+    protected Constraint periodeDureeTropCourte(ConstraintFactory constraintFactory) {
         return constraintFactory.from(Examen.class)
                 .filter(exam -> exam.getEpreuveDuree() > exam.getPeriodeDuree())
-                .penalizeConfigurable("periodeDureeTooShort", Examen::getEpreuveEtudiantSize);
+                .penalizeConfigurable("periodeDureeTropCourte", Examen::getEpreuveEtudiantSize);
     }
 
-    protected Constraint salleCapaciteTooSmall(ConstraintFactory constraintFactory) {
+    protected Constraint capaciteSalleTropPetite(ConstraintFactory constraintFactory) {
         return constraintFactory.from(Examen.class)
                 //  Periode is genuine planning variable on ExamenEnCours, shadow var on FollowingExam, nothing on Exam.
                 .filter(exam -> exam.getPeriode() != null)
                 .groupBy(Examen::getSalle, Examen::getPeriode, sum(Examen::getEpreuveEtudiantSize))
                 .filter((salle, periode, totalEtudiantSize) -> totalEtudiantSize > salle.getCapacite())
-                .penalizeConfigurable("salleCapaciteTooSmall",
+                .penalizeConfigurable("capaciteSalleTropPetite",
                         (salle, periode, totalEtudiantSize) -> totalEtudiantSize - salle.getCapacite());
     }
 
-    protected Constraint periodePenaliteExamenCoincidence(ConstraintFactory constraintFactory) {
+    protected Constraint periodePenaliteExamenCoincidencePenalite(ConstraintFactory constraintFactory) {
         return constraintFactory.from(PeriodePenalite.class)
                 .filter(periodePenalite -> periodePenalite.getPeriodePenaliteType() == PeriodePenaliteType.EXAM_COINCIDENCE)
                 .join(Examen.class,
@@ -79,12 +79,12 @@ public class Contrainte implements ConstraintProvider {
                         equal((periodePenalite, leftExam) -> periodePenalite.getRightEpreuve(), Examen::getPeriode),
                         filtering((periodePenalite, leftExam, rightExam) -> rightExam.getPeriode() != null),
                         filtering((periodePenalite, leftExam, rightExam) -> leftExam.getPeriode() != rightExam.getPeriode()))
-                .penalizeConfigurable("periodePenaliteExamenCoincidence",
+                .penalizeConfigurable("periodePenaliteExamenCoincidencePenalite",
                         (periodePenalite, leftExam, rightExam) -> leftExam.getEpreuve().getEtudiantSize()
                                 + rightExam.getEpreuve().getEtudiantSize());
     }
 
-    protected Constraint periodePenaliteExclusion(ConstraintFactory constraintFactory) {
+    protected Constraint periodePenaliteExclusionPenalite(ConstraintFactory constraintFactory) {
         return constraintFactory.from(PeriodePenalite.class)
                 .filter(periodePenalite -> periodePenalite.getPeriodePenaliteType() == PeriodePenaliteType.EXCLUSION)
                 .join(Examen.class,
@@ -93,12 +93,12 @@ public class Contrainte implements ConstraintProvider {
                 .join(Examen.class,
                         equal((periodePenalite, leftExam) -> periodePenalite.getRightEpreuve(), Examen::getPeriode),
                         equal((periodePenalite, leftExam) -> leftExam.getPeriode(), Examen::getPeriode))
-                .penalizeConfigurable("periodePenaliteExclusion",
+                .penalizeConfigurable("periodePenaliteExclusionPenalite",
                         (periodePenalite, leftExam, rightExam) -> leftExam.getEpreuve().getEtudiantSize()
                                 + rightExam.getEpreuve().getEtudiantSize());
     }
 
-    protected Constraint periodePenaliteAfter(ConstraintFactory constraintFactory) {
+    protected Constraint periodePenaliteAfterPenalite(ConstraintFactory constraintFactory) {
         return constraintFactory.from(PeriodePenalite.class)
                 .filter(periodePenalite -> periodePenalite.getPeriodePenaliteType() == PeriodePenaliteType.AFTER)
                 .join(Examen.class,
@@ -107,12 +107,12 @@ public class Contrainte implements ConstraintProvider {
                 .join(Examen.class,
                         equal((periodePenalite, leftExam) -> periodePenalite.getRightEpreuve(), Examen::getEpreuve),
                         lessThanOrEqual((periodePenalite, leftExam) -> leftExam.getPeriodeIndex(), Examen::getPeriodeIndex))
-                .penalizeConfigurable("periodePenaliteAfter",
+                .penalizeConfigurable("periodePenaliteAfterPenalite",
                         (periodePenalite, leftExam, rightExam) -> leftExam.getEpreuve().getEtudiantSize()
                                 + rightExam.getEpreuve().getEtudiantSize());
     }
 
-    protected Constraint sallePenaliteExclusive(ConstraintFactory constraintFactory) {
+    protected Constraint sallePenaliteExclusivePenalite(ConstraintFactory constraintFactory) {
         return constraintFactory.from(SallePenalite.class)
                 .filter(sallePenalite -> sallePenalite.getSallePenaliteType() == SallePenaliteType.ROOM_EXCLUSIVE)
                 .join(Examen.class,
@@ -122,7 +122,7 @@ public class Contrainte implements ConstraintProvider {
                         equal((sallePenalite, leftExam) -> leftExam.getSalle(), Examen::getSalle),
                         equal((sallePenalite, leftExam) -> leftExam.getPeriode(), Examen::getPeriode),
                         filtering((sallePenalite, leftExam, rightExam) -> leftExam.getEpreuve() != rightExam.getEpreuve()))
-                .penalizeConfigurable("sallePenaliteExclusive",
+                .penalizeConfigurable("sallePenaliteExclusivePenalite",
                         (periodePenalite, leftExam, rightExam) -> leftExam.getEpreuve().getEtudiantSize()
                                 + rightExam.getEpreuve().getEtudiantSize());
     }

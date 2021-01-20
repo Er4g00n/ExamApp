@@ -71,7 +71,7 @@ rule "capaciteSalleTropPetite"
 end
 
 // Period hard constraints
-rule "periodePenaliteExamenCoincidencePenalite"
+rule "periodePenaliteExamenCoincidencePenalitePenalite"
     when
         $periodePenalty : PeriodePenalite(
             periodePenaliteType == SallePenaliteType.EXAM_COINCIDENCE,
@@ -84,7 +84,7 @@ rule "periodePenaliteExamenCoincidencePenalite"
     then
         scoreHolder.penalize(kcontext, $leftEpreuve.getEtudiantSize() + $rightEpreuve.getEtudiantSize());
 end
-rule "periodePenaliteExclusionPenalite"
+rule "periodePenaliteExclusionPenalitePenalite"
     when
         $periodePenalty : PeriodePenalite(
             periodePenaliteType == SallePenaliteType.EXCLUSION,
@@ -96,7 +96,7 @@ rule "periodePenaliteExclusionPenalite"
     then
         scoreHolder.penalize(kcontext, $leftEpreuve.getEtudiantSize() + $rightEpreuve.getEtudiantSize());
 end
-rule "periodePenaliteAfterPenalite"
+rule "periodePenaliteAfterPenalitePenalite"
     when
         $periodePenalty : PeriodePenalite(
             periodePenaliteType == SallePenaliteType.AFTER,
@@ -127,7 +127,7 @@ end
 // ############################################################################
 
 // Two exams in a row which share etudiants
-rule "twoInARowPenalite"
+rule "twoExamensInARow"
     when
         $epreuveConflit : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
         $leftExam : Examen(epreuve == $leftEpreuve, $leftDayIndex : dayIndex, $leftPeriodIndex : periodeIndex, periode != null)
@@ -139,7 +139,7 @@ end
 
 // TODO check if merging twoExamsInARow and twoExamsInADay can be a noticeable performance boost
 // Two exams in a day which share etudiants
-rule "twoInAJourPenalite"
+rule "twoExamensInAJour"
     when
         $epreuveConflit : EpreuveConflit($leftEpreuve : leftEpreuve, $rightEpreuve : rightEpreuve)
         $leftExam : Examen(epreuve == $leftEpreuve, $leftDayIndex : dayIndex, $leftPeriodIndex : periodeIndex, periode != null)
@@ -162,7 +162,7 @@ rule "periodeSpreadLength"
 end
 
 // Several exams in the same salle and periode have different durations
-rule "mixedDureePenalite"
+rule "mixedDurees"
     when
         $leftExam : Examen($leftId : id, periode != null, $periode : periode, salle != null, $salle : salle,
             $leftEpreuveDuree : epreuveDuree)
@@ -182,7 +182,7 @@ rule "mixedDureePenalite"
         scoreHolder.penalize(kcontext);
 end
 
-// Larger Exams towards the beginning of the examination session
+// Larger Exams towards the beginning of the calendrier session
 rule "frontLoad"
     when
         $exam : Examen(epreuveFrontLoadLarge == true, periodeFrontLoadLast == true)
@@ -191,7 +191,7 @@ rule "frontLoad"
 end
 
 // Period Penalty
-rule "periodePenalitePenalite"
+rule "periodePenalite"
     when
         $periode : Periode(penalty != 0)
         $exam: Examen(periode == $periode)
@@ -200,7 +200,7 @@ rule "periodePenalitePenalite"
 end
 
 // Room Penalty
-rule "sallePenalitePenalite"
+rule "sallePenalite"
     when
         $salle : Salle(penalty != 0)
         $exam: Examen(salle == $salle)

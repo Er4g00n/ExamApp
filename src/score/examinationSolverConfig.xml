@@ -10,12 +10,7 @@
   <entityClass>optaplanner.ExamenSuivant</entityClass>
 
   <scoreDirectorFactory>
-    <scoreDrl>score/examinationConstraints.drl</scoreDrl>
-    <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
-    <!--<constraintProviderClass>org.optaplanner.examples.examination.solver.score.ExaminationConstraintProvider</constraintProviderClass>-->
-    <!--<assertionScoreDirectorFactory>-->
-    <!--  <scoreDrl>org/optaplanner/examples/examination/solver/examinationConstraints.drl</scoreDrl>-->
-    <!--</assertionScoreDirectorFactory>-->
+    <constraintProviderClass>score.Contrainte</constraintProviderClass>
   </scoreDirectorFactory>
 
   <termination>
@@ -33,7 +28,7 @@
         <changeMoveSelector>
           <entitySelector mimicSelectorRef="placerEntitySelector"/>
           <valueSelector variableName="periode">
-            <downcastEntityClass>optaplanner.ExamenSuivant</downcastEntityClass>
+            <downcastEntityClass>optaplanner.ExamenEnCours</downcastEntityClass>
             <cacheType>PHASE</cacheType>
             <!--<selectionOrder>SORTED</selectionOrder>-->
             <!--<sorterManner>INCREASING_STRENGTH</sorterManner>-->

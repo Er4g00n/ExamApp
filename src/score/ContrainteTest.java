@@ -34,19 +34,19 @@ public class ContrainteTest {
                 .withPeriode(periode)
                 .withSalle(new Salle());
 
-        constraintVerifier.verifyThat(Contrainte::conflictingExamensInSamePeriode)
+        constraintVerifier.verifyThat(Contrainte::conflitExamenDansLaMemePeriode)
                 .given(conflict, exam1, exam2)
                 .penalizesBy(2);
     }
 
     @Test
-    public void periodeDureeTooShortTest() {
+    public void periodeDureeTropCourteTest() {
         ExamenEnCours exam = new ExamenEnCours()
                 .withEpreuve(new Epreuve().withDuree(2).withEtudiantList(Arrays.asList(etudiant1, etudiant2)))
                 .withPeriode(new Periode().withDuree(1))
                 .withSalle(new Salle());
 
-        constraintVerifier.verifyThat(Contrainte::periodeDureeTooShort)
+        constraintVerifier.verifyThat(Contrainte::periodeDureeTropCourte)
                 .given(exam)
                 .penalizesBy(2);
     }
@@ -61,7 +61,7 @@ public class ContrainteTest {
                 .withPeriode(periode)
                 .withSalle(salle);
 
-        constraintVerifier.verifyThat(Contrainte::salleCapaciteTooSmall)
+        constraintVerifier.verifyThat(Contrainte::capaciteSalleTropPetite)
                 .given(periode, exam, salle)
                 .penalizesBy(2);
     }
@@ -80,7 +80,7 @@ public class ContrainteTest {
                 .withPeriode(periode)
                 .withSalle(salle);
 
-        constraintVerifier.verifyThat(Contrainte::salleCapaciteTooSmall)
+        constraintVerifier.verifyThat(Contrainte::capaciteSalleTropPetite)
                 .given(periode, exam1, exam2, salle)
                 .penalizesBy(2);
     }
@@ -104,7 +104,7 @@ public class ContrainteTest {
                 .withSalle(new Salle());
 
         // EXCLUSION
-        constraintVerifier.verifyThat(Contrainte::periodePenaliteExclusion)
+        constraintVerifier.verifyThat(Contrainte::periodePenaliteExclusionPenalite)
                 .given(periodePenalite, exam1, exam2)
                 .penalizesBy(4);
 
@@ -112,7 +112,7 @@ public class ContrainteTest {
         periodePenalite.setPeriodePenaliteType(PeriodePenaliteType.EXAM_COINCIDENCE);
         exam2.setPeriode(new Periode().withPeriodeIndex(0));
 
-        constraintVerifier.verifyThat(Contrainte::periodePenaliteExamenCoincidence)
+        constraintVerifier.verifyThat(Contrainte::periodePenaliteExamenCoincidencePenalite)
                 .given(periodePenalite, exam1, exam2)
                 .penalizesBy(4);
 
@@ -121,14 +121,14 @@ public class ContrainteTest {
         periodePenalite.setPeriodePenaliteType(PeriodePenaliteType.AFTER);
         exam2.setPeriode(new Periode().withPeriodeIndex(2));
 
-        constraintVerifier.verifyThat(Contrainte::periodePenaliteAfter)
+        constraintVerifier.verifyThat(Contrainte::periodePenaliteAfterPenalite)
                 .given(periodePenalite, exam1, exam2)
                 .penalizesBy(4);
 
         // Exam2 before exam1. Should not trigger the AFTER constraint, since its not symmetrical.
         exam2.setPeriode(new Periode().withPeriodeIndex(0));
 
-        constraintVerifier.verifyThat(Contrainte::periodePenaliteAfter)
+        constraintVerifier.verifyThat(Contrainte::periodePenaliteAfterPenalite)
                 .given(periodePenalite, exam1, exam2)
                 .penalizesBy(0);
     }
@@ -146,7 +146,7 @@ public class ContrainteTest {
         ExamenEnCours exam1 = new ExamenEnCours().withPeriode(periode).withSalle(salle).withEpreuve(epreuve1);
         ExamenEnCours exam2 = new ExamenEnCours().withPeriode(periode).withSalle(salle).withEpreuve(epreuve2);
 
-        constraintVerifier.verifyThat(Contrainte::sallePenaliteExclusive)
+        constraintVerifier.verifyThat(Contrainte::sallePenaliteExclusivePenalite)
                 .given(penalty, exam1, exam2)
                 .penalizesBy(4);
     }
