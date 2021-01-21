@@ -117,18 +117,16 @@ public class GestionUtilisateur {
      * @param prenom         the prenom
      * @param email          the email
      * @param numeroEtudiant the numero etudiant
-     * @param filiere        the filiere
      */
-    public void modifierEtudiant(String nom,String prenom,String email,Integer numeroEtudiant,Filiere filiere) {
+    public void modifierEtudiant(String nom,String prenom,String email,Integer numeroEtudiant) {
 
         if (listEtudiant.containsKey(numeroEtudiant))
         {
-            Etudiant e = new Etudiant(  nom,
-                                        prenom,
-                                        email,
-                                        numeroEtudiant,
-                                        filiere);
-            listEtudiant.put(e.getNumeroEtudiant(), e);
+//            Etudiant e = new Etudiant(  nom,
+//                                        prenom,
+//                                        email,
+//                                        numeroEtudiant);
+//            listEtudiant.put(e.getNumeroEtudiant(), e);
         }
         else
             System.out.println(nom +" n'existe pas");
@@ -144,14 +142,14 @@ public class GestionUtilisateur {
     public void modifierEtudiant(Integer numeroEtudiant, Integer newNumeroEtudiant) {
         if (listEtudiant.containsKey(numeroEtudiant))
         {
-            Etudiant e = new Etudiant(  ((Etudiant)listEtudiant.get(numeroEtudiant)).getNom(),
-                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getPrenom(),
-                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getEmail(),
-                    newNumeroEtudiant,
-                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getFiliere());
-
-            listEtudiant.put(e.getNumeroEtudiant(), e);
-            supprimerEtudiant(numeroEtudiant);
+//            Etudiant e = new Etudiant(  ((Etudiant)listEtudiant.get(numeroEtudiant)).getNom(),
+//                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getPrenom(),
+//                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getEmail(),
+//                    newNumeroEtudiant,
+//                    ((Etudiant)listEtudiant.get(numeroEtudiant)).getFiliere());
+//
+//            listEtudiant.put(e.getNumeroEtudiant(), e);
+//            supprimerEtudiant(numeroEtudiant);
         }
         else
             System.out.println(numeroEtudiant+" n'exite pas");
