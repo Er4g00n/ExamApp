@@ -3,6 +3,7 @@ package optaplanner;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
+import salle.Salle;
 
 import java.util.List;
 

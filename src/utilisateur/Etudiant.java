@@ -1,6 +1,5 @@
 package utilisateur;
 
-import abstracts.AbstractPersistable;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;

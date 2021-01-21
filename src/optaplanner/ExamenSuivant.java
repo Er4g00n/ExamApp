@@ -5,6 +5,7 @@ import optaplanner.solver.PeriodeUpdatingVariableListener;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.CustomShadowVariable;
 import org.optaplanner.core.api.domain.variable.PlanningVariableReference;
+import salle.Salle;
 
 @PlanningEntity
 @XStreamAlias("ExamenSuivant")

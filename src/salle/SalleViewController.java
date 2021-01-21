@@ -1,6 +1,7 @@
 package salle;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import connexion.BDD;
@@ -21,6 +22,7 @@ import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import optaplanner.Epreuve;
 import promotion.Promotion;
 
 public class SalleViewController implements Initializable {
@@ -80,7 +82,6 @@ public class SalleViewController implements Initializable {
 		});
 
 		salleTable.setItems(Salle.getSalles());
-
 	}
 
 	// Met à jour la couleur le nombre de sélection
@@ -130,4 +131,5 @@ public class SalleViewController implements Initializable {
 	public TableView<Salle> getSalleTable() {
 		return salleTable;
 	}
+
 }

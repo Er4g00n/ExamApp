@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import optaplanner.Examen;
+import optaplanner.Epreuve;
 import salle.Salle;
 import optaplanner.ExamenViewController;
 import javafx.event.ActionEvent;
@@ -42,11 +42,11 @@ public class SampleController implements Initializable {
 	PromotionViewController promotionController;
 	SalleViewController salleController;
 
-	TableView<Examen> examenTable;
+	TableView<Epreuve> examenTable;
 	TableView<Promotion> promotionTable;
 	TableView<Salle> salleTable;
 
-	public TableView<Examen> getExamenTable() {
+	public TableView<Epreuve> getExamenTable() {
 		return examenTable;
 	}
 
@@ -63,7 +63,6 @@ public class SampleController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 
 		try {
-
 			FXMLLoader solveurLoader = new FXMLLoader(getClass().getResource("../optaplanner/ExamenView.fxml"));
 			solveurView = solveurLoader.load();
 			solveurController = solveurLoader.getController();

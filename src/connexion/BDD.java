@@ -6,6 +6,9 @@ package connexion;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import notification.GestionNotification;
+import optaplanner.Epreuve;
+import optaplanner.Examen;
+import optaplanner.Initialisation;
 import promotion.GestionPromotion;
 import utilisateur.Etudiant;
 import salle.Salle;
@@ -13,7 +16,9 @@ import promotion.Promotion;
 import utilisateur.GestionUtilisateur;
 
 import java.sql.*;
-import java.util.Hashtable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static promotion.Promotion.*;
 
@@ -21,6 +26,8 @@ public class BDD {
     private Connection con;
     private Statement st;
     private ResultSet rs;
+
+    public ObservableList<Epreuve> list2 = FXCollections.observableArrayList();
 
     /**
      * Initialisation la connexion a une base de données
@@ -137,7 +144,7 @@ public class BDD {
                 String db_libelle = rs.getString("libelle");
 
                 Promotion filliere = Promotion.getPromotionFromName(db_libelle);
-                Etudiant a = GestionUtilisateur.creerEtudiant(db_nom, db_prenom, db_email, db_numEtu, filliere, null);
+                Etudiant a = GestionUtilisateur.creerEtudiant(db_nom, db_prenom, db_email, db_numEtu, filliere, Long.valueOf(db_numEtu));
                 filliere.ajouterEtudiant(a);
             }
 
@@ -151,15 +158,23 @@ public class BDD {
         try{
             String sql = "SELECT idSalle, Salles.libelle, capacite, SalleTypes.libelle  AS 'type' FROM Salles INNER JOIN SalleTypes ON Salles.idType = SalleTypes.idType";
             rs = st.executeQuery(sql);
+            List<Salle> roomList = new ArrayList<>();
 
             while(rs.next()){
                 String db_idSalle = rs.getString("idSalle");
                 String db_libelle = rs.getString("libelle");
                 int db_capacite = rs.getInt("capacite");
                 String db_type = rs.getString("type");
-                new Salle(db_libelle, db_capacite, db_type);
+                Salle salle = new Salle();
+                salle.setId(Long.valueOf(db_idSalle));
+                salle.setCapacite(db_capacite);
+                salle.setPenalite(0);
+                salle.setNom(db_libelle);
+                salle.setType(db_type);
+                roomList.add(salle);
             }
-
+            ObservableList<Salle> list = FXCollections.observableArrayList(roomList);
+            Salle.setSalles(list);
         }catch(Exception ex){
             System.out.println("Error is found to loadSalles :"+ex);
         }
@@ -172,19 +187,27 @@ public class BDD {
             rs = st.executeQuery(sql);
 
             while(rs.next()){
-                int db_idExamen = Integer.parseInt(rs.getString("idExamen"));
+                int db_idExamen = rs.getInt("idExamen");
                 String db_libelle = rs.getString("libelle");
                 String db_duree = rs.getString("duree");
-                String db_idSalle = rs.getString("idSalle");
-                String db_idExamenType = rs.getString("idExamenType");
-                String db_date = rs.getString("date");
-                String db_idEtuListe = rs.getString("idEtuListe");
+                String db_idEtuListe = rs.getString("idPromotion");
+                List<Epreuve> epreuveList = new ArrayList<>();
 
                 for (Promotion promotion : getPromotions()) {
                     if(promotion.getIdFiliere().equals(db_idEtuListe)){
-                       // new Examen(db_idExamen, db_libelle, promotion.getNbetu(),1);
+                      Epreuve epreuve = new Epreuve();
+                      epreuve.setId((long)db_idExamen);
+                      epreuve.setDuree(Integer.parseInt(db_duree));
+                      epreuve.setNom(db_libelle);
+                      List<Etudiant> topicStudentList = new ArrayList<>();
+                      topicStudentList.addAll(promotion.getEtudiants());
+                      epreuve.setEtudiantList(topicStudentList);
+                      epreuve.setFrontLoadLarge(false);
+                      epreuveList.add(epreuve);
                     }
                 }
+                list2.addAll(epreuveList);
+                Epreuve.setExamens(list2);
             }
 
         }catch(Exception ex){
@@ -204,7 +227,7 @@ public class BDD {
             preparedStmt.executeUpdate();
 
         }catch(Exception ex){
-            System.out.println("Error is found to modify Student :"+ex);
+            System.out.println("Error is found to modify Etudiant :"+ex);
         }
     }
 
@@ -220,7 +243,7 @@ public class BDD {
             preparedStmt.executeUpdate();
 
         }catch(Exception ex){
-            System.out.println("Error is found to add Student :"+ex);
+            System.out.println("Error is found to add Etudiant :"+ex);
         }
     }
 

@@ -6,6 +6,7 @@ import optaplanner.*;
 import optaplanner.solver.EpreuveConflit;
 import org.junit.jupiter.api.Test;
 import org.optaplanner.test.api.score.stream.ConstraintVerifier;
+import salle.Salle;
 import utilisateur.Etudiant;
 
 public class ContrainteTest {

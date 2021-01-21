@@ -8,7 +8,8 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import optaplanner.Examen;
+import optaplanner.Epreuve;
+import optaplanner.ExamenViewController;
 import salle.Salle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +18,8 @@ import promotion.Promotion;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
+
+import java.util.Arrays;
 
 
 public class Main extends Application {
@@ -47,7 +50,7 @@ public class Main extends Application {
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("Sample.fxml"));
 		Parent root2 = loader.load();
 		SampleController sampleController = loader.getController();
-		TableView<Examen> examenTable = sampleController.getExamenTable();
+		TableView<Epreuve> examenTable = sampleController.getExamenTable();
 		TableView<Promotion> promotionTable = sampleController.getPromotionTable();
 		TableView<Salle> salleTable = sampleController.getSalleTable();
 

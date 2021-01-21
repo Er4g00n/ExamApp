@@ -6,9 +6,8 @@ import org.junit.Before;
 import org.junit.After;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.examples.examination.domain.*;
-import org.optaplanner.test.api.score.stream.ConstraintVerifier;
 import promotion.Promotion;
+import salle.Salle;
 import score.Contrainte;
 import utilisateur.Etudiant;
 

@@ -12,9 +12,9 @@ import javafx.stage.Stage;
 
 public class ExamenModifierEventHandler implements EventHandler<ActionEvent> {
 
-	private Examen examen;
+	private Epreuve examen;
 
-	public ExamenModifierEventHandler(Examen examen) {
+	public ExamenModifierEventHandler(Epreuve examen) {
 		this.examen = examen;
 	}
 

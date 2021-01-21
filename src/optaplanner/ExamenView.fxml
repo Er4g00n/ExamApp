@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="optaplanner.ExamenViewController">
    <top>
@@ -24,8 +16,8 @@
         <columnConstraints>
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="199.0" minWidth="10.0" prefWidth="199.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="274.0" minWidth="10.0" prefWidth="204.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="51.4" vgrow="SOMETIMES" />
@@ -42,16 +34,27 @@
             </Label>
             <TextField disable="true" promptText="Rechercher" GridPane.columnIndex="1" />
             <Button fx:id="examenDelButton" mnemonicParsing="false" onAction="#delButtonAction" styleClass="delButton" text="-    Supprimer (0)" GridPane.columnIndex="2" />
-            <Button fx:id="examenAddButton" mnemonicParsing="false" onAction="#addButtonAction" styleClass="addButton" text="+    Ajouter" GridPane.columnIndex="3" />
             <TableView fx:id="examenTable" prefHeight="200.0" prefWidth="200.0" styleClass="tableau" GridPane.columnSpan="4" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="examenCheckColumn" prefWidth="75.0" sortable="false" />
                 <TableColumn fx:id="examenNomColumn" prefWidth="175.0" text="Nom" />
-                  <TableColumn fx:id="examenFiliereColumn" prefWidth="190.0" text="Filière" />
-                  <TableColumn fx:id="examenDureeColumn" prefWidth="130.0" text="Durée" />
-                  <TableColumn fx:id="examenModifColumn" prefWidth="128.0" sortable="false" text="Modifcation" />
+                  <TableColumn fx:id="examenDureeColumn" prefWidth="214.0" text="Durée" />
+                  <TableColumn fx:id="examenModifColumn" prefWidth="254.0" sortable="false" text="Modifcation" />
               </columns>
             </TableView>
+            <GridPane GridPane.columnIndex="3">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="161.0" minWidth="10.0" prefWidth="123.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="120.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Button fx:id="examenAddButton" mnemonicParsing="false" onAction="#addButtonAction" styleClass="addButton" text="+    Ajouter" />
+                  <Button mnemonicParsing="false" onAction="#solve" text="Solve" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
          </children>
          <styleClass>
             <String fx:value="center-content" />

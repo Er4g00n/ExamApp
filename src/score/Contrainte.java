@@ -14,6 +14,7 @@ import optaplanner.solver.EpreuveConflit;
 import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;
 import org.optaplanner.core.api.score.stream.ConstraintProvider;
+import salle.Salle;
 
 // TODO The Contrainte is unusually slow. For more information, see: https://issues.redhat.com/browse/PLANNER-2011
 public class Contrainte implements ConstraintProvider {

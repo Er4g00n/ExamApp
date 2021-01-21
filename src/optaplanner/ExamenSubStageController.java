@@ -45,7 +45,7 @@ public class ExamenSubStageController implements Initializable {
 		});
 	}
 
-	public void setExamen(Examen e) {
+	public void setExamen(Epreuve e) {
 //		this.examen = e;
 //		this.nomField.setText(e.getNom());
 //		this.dureeField.setText(e.getDuree());

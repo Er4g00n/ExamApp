@@ -3,25 +3,32 @@ package salle;
 
 import abstracts.AbstractPersistable;
 import abstracts.Labeled;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import salle.SalleModifierEventHandler;
-import salle.SalleViewController;
 
 /**
  * Le type salle
  */
+@XStreamAlias("Salle")
 public class Salle extends AbstractPersistable implements Labeled {
 	private String nom;
 	private Integer capacite;
 	private String type;
+	private int penalite;
 
 	private CheckBox statut;
 	private Button modifier;
-	private static ObservableList<salle.Salle> salles = FXCollections.observableArrayList();
+	private static ObservableList<Salle> salles = FXCollections.observableArrayList();
 
+	public Salle() {
+		this.statut = new CheckBox();
+		this.statut.setOnAction(event -> SalleViewController.updateNumberSelectedSalle((Button) (this.statut.getScene().lookup("#salleDel"))));
+		this.modifier = new Button("Modifier");
+		this.modifier.setOnAction(new SalleModifierEventHandler(this));
+	}
 
 	/**
 	 * Instancie une nouvelle salle.
@@ -120,9 +127,37 @@ public class Salle extends AbstractPersistable implements Labeled {
 		return modifier;
 	}
 
-	public static ObservableList<salle.Salle> getSalles() {
+	public static ObservableList<Salle> getSalles() {
 		return salles;
 	}
+
+	public static void setSalles(ObservableList<Salle> salles) {
+		Salle.salles = salles;
+	}
+
+	public int getPenalite() {
+		return penalite;
+	}
+
+	public void setPenalite(int penalite) {
+		this.penalite = penalite;
+	}
+
+	public Salle withId(long id) {
+		this.setId(id);
+		return this;
+	}
+
+	public Salle withCapacite(int capacite) {
+		this.setCapacite(capacite);
+		return this;
+	}
+
+	public Salle withPenalite(int penalite) {
+		this.setPenalite(penalite);
+		return this;
+	}
+
 
 	@Override
 	public String getLabel() {

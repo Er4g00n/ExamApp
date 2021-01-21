@@ -1,6 +1,7 @@
 package optaplanner;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -22,17 +23,15 @@ import javafx.stage.Stage;
 public class ExamenViewController implements Initializable {
 
 	@FXML
-	public TableView<Examen> examenTable;
+	public TableView<Epreuve> examenTable;
 	@FXML
-	private TableColumn<Examen, String> examenNomColumn;
+	private TableColumn<Epreuve, String> examenNomColumn;
 	@FXML
-	private TableColumn<Examen, String> examenFiliereColumn;
+	private TableColumn<Epreuve, String> examenDureeColumn;
 	@FXML
-	private TableColumn<Examen, String> examenDureeColumn;
+	private TableColumn<Epreuve, Void> examenCheckColumn;
 	@FXML
-	private TableColumn<Examen, Void> examenCheckColumn;
-	@FXML
-	private TableColumn<Examen, Void> examenModifColumn;
+	private TableColumn<Epreuve, Void> examenModifColumn;
 	@FXML
 	public Button examenDelButton;
 	@FXML
@@ -47,23 +46,22 @@ public class ExamenViewController implements Initializable {
 
 		examenDelButton.setId("examDel");
 		examenNomColumn.setReorderable(false);
-		examenFiliereColumn.setReorderable(false);
 		examenDureeColumn.setReorderable(false);
 		examenCheckColumn.setReorderable(false);
 		examenModifColumn.setReorderable(false);
 
-		examenNomColumn.setCellValueFactory(new PropertyValueFactory<Examen, String>("nom"));
-		examenFiliereColumn.setCellValueFactory(new PropertyValueFactory<Examen, String>("filiere"));
-		examenDureeColumn.setCellValueFactory(new PropertyValueFactory<Examen, String>("duree"));
-		examenModifColumn.setCellValueFactory(new PropertyValueFactory<Examen, Void>("modifier"));
-		examenCheckColumn.setCellValueFactory(new PropertyValueFactory<Examen, Void>("statut"));
+		examenNomColumn.setCellValueFactory(new PropertyValueFactory<Epreuve, String>("nom"));
+		examenDureeColumn.setCellValueFactory(new PropertyValueFactory<Epreuve, String>("duree"));
+		examenModifColumn.setCellValueFactory(new PropertyValueFactory<Epreuve, Void>("modifier"));
+		examenCheckColumn.setCellValueFactory(new PropertyValueFactory<Epreuve, Void>("statut"));
 		examenCheckColumn.setGraphic(examenSelectAll);
 
 		examenSelectAll.selectedProperty().addListener(new ChangeListener<Boolean>() {
+
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 
-				for (Examen examen : Examen.getExamens()) {
+				for (Epreuve examen : examenTable.getItems()) {
 					if (newValue) {
 						examen.getStatut().setSelected(true);
 					}
@@ -75,23 +73,26 @@ public class ExamenViewController implements Initializable {
 			}
 
 		});
-
-		examenTable.setItems(Examen.getExamens());
-
-
+		examenTable.setItems(Epreuve.getExamens());
 	}
 
-	public TableView<Examen> getExamenTable() {
+	public TableView<Epreuve> getExamenTable() {
 		return examenTable;
 	}
 
 	public static void updateNumberSelectedExamen(Button del) {
-		del.setText("-    Supprimer ("+Examen.getExamens().stream().filter(e -> e.getStatut().isSelected()).count()+")");
+		del.setText("-    Supprimer ("+Epreuve.getExamens().stream().filter(e -> e.getStatut().isSelected()).count()+")");
 	}
 	@FXML
 	private void delButtonAction(ActionEvent event) {
 		examenTable.getItems().removeIf(p -> p.getStatut().isSelected());
 		updateNumberSelectedExamen(examenDelButton);
+	}
+
+	@FXML
+	private void solve(ActionEvent event) throws Exception{
+		Initialisation init = new Initialisation();
+		init.solverOn();
 	}
 
 	@FXML
