@@ -5,6 +5,8 @@ package connexion;
  */
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import notification.GestionNotification;
+import promotion.GestionPromotion;
 import utilisateur.Etudiant;
 import salle.Salle;
 import promotion.Promotion;
@@ -76,7 +78,7 @@ public class BDD {
 
             if (!rs.isBeforeFirst()) {
                 ConnexionController notification = new ConnexionController();
-                notification.notification("Cette adresse Email n'est pas enregistrée !", "INFORMATION", 1.0);
+                GestionNotification.notification("Cette adresse Email n'est pas enregistrée !", "INFORMATION", 1.0);
                 return false;
             }
 
@@ -88,11 +90,11 @@ public class BDD {
                 if (email.toLowerCase().equals(db_email.toLowerCase()) && mdp.equals(db_mdp)){
                     login = true;
                     ConnexionController notification = new ConnexionController();
-                    notification.notification("Connexion réussi !", "SUCCES", 1.0);
+                    GestionNotification.notification("Connexion réussi !", "SUCCES", 1.0);
                 }
                 else {
                     ConnexionController notification = new ConnexionController();
-                    notification.notification("Erreur identifiants !", "ERROR", 1.0);
+                    GestionNotification.notification("Erreur identifiants !", "ERROR", 1.0);
                 }
             }
             System.out.println(login);
@@ -113,7 +115,7 @@ public class BDD {
             while(rs.next()){
                 String db_idEtuListe = rs.getString("idEtuListe");
                 String db_libelle = rs.getString("libelle");
-                new Promotion(db_idEtuListe, db_libelle);
+                GestionPromotion.ajouterPromotion(db_idEtuListe, db_libelle);
             }
         }catch(Exception ex){
             System.out.println("Error is found to loadPromotions :"+ex);

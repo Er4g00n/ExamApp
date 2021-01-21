@@ -12,7 +12,6 @@ public class Promotion {
 	private int nbetu;
 	private CheckBox statut;
 	private Button modifier;
-	private static ObservableList<Promotion> promotions = FXCollections.observableArrayList();
 	private ObservableList<Etudiant> etudiants;
 
 	public ObservableList<Etudiant> getEtudiants() {
@@ -21,7 +20,6 @@ public class Promotion {
 
 	public Promotion(String name, String fil) {
 		this.etudiants = FXCollections.observableArrayList();
-		promotions.add(this);
 		this.nbetu = 0;
 		this.idFiliere = name;
 		this.filiere = fil;
@@ -102,11 +100,11 @@ public class Promotion {
 	}
 
 	public static ObservableList<Promotion> getPromotions() {
-		return promotions;
+		return GestionPromotion.getPromotions();
 	}
 
 	public static void clearPromotion() {
-		promotions = FXCollections.observableArrayList();
+		GestionPromotion.setPromotions(FXCollections.observableArrayList());
 	}
 
 	public Button getModifier() {
