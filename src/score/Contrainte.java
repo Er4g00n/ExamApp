@@ -21,7 +21,7 @@ public class Contrainte implements ConstraintProvider {
 
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
-        return new Constraint[] {
+        return new Constraint[]{
                 // Hard constraints
                 conflitExamenDansLaMemePeriode(constraintFactory),
                 periodeDureeTropCourte(constraintFactory),
