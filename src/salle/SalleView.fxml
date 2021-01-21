@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" styleClass="fondnoir" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="salle.SalleViewController">
+   <top>
+      <HBox prefHeight="0.0" prefWidth="760.0" BorderPane.alignment="CENTER" />
+   </top>
+   <center>
+      <GridPane alignment="CENTER" vgap="5.0" BorderPane.alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="51.4" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="376.79999084472655" minHeight="10.0" prefHeight="376.79999084472655" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Salles" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <TextField disable="true" promptText="Rechercher" GridPane.columnIndex="1" />
+            <Button fx:id="salleDelButton" mnemonicParsing="false" onAction="#delButtonAction" styleClass="delButton" text="-    Supprimer (0)" GridPane.columnIndex="2" />
+            <Button fx:id="salleAddButton" mnemonicParsing="false" onAction="#addButtonAction" styleClass="addButton" text="+    Ajouter" GridPane.columnIndex="3" />
+            <TableView fx:id="salleTable" prefHeight="200.0" prefWidth="200.0" styleClass="tableau" GridPane.columnSpan="4" GridPane.rowIndex="1">
+              <columns>
+                <TableColumn fx:id="salleCheckColumn" prefWidth="75.0" sortable="false" />
+                <TableColumn fx:id="salleNomColumn" prefWidth="175.0" text="Nom" />
+                  <TableColumn fx:id="salleCapaciteColumn" prefWidth="130.0" text="Capacité" />
+                  <TableColumn fx:id="salleTypeColumn" prefWidth="190.0" text="Type" />
+                  <TableColumn fx:id="salleModifColumn" prefWidth="128.0" sortable="false" text="Modifcation" />
+              </columns>
+            </TableView>
+         </children>
+         <styleClass>
+            <String fx:value="center-content" />
+            <String fx:value="background-light" />
+         </styleClass>
+      </GridPane>
+   </center>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+   <stylesheets>
+      <URL value="@../application/application.css" />
+      <URL value="@../application/darkmode.css" />
+   </stylesheets>
+</BorderPane>

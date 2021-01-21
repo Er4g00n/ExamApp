@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="AnchorPaneParent" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" style="-fx-background-color: #24242F;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="connexion.ConnexionController">
+   <children>
+      <AnchorPane fx:id="AnchorPaneLogin" layoutX="362.0" layoutY="227.0" prefHeight="266.0" prefWidth="357.0" style="-fx-background-color: #2C2C37; -fx-background-radius: 10;">
+         <children>
+            <TextField fx:id="txtEmail" layoutX="63.0" layoutY="86.0" prefHeight="32.0" prefWidth="232.0" promptText="E-mail" style="-fx-background-radius: 5;" />
+            <PasswordField fx:id="txtPassword" layoutX="64.0" layoutY="123.0" prefHeight="32.0" prefWidth="232.0" promptText="Mot de Passe" style="-fx-background-radius: 5;" />
+            <Label fx:id="labelConnexion" layoutX="114.0" layoutY="25.0" style="-fx-font-weight: bold;" text="Connexion" textAlignment="CENTER" textFill="#f7f7f8">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnLogIn" layoutX="121.0" layoutY="195.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="116.0" style="-fx-background-color: #3D58F2; -fx-background-radius: 10;" text="Connexion" textFill="#f7f7f8" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/connexion/BDD.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/connexion/Connexion.fxml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/connexion/Connexion.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/connexion/ConnexionController.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/connexion/dbConnexion.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/connexion/testBDD.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/test/solver/ScoreCalculatorTest.java" charset="windows-1252" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/Calendrier.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/CalendrierContraintes.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/Epreuve.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/Etudiant.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/Examen.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/ExamenEnCours.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/ExamenSuivant.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/Periode.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/PeriodePenalite.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/PeriodePenaliteType.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/Salle.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/SallePenalite.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/SallePenaliteType.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/solver/EpreuveConflit.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/solver/ExamenPoidDetermination.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/solver/PeriodeUpdatingVariableListener.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/optaplanner/solver/SallePoidDetermination.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/score/examinationConstraints.drl" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/score/examinationSolverConfig.xml" charset="UTF-8" />
+    <file url="PROJECT" charset="windows-1252" />
   </component>
 </project>
