@@ -1,5 +1,7 @@
 package optaplanner;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
@@ -36,6 +38,8 @@ public class ExamenViewController implements Initializable {
 	public Button examenDelButton;
 	@FXML
 	private Button examenAddButton;
+	@FXML
+	private Button solve;
 
 	private Stage subStage;
 
@@ -43,7 +47,6 @@ public class ExamenViewController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
 		examenDelButton.setId("examDel");
 		examenNomColumn.setReorderable(false);
 		examenDureeColumn.setReorderable(false);
@@ -90,7 +93,8 @@ public class ExamenViewController implements Initializable {
 	}
 
 	@FXML
-	private void solve(ActionEvent event) throws Exception{
+
+	private void solve(ActionEvent event) {
 		Initialisation init = new Initialisation();
 		init.solverOn();
 	}

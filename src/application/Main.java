@@ -9,7 +9,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import optaplanner.Epreuve;
-import optaplanner.ExamenViewController;
 import salle.Salle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +17,6 @@ import promotion.Promotion;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableView;
-
-import java.util.Arrays;
-
 
 public class Main extends Application {
 	@FXML

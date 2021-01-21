@@ -1,6 +1,6 @@
 package optaplanner;
 
-import javafx.collections.ObservableList;
+import connexion.BDD;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import salle.Salle;
@@ -10,8 +10,10 @@ import java.util.*;
 
 public class Initialisation {
 
-    List<Salle> SalleList = new ArrayList<>();
     private Calendrier calendrier;
+    private Map<Epreuve, Set<Epreuve>> coincidenceMap;
+    private Map<Epreuve, Set<Epreuve>> exclusionMap;
+    private Map<Epreuve, Set<Epreuve>> afterMap;
 
     public Initialisation(){
     }
@@ -32,13 +34,16 @@ public class Initialisation {
     }
 
     private void readEpreuveListAndEtudiantList(){
-
-        List<Epreuve> topicList = new ArrayList<>();
-        topicList.addAll(Epreuve.getExamens());
+        coincidenceMap = new LinkedHashMap<>();
+        exclusionMap = new LinkedHashMap<>();
+        afterMap = new LinkedHashMap<>();
+        List<Epreuve> topicList = new ArrayList<>(Epreuve.getExamens());
         calendrier.setEpreuveList(topicList);
-        List<Etudiant> studentList = new ArrayList<>();
-        studentList.addAll(Etudiant.getListEtudiant());
+        List<Etudiant> studentList = new ArrayList<>(Etudiant.getListEtudiant());
         calendrier.setEtudiantList(studentList);
+        coincidenceMap = BDD.getCoincidenceMap();
+        exclusionMap = BDD.getExclusionMap();
+        afterMap = BDD.getAfterMap();
     }
 
     private void readPeriodeList(){
@@ -65,15 +70,71 @@ public class Initialisation {
     }
 
     private void readSalleList(){
-        calendrier.setSalleList(getSalleList());
+        calendrier.setSalleList(Salle.getSalles());
     }
 
     private void readPeriodePenaliteList(){
+        int id = 0;
         List<Epreuve> epreuveList = calendrier.getEpreuveList();
         List<PeriodePenalite> periodPenaltyList = new ArrayList<>();
-        PeriodePenalite periodPenalty = new PeriodePenalite();
-        periodPenalty.setId((long) 1);
-        periodPenaltyList.add(periodPenalty);
+        // createIndirectPeriodPenalties of type EXAM_COINCIDENCE
+        for (Map.Entry<Epreuve, Set<Epreuve>> entry : coincidenceMap.entrySet()) {
+            Epreuve leftEpreuve = entry.getKey();
+            Set<Epreuve> middleEpreuveSet = entry.getValue();
+            for (Epreuve middleEpreuve : new ArrayList<>(middleEpreuveSet)) {
+                for (Epreuve rightEpreuve : new ArrayList<>(coincidenceMap.get(middleEpreuve))) {
+                    if (rightEpreuve != leftEpreuve
+                            && !middleEpreuveSet.contains(rightEpreuve)) {
+                        PeriodePenalite indirectPeriodePenalite = new PeriodePenalite();
+                        indirectPeriodePenalite.setId((long) id);
+                        id++;
+                        indirectPeriodePenalite.setPeriodePenaliteType(PeriodePenaliteType.EXAM_COINCIDENCE);
+                        indirectPeriodePenalite.setLeftEpreuve(leftEpreuve);
+                        indirectPeriodePenalite.setRightEpreuve(rightEpreuve);
+                        periodPenaltyList.add(indirectPeriodePenalite);
+                        boolean added = coincidenceMap.get(leftEpreuve).add(rightEpreuve)
+                                && coincidenceMap.get(rightEpreuve).add(leftEpreuve);
+                        if (!added) {
+                            throw new IllegalStateException("The periodPenalty (" + indirectPeriodePenalite
+                                    + ") for leftEpreuve (" + leftEpreuve + ") and rightEpreuve (" + rightEpreuve
+                                    + ") was not successfully added twice.");
+                        }
+                    }
+                }
+            }
+        }
+        // createIndirectPeriodPenalties of type AFTER
+        for (Map.Entry<Epreuve, Set<Epreuve>> entry : afterMap.entrySet()) {
+            Epreuve leftEpreuve = entry.getKey();
+            Set<Epreuve> afterLeftSet = entry.getValue();
+            Queue<Epreuve> queue = new ArrayDeque<>();
+            for (Epreuve topic : afterMap.get(leftEpreuve)) {
+                queue.add(topic);
+                queue.addAll(coincidenceMap.get(topic));
+            }
+            while (!queue.isEmpty()) {
+                Epreuve rightEpreuve = queue.poll();
+                if (!afterLeftSet.contains(rightEpreuve)) {
+                    PeriodePenalite indirectPeriodePenalite = new PeriodePenalite();
+                    indirectPeriodePenalite.setId((long) id);
+                    id++;
+                    indirectPeriodePenalite.setPeriodePenaliteType(PeriodePenaliteType.AFTER);
+                    indirectPeriodePenalite.setLeftEpreuve(leftEpreuve);
+                    indirectPeriodePenalite.setRightEpreuve(rightEpreuve);
+                    periodPenaltyList.add(indirectPeriodePenalite);
+                    boolean added = afterMap.get(leftEpreuve).add(rightEpreuve);
+                    if (!added) {
+                        throw new IllegalStateException("The periodPenalty (" + indirectPeriodePenalite
+                                + ") for leftEpreuve (" + leftEpreuve + ") and rightEpreuve (" + rightEpreuve
+                                + ") was not successfully added.");
+                    }
+                }
+                for (Epreuve topic : afterMap.get(rightEpreuve)) {
+                    queue.add(topic);
+                    queue.addAll(coincidenceMap.get(topic));
+                }
+            }
+        }
         calendrier.setPeriodePenaliteList(periodPenaltyList);
     }
 
@@ -105,36 +166,15 @@ public class Initialisation {
         Map<Epreuve, ExamenEnCours> leadingEpreuveToExamMap = new HashMap<>(topicList.size());
         for (Epreuve topic : topicList) {
             Examen exam;
-            Epreuve leadingEpreuve = topic;
-            if (leadingEpreuve == topic) {
                 ExamenEnCours leadingExam = new ExamenEnCours();
                 leadingExam.setExamenSuivantList(new ArrayList<>(10));
                 leadingEpreuveToExamMap.put(topic, leadingExam);
                 exam = leadingExam;
-            } else {
-                ExamenSuivant followingExam = new ExamenSuivant();
-                ExamenEnCours leadingExam = leadingEpreuveToExamMap.get(leadingEpreuve);
-                if (leadingExam == null) {
-                    throw new IllegalStateException("The followingExam (" + topic.getId()
-                            + ")'s leadingExam (" + leadingExam + ") cannot be null.");
-                }
-                followingExam.setExamenEnCours(leadingExam);
-                leadingExam.getExamenSuivantList().add(followingExam);
-                exam = followingExam;
-            }
             exam.setId(topic.getId());
             exam.setEpreuve(topic);
             examList.add(exam);
         }
         calendrier.setExamenList(examList);
-    }
-
-    public List<Salle> getSalleList() {
-        return SalleList;
-    }
-
-    public void setSalleList(List<Salle> salleList) {
-        SalleList = salleList;
     }
 }
 

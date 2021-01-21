@@ -16,9 +16,7 @@ import promotion.Promotion;
 import utilisateur.GestionUtilisateur;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static promotion.Promotion.*;
 
@@ -28,6 +26,9 @@ public class BDD {
     private ResultSet rs;
 
     public ObservableList<Epreuve> list2 = FXCollections.observableArrayList();
+    private static Map<Epreuve, Set<Epreuve>> coincidenceMap;
+    private static Map<Epreuve, Set<Epreuve>> exclusionMap;
+    private static Map<Epreuve, Set<Epreuve>> afterMap;
 
     /**
      * Initialisation la connexion a une base de données
@@ -183,7 +184,7 @@ public class BDD {
     // Récupère dans la base de données les Examens et les initialisent
     public void loadExamens(){
         try{
-            String sql = "SELECT * FROM Examens INNER JOIN Concerne ON Examens.idExamen = Concerne.idExamen";
+            String sql = "SELECT * FROM Examens";
             rs = st.executeQuery(sql);
 
             while(rs.next()){
@@ -192,6 +193,9 @@ public class BDD {
                 String db_duree = rs.getString("duree");
                 String db_idEtuListe = rs.getString("idPromotion");
                 List<Epreuve> epreuveList = new ArrayList<>();
+                coincidenceMap = new LinkedHashMap<>();
+                exclusionMap = new LinkedHashMap<>();
+                afterMap = new LinkedHashMap<>();
 
                 for (Promotion promotion : getPromotions()) {
                     if(promotion.getIdFiliere().equals(db_idEtuListe)){
@@ -204,6 +208,9 @@ public class BDD {
                       epreuve.setEtudiantList(topicStudentList);
                       epreuve.setFrontLoadLarge(false);
                       epreuveList.add(epreuve);
+                      coincidenceMap.put(epreuve, new HashSet<>());
+                      exclusionMap.put(epreuve, new HashSet<>());
+                      afterMap.put(epreuve, new HashSet<>());
                     }
                 }
                 list2.addAll(epreuveList);
@@ -416,4 +423,27 @@ public class BDD {
         }
     }
 
+    public static Map<Epreuve, Set<Epreuve>> getCoincidenceMap() {
+        return coincidenceMap;
+    }
+
+    public void setCoincidenceMap(Map<Epreuve, Set<Epreuve>> coincidenceMap) {
+        this.coincidenceMap = coincidenceMap;
+    }
+
+    public static Map<Epreuve, Set<Epreuve>> getExclusionMap() {
+        return exclusionMap;
+    }
+
+    public void setExclusionMap(Map<Epreuve, Set<Epreuve>> exclusionMap) {
+        this.exclusionMap = exclusionMap;
+    }
+
+    public static Map<Epreuve, Set<Epreuve>> getAfterMap() {
+        return afterMap;
+    }
+
+    public void setAfterMap(Map<Epreuve, Set<Epreuve>> afterMap) {
+        this.afterMap = afterMap;
+    }
 }
