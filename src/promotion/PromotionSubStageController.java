@@ -4,6 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import connexion.BDD;
+import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
+import loader.SplashScreenController;
+import org.drools.model.Model;
 import utilisateur.Etudiant;
 import utilisateur.EtudiantListeStageController;
 import javafx.event.ActionEvent;
@@ -23,30 +29,36 @@ public class PromotionSubStageController implements Initializable {
 
 	@FXML
 	private Button validationButton;
+
 	@FXML
 	private TextField nomField;
+
 	@FXML
 	private TextField filiereField;
 
 	@FXML
 	private Button modifierListeEtu;
 
-
 	private TableView<Etudiant> etudiantTable;
 	
 	private Promotion promotion;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
 		validationButton.setOnAction(new EventHandler<ActionEvent>() {
+			BDD bdd = new BDD();
 			@Override
 			public void handle(ActionEvent arg0) {
 				if (promotion != null) {
-					promotion.setNom(nomField.getText());
+					promotion.setIdFiliere(nomField.getText());
 					promotion.setFiliere(filiereField.getText());
+					bdd.modifierPromotion(promotion.getIdFiliere(), promotion.getFiliere());
 				}
 				else {
-					new Promotion(nomField.getText(), filiereField.getText());
+					bdd.ajouterPromotion(filiereField.getText());
+					new Promotion(String.valueOf(bdd.getLastIdPromotion()+1), filiereField.getText());
+
 				}
 				((Stage) validationButton.getScene().getWindow()).close();
 			}
@@ -55,14 +67,12 @@ public class PromotionSubStageController implements Initializable {
 
 	public void setPromotion(Promotion p) {
 		this.promotion = p;
-		this.nomField.setText(p.getNom());
+		this.nomField.setText(p.getIdFiliere());
 		this.filiereField.setText(p.getFiliere());
 	}
 
 	@FXML
 	private void modifierListeEtuAction() {
-
-		
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../utilisateur/EtudiantListeStage.fxml"));
 			Parent root = loader.load();
@@ -88,4 +98,11 @@ public class PromotionSubStageController implements Initializable {
 		}
 	}
 
+	public TextField getNomField() {
+		return nomField;
+	}
+
+	public TextField getFiliereField() {
+		return filiereField;
+	}
 }

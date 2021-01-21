@@ -4,9 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import connexion.BDD;
-import utilisateur.Etudiant;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -49,14 +46,16 @@ public class EtudiantSubStageController implements Initializable {
 					etudiant.setPrenom(PrenomField.getText());
 					etudiant.setNumeroEtudiant(numEtuField.getText());
 					System.out.println("Modifier");
-					BDD connexion = new BDD();
-					connexion.modifierEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
+					BDD bdd = new BDD();
+					bdd.modifierEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText());
+					bdd.refreshDB();
 				}
 				else {
 					Etudiant e = new Etudiant(nomField.getText(), PrenomField.getText(), EmailField.getText(), numEtuField.getText(),
 							nomToPromotion((String) filliere.getValue()), null);
-					BDD connexion = new BDD();
-					connexion.ajouterEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText(), Integer.parseInt(promotion.getNom()));
+					BDD bdd = new BDD();
+					bdd.ajouterEtudiant(numEtuField.getText(), nomField.getText(), PrenomField.getText(), Integer.parseInt(promotion.getIdFiliere()));
+					bdd.refreshDB();
 					promotion.ajouterEtudiant(e);
 					System.out.println("Créer");
 				}

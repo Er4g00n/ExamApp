@@ -1,7 +1,6 @@
 
 package abstracts;
 
-import org.optaplanner.examples.common.swingui.components.LabeledComboBoxRenderer;
 
 /**
  * Cette classe provient des classes communes des exemples d'optaplanner

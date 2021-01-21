@@ -1,36 +1,59 @@
 package connexion;
-
-import optaplanner.Examen;
+/**
+ * Classe qui initialise la connexion à une base de données
+ * Cette Classe contient toutes les méthodes qui interagissent avec la base de données
+ */
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import notification.GestionNotification;
+import promotion.GestionPromotion;
 import utilisateur.Etudiant;
 import salle.Salle;
 import promotion.Promotion;
+import utilisateur.GestionUtilisateur;
 
 import java.sql.*;
-import java.util.List;
+import java.util.Hashtable;
 
-import static promotion.Promotion.getPromotions;
-import static promotion.Promotion.nomToPromotion;
+import static promotion.Promotion.*;
 
 public class BDD {
     private Connection con;
     private Statement st;
     private ResultSet rs;
 
+    /**
+     * Initialisation la connexion a une base de données
+     */
     public BDD(){
         try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://sql2.freemysqlhosting.net:3306/sql2384991","sql2384991","rD7*wI2!");
+            con = DriverManager.getConnection("jdbc:mariadb://er4goon.com/er4g_ExamApp","er4g_DevExamApp2","5Fo#ivMoexM9^kix");
             st = con.createStatement();
+            refreshDB();
 
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to initialize DB :"+ex);
         }
 
-        Controller notification = new Controller();
+        // Instancie une notification pour pouvoir afficher des notifications (Succès, Échec) lors des tentatives de connexion
+        ConnexionController notification = new ConnexionController();
     }
-    public void getData(String sql){
+
+    // ************************************************************************
+    // Méthodes de la base de données
+    // ************************************************************************
+
+    public void refreshDB(){
+        loadPromotions();
+        loadEtudiants();
+        loadExamens();
+        loadSalles();
+    }
+
+    // Récupère toutes les informations des étudiants
+    public void getData(){
         try{
-            rs = st.executeQuery(sql);
+            rs = st.executeQuery("SELECT * FROM Etudiants INNER JOIN EtuListes ON Etudiants.idEtuListe = EtuListes.idEtuListe");
             System.out.println("Data from online Database :");
             while(rs.next()){
                 String numEtudiant = rs.getString("numEtu");
@@ -41,12 +64,12 @@ public class BDD {
 
                 System.out.println("[N°Etudiant : "+numEtudiant+" | Nom :"+nom+" | Prenom :"+prenom+" | idEtuListe :"+idEtuListe+" | Libelle :"+libelle+"]");
             }
-
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to getData :"+ex);
         }
     }
 
+    // Vérifie les identifiants
     public boolean checkLogin(String email, String mdp){
         boolean login = false;
         try{
@@ -54,8 +77,8 @@ public class BDD {
             rs = st.executeQuery(sql);
 
             if (!rs.isBeforeFirst()) {
-                Controller notification = new Controller();
-                notification.notification("Cette adresse Email n'est pas enregistrée !", "INFORMATION", 1.0);
+                ConnexionController notification = new ConnexionController();
+                GestionNotification.notification("Cette adresse Email n'est pas enregistrée !", "INFORMATION", 1.0);
                 return false;
             }
 
@@ -66,43 +89,43 @@ public class BDD {
 
                 if (email.toLowerCase().equals(db_email.toLowerCase()) && mdp.equals(db_mdp)){
                     login = true;
-                    Controller notification = new Controller();
-                    notification.notification("Connexion réussi !", "SUCCES", 1.0);
+                    ConnexionController notification = new ConnexionController();
+                    GestionNotification.notification("Connexion réussi !", "SUCCES", 1.0);
                 }
                 else {
-                    Controller notification = new Controller();
-                    notification.notification("Erreur identifiants !", "ERROR", 1.0);
+                    ConnexionController notification = new ConnexionController();
+                    GestionNotification.notification("Erreur identifiants !", "ERROR", 1.0);
                 }
             }
-            st.close();
             System.out.println(login);
 
 
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to loadPromotions :"+ex);
         }
         return login;
     }
 
+    // Récupère dans la base de données les Promotions et les initialisent
     public void loadPromotions(){
+        clearPromotion();
         try{
             String sql = "SELECT * FROM EtuListes";
             rs = st.executeQuery(sql);
-
             while(rs.next()){
                 String db_idEtuListe = rs.getString("idEtuListe");
                 String db_libelle = rs.getString("libelle");
-                new Promotion(db_idEtuListe, db_libelle);
+                GestionPromotion.ajouterPromotion(db_idEtuListe, db_libelle);
             }
-
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to loadPromotions :"+ex);
         }
     }
 
+    // Récupère dans la base de données les Étudiants et les initialisent
     public void loadEtudiants(){
         try{
-            String sql = "SELECT * FROM Etudiants";
+            String sql = "SELECT * FROM Etudiants INNER JOIN EtuListes ON Etudiants.idEtuListe = EtuListes.idEtuListe";
             rs = st.executeQuery(sql);
 
             while(rs.next()){
@@ -111,41 +134,38 @@ public class BDD {
                 String db_nom = rs.getString("nom");
                 String db_prenom = rs.getString("prenom");
                 String db_email = rs.getString("email");
-                String db_filliere = rs.getString("filiere");
+                String db_libelle = rs.getString("libelle");
 
-                Promotion filliere = nomToPromotion(db_filliere);
-
-                Etudiant a = new Etudiant(db_nom, db_prenom, db_email, db_numEtu, filliere, null);
-
-                for (Promotion promotion : getPromotions()) {
-                    if(promotion.getNom().equals(db_idEtuListe)){
-                        promotion.ajouterEtudiant(a);
-                    }
-                }
+                Promotion filliere = Promotion.getPromotionFromName(db_libelle);
+                Etudiant a = GestionUtilisateur.creerEtudiant(db_nom, db_prenom, db_email, db_numEtu, filliere, null);
+                filliere.ajouterEtudiant(a);
             }
 
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to loadEtudiants :"+ex);
         }
     }
 
+    // Récupère dans la base de données les Salles et les initialisent
     public void loadSalles(){
         try{
-            String sql = "SELECT * FROM Salles";
+            String sql = "SELECT idSalle, Salles.libelle, capacite, SalleTypes.libelle  AS 'type' FROM Salles INNER JOIN SalleTypes ON Salles.idType = SalleTypes.idType";
             rs = st.executeQuery(sql);
 
             while(rs.next()){
                 String db_idSalle = rs.getString("idSalle");
                 String db_libelle = rs.getString("libelle");
-                String db_capacite = rs.getString("capacite");
-                new Salle(db_libelle, Integer.parseInt(db_capacite));
+                int db_capacite = rs.getInt("capacite");
+                String db_type = rs.getString("type");
+                new Salle(db_libelle, db_capacite, db_type);
             }
 
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to loadSalles :"+ex);
         }
     }
 
+    // Récupère dans la base de données les Examens et les initialisent
     public void loadExamens(){
         try{
             String sql = "SELECT * FROM Examens INNER JOIN Concerne ON Examens.idExamen = Concerne.idExamen";
@@ -161,14 +181,14 @@ public class BDD {
                 String db_idEtuListe = rs.getString("idEtuListe");
 
                 for (Promotion promotion : getPromotions()) {
-                    if(promotion.getNom().equals(db_idEtuListe)){
+                    if(promotion.getIdFiliere().equals(db_idEtuListe)){
                        // new Examen(db_idExamen, db_libelle, promotion.getNbetu(),1);
                     }
                 }
             }
 
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to loadExamens :"+ex);
         }
 
     }
@@ -182,10 +202,9 @@ public class BDD {
             preparedStmt.setString(1, nom);
             preparedStmt.setString(2, prenom);
             preparedStmt.executeUpdate();
-            con.close();
 
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to modify Student :"+ex);
         }
     }
 
@@ -199,10 +218,179 @@ public class BDD {
             preparedStmt.setString(3, prenom);
             preparedStmt.setInt(4, idEtuListe);
             preparedStmt.executeUpdate();
-            con.close();
 
         }catch(Exception ex){
-            System.out.println("Error is found :"+ex);
+            System.out.println("Error is found to add Student :"+ex);
         }
     }
+
+    // Cherche dans la bdd l'id de la promotion correspondant à son nom
+    public int getIDEtuListe(String libellePromotion){
+        String x = null;
+        try{
+            String query = "SELECT idEtuListe FROM EtuListes WHERE libelle = ? ";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libellePromotion);
+            ResultSet rs = preparedStmt.executeQuery();
+            while (rs.next()) {
+                x = rs.getString(1);
+            }
+        }catch(Exception ex){
+            System.out.println("Error is found to getIDEtuListe :"+ex);
+        }
+        return Integer.parseInt(x);
+    }
+
+    // Suprime Promotion dans bdd
+    public void supprimerPromotion(String libellePromotion) {
+        try{
+            int idEtuListe = getIDEtuListe(libellePromotion);
+            String query = "DELETE FROM EtuListes WHERE idEtuListe = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, String.valueOf(idEtuListe));
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add delete Promotion :"+ex);
+        }
+    }
+
+    public void ajouterPromotion(String libellePromotion) {
+        try{
+            String query = "INSERT INTO EtuListes (libelle) VALUES (?)";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libellePromotion);
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add Promotion :"+ex);
+        }
+    }
+
+    public void modifierPromotion(String idPromotion, String libellePromotion) {
+        try{
+            String query = "UPDATE EtuListes SET libelle = ? WHERE idEtuListe = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libellePromotion);
+            preparedStmt.setString(2, idPromotion);
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add Promotion :"+ex);
+        }
+    }
+
+    // Donne le dernière id de Promotion utilisé
+    public int getLastIdPromotion(){
+        int lastID = 0;
+
+        try{
+            String sql = "SELECT idEtuListe FROM EtuListes";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                lastID = rs.getInt("idEtuListe");
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getLastIdPromotion :"+ex);
+        }
+        return lastID;
+    }
+
+    public ObservableList<Object> getTypeSalle() {
+        ObservableList<Object> type = FXCollections.observableArrayList();
+        try{
+            String sql = "SELECT libelle FROM SalleTypes";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                type.add(rs.getString("libelle"));
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getTypeSalle :"+ex);
+        }
+        return type;
+    }
+
+    // Suprime Salle dans bdd
+    public void supprimerSalle(String nom) {
+        try{
+            String query = "DELETE FROM Salles WHERE libelle = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nom);
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add delete Salle :"+ex);
+        }
+    }
+
+    public void modifierSalle(String nom, int capacite, int idType, int idSalle) {
+        try{
+            String query = "UPDATE Salles SET libelle = ?, capacite = ?, idType = ? WHERE idSalle = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nom);
+            preparedStmt.setInt(2, capacite);
+            preparedStmt.setInt(3, idType);
+            preparedStmt.setInt(4, idSalle);
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to modify Salle :"+ex);
+        }
+    }
+
+    public int getIdFromSalle(String libelle) {
+        int idFromSalle = 0;
+
+        try{
+            String query = "SELECT idSalle FROM Salles WHERE libelle = ?";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libelle);
+            preparedStmt.executeUpdate();
+            while(rs.next()){
+                idFromSalle = rs.getInt("idSalle");
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getIdFromSalle :"+ex);
+        }
+        return idFromSalle;
+    }
+
+    public int getIdTypeFromlibelle(String libelle) {
+        int IdType = 0;
+        try{
+            String sql = "SELECT idType, libelle FROM SalleTypes";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                if (rs.getString("libelle").equals(libelle)){
+                    IdType = rs.getInt("idType");
+                }
+            }
+        }catch(Exception ex){
+            System.out.println("Error is found to getIdTypeFromlibelle :"+ex);
+        }
+        return IdType;
+    }
+
+
+    public void ajouterSalle(String nom, int capacite, int idType) {
+        try{
+            String query = "INSERT INTO Salles (libelle, capacite, idType) VALUES (?, ?, ?)";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nom);
+            preparedStmt.setInt(2, capacite);
+            preparedStmt.setInt(3, idType);
+
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add Salle :"+ex);
+        }
+    }
+
 }

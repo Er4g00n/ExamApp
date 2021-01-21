@@ -8,16 +8,11 @@ import javafx.scene.control.CheckBox;
 
 public class Promotion {
 
-	private String nom, filiere;
+	private String idFiliere, filiere;
 	private int nbetu;
 	private CheckBox statut;
 	private Button modifier;
 	private static ObservableList<Promotion> promotions = FXCollections.observableArrayList();
-
-	public void setEtudiants(ObservableList<Etudiant> etudiants) {
-		this.etudiants = etudiants;
-	}
-
 	private ObservableList<Etudiant> etudiants;
 
 	public ObservableList<Etudiant> getEtudiants() {
@@ -26,15 +21,14 @@ public class Promotion {
 
 	public Promotion(String name, String fil) {
 		this.etudiants = FXCollections.observableArrayList();
-		promotions.add(this);
 		this.nbetu = 0;
-		this.nom = name;
+		this.idFiliere = name;
 		this.filiere = fil;
 
-//		this.statut = new CheckBox();
-//		this.statut.setOnAction(event -> PromotionViewController.updateNumberSelectedPromotion((Button) (this.statut.getScene().lookup("#promoDel"))));
-//		this.modifier = new Button("Modifier");
-//		this.modifier.setOnAction(new PromotionModifierEventHandler(this));
+		this.statut = new CheckBox();
+		this.statut.setOnAction(event -> PromotionViewController.updateNumberSelectedPromotion((Button) (this.statut.getScene().lookup("#promoDel"))));
+		this.modifier = new Button("Modifier");
+		this.modifier.setOnAction(new PromotionModifierEventHandler(this));
 	}
 
 	//Pas utilisé
@@ -63,23 +57,35 @@ public class Promotion {
 
 	public static Promotion nomToPromotion(String promotionName){
 		Promotion filliere = getPromotions().stream()
-				.filter(fil -> promotionName.equals(fil.getNom()))
+				.filter(fil -> promotionName.equals(fil.getIdFiliere()))
 				.findAny()
 				.orElse(null);
 		return filliere;
 	}
 
+
+	// Récupère un objet promotion à partir d'un noim de promotion
+	public static Promotion getPromotionFromName(String libelle){
+		Promotion promotion = null;
+		for (Promotion element : getPromotions()) {
+			if (element.getFiliere().equals(libelle)){
+				promotion = element;
+			}
+		}
+		return promotion;
+	}
+
 	@Override
 	public String toString() {
-		return nom;
+		return idFiliere;
 	}
 
-	public String getNom() {
-		return nom;
+	public String getIdFiliere() {
+		return idFiliere;
 	}
 
-	public void setNom(String nom) {
-		this.nom = nom;
+	public void setIdFiliere(String idFiliere) {
+		this.idFiliere = idFiliere;
 	}
 
 	public String getFiliere() {
@@ -95,7 +101,11 @@ public class Promotion {
 	}
 
 	public static ObservableList<Promotion> getPromotions() {
-		return promotions;
+		return GestionPromotion.getPromotions();
+	}
+
+	public static void clearPromotion() {
+		GestionPromotion.setPromotions(FXCollections.observableArrayList());
 	}
 
 	public Button getModifier() {

@@ -1,6 +1,8 @@
 package utilisateur;
 
 import abstracts.AbstractPersistable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
@@ -11,6 +13,7 @@ public class Etudiant extends Utilisateur {
     private String numeroEtudiant;
     private Promotion filiere;
     protected Long id;
+    private static ObservableList<Etudiant> listEtudiant = FXCollections.observableArrayList();
 
     private CheckBox statut;
     private Button modifier;
@@ -20,11 +23,12 @@ public class Etudiant extends Utilisateur {
         super(nom,prenom,email);
         this.filiere = filiere;
         this.numeroEtudiant = numeroEtudiant;
+        listEtudiant.add(this);
 
-//       this.statut = new CheckBox();
-//        //this.statut.setOnAction(event -> EtudiantListeStageController.updateNumberSelectedEtudiant((Button) (this.statut.getScene().lookup("#etuDel"))));
-//        this.modifier = new Button("Modifier");
-//        this.modifier.setOnAction(new EtudiantModifierEventHandler(this));
+        this.statut = new CheckBox();
+        this.statut.setOnAction(event -> EtudiantListeStageController.updateNumberSelectedEtudiant((Button) (this.statut.getScene().lookup("#etuDel"))));
+        this.modifier = new Button("Modifier");
+        this.modifier.setOnAction(new EtudiantModifierEventHandler(this));
 
     }
 
@@ -72,6 +76,12 @@ public class Etudiant extends Utilisateur {
         this.id = id;
     }
 
-    
-    
+
+    public static ObservableList<Etudiant> getListEtudiant() {
+        return listEtudiant;
+    }
+
+    public static void setListEtudiant(ObservableList<Etudiant> listEtudiant) {
+        Etudiant.listEtudiant = listEtudiant;
+    }
 }

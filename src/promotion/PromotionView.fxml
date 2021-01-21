@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" styleClass="fondnoir" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="promotion.PromotionViewController">
+<BorderPane fx:id="borderPane1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="469.6" prefWidth="760.0" styleClass="fondnoir" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="promotion.PromotionViewController">
    <top>
       <HBox prefHeight="0.0" prefWidth="760.0" BorderPane.alignment="CENTER" />
    </top>
@@ -46,7 +38,7 @@
             <TableView fx:id="promotionTable" prefHeight="200.0" prefWidth="200.0" styleClass="tableau" GridPane.columnSpan="4" GridPane.rowIndex="1">
               <columns>
                 <TableColumn fx:id="promotionCheckColumn" prefWidth="75.0" sortable="false" />
-                <TableColumn fx:id="promotionNomColumn" prefWidth="175.0" text="ID Filière" />
+                <TableColumn fx:id="promotionIdFiliereColumn" prefWidth="175.0" text="ID Filière" />
                   <TableColumn fx:id="promotionFiliereColumn" prefWidth="190.0" text="Filière" />
                   <TableColumn fx:id="promotionNbEtuColumn" prefWidth="130.0" text="Nombre d'étudiants" />
                   <TableColumn fx:id="promotionModifColumn" prefWidth="128.0" sortable="false" text="Modifcation" />

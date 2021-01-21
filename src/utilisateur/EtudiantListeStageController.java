@@ -3,7 +3,6 @@ package utilisateur;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import utilisateur.Etudiant;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -48,8 +47,11 @@ public class EtudiantListeStageController implements Initializable {
 	private CheckBox etudiantSelectAll = new CheckBox();
 	
 	private Promotion cPromotion;
-	
-	@Override
+
+    public static void updateNumberSelectedEtudiant(Button lookup) {
+    }
+
+    @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		
@@ -66,7 +68,7 @@ public class EtudiantListeStageController implements Initializable {
 		
 		etudiantNomColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, String>("nom"));
 		etudiantPrenomColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, String>("prenom"));
-		etudiantNumEtuColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Integer>("numEtudiant"));
+		etudiantNumEtuColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Integer>("numEtu"));
 		etudiantModifColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Void>("modifier"));
 		etudiantCheckColumn.setCellValueFactory(new PropertyValueFactory<utilisateur.Etudiant, Void>("statut"));
 		etudiantCheckColumn.setGraphic(etudiantSelectAll);
@@ -127,7 +129,7 @@ public class EtudiantListeStageController implements Initializable {
 
 	public void setPromotion(Promotion p) {
 		this.cPromotion = p;
-		this.nomPromo.setText(cPromotion.getNom());
+		this.nomPromo.setText(cPromotion.getIdFiliere());
 		etudiantTable.setItems(cPromotion.getEtudiants());
 		
 	}
