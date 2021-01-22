@@ -14,7 +14,7 @@
   </scoreDirectorFactory>
 
   <termination>
-    <minutesSpentLimit>2</minutesSpentLimit>
+    <minutesSpentLimit>1</minutesSpentLimit>
   </termination>
   <constructionHeuristic>
     <queuedEntityPlacer>
