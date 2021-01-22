@@ -4,8 +4,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import connexion.EnregistrementController;
 import connexion.Login;
-import javafx.scene.control.Label;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import notification.GestionNotification;
 import optaplanner.Epreuve;
 import salle.Salle;
 import optaplanner.ExamenViewController;
@@ -14,9 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import promotion.Promotion;
 import promotion.PromotionViewController;
@@ -41,6 +43,9 @@ public class SampleController implements Initializable {
 
 	@FXML
 	public Label userType;
+
+	@FXML
+	public Button btnRegister;
 
 	Parent solveurView;
 	Parent promotionView;
@@ -71,6 +76,9 @@ public class SampleController implements Initializable {
 	public void initialize(URL url, ResourceBundle rb) {
 		userEmail.setText(Login.getEmail());
 		userType.setText(Login.getPersonnelType());
+		if (Login.getIdPersonnelType() != 3){
+			btnRegister.setVisible(false);
+		}
 		try {
 			FXMLLoader solveurLoader = new FXMLLoader(getClass().getResource("../optaplanner/ExamenView.fxml"));
 			solveurView = solveurLoader.load();
@@ -146,6 +154,21 @@ public class SampleController implements Initializable {
 		this.darktheme = darktheme;
 		this.lighttheme = lighttheme;
 		
+	}
+
+	@FXML
+	public void register(ActionEvent actionEvent) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("../connexion/Enregistrement.fxml"));
+		Parent root = loader.load();
+		EnregistrementController controller = loader.getController();
+		Scene scene = new Scene(root);
+		Stage subStage = new Stage();
+		subStage.setTitle("Ajouter Utilisateur");
+		subStage.initModality(Modality.WINDOW_MODAL);
+		subStage.initOwner(btnRegister.getScene().getWindow());
+		subStage.setScene(scene);
+		subStage.show();
 	}
 
 	public ToggleButton getSwitch() {

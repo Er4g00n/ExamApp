@@ -72,21 +72,6 @@ public class ConnexionController implements Initializable{
 
     }
 
-    @FXML
-    public void register(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("../connexion/Enregistrement.fxml"));
-        Parent root = loader.load();
-        EnregistrementController controller = loader.getController();
-        Scene scene = new Scene(root);
-        Stage subStage = new Stage();
-        subStage.setTitle("Ajouter Utilisateur");
-        subStage.initModality(Modality.WINDOW_MODAL);
-        subStage.initOwner(btnRegister.getScene().getWindow());
-        subStage.setScene(scene);
-        subStage.show();
-    }
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }

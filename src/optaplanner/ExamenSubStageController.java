@@ -56,7 +56,7 @@ public class ExamenSubStageController implements Initializable {
 				else {
 					bdd.ajouterExamen(nomField.getText(), Integer.parseInt(dureeField.getText()), bdd.nomToIdSalle(String.valueOf(salleField.getValue())),
 							bdd.nomToExamenType(String.valueOf(typeExamenField.getValue())), String.valueOf(dateField.getValue()), bdd.nomToIDFiliere(String.valueOf(filiereBox.getValue())));
-//					new Examen(nomField.getText(), filiereBox.getValue(), dureeField.getText());
+
 				}
 				((Stage) validationButton.getScene().getWindow()).close();
 			}
