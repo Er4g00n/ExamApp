@@ -99,10 +99,6 @@ public class PromotionViewController implements Initializable {
 
 	@FXML
 	private void delButtonAction(ActionEvent event) {
-		if (Login.getIdPersonnelType() != 1 || Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-			GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-			return;
-		}
 		for (Promotion element : promotionTable.getItems()) {
 			if (element.getStatut().isSelected() == true){
 				bdd.supprimerPromotion(element.getFiliere());
@@ -114,10 +110,6 @@ public class PromotionViewController implements Initializable {
 
 	@FXML
 	private void addButtonAction(ActionEvent event) throws Exception {
-		if (Login.getIdPersonnelType() != 1 || Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-			GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-			return;
-		}
 		//Test instaciation constructeur du controller
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("PromotionSubStage.fxml"));

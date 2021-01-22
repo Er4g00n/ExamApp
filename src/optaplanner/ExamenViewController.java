@@ -14,10 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -41,6 +38,9 @@ public class ExamenViewController implements Initializable {
 	private Button examenAddButton;
 	@FXML
 	private Button solve;
+
+	@FXML
+	private ProgressBar progressBar;
 
 	private Stage subStage;
 

@@ -78,6 +78,8 @@ public class SampleController implements Initializable {
 		userType.setText(Login.getPersonnelType());
 		if (Login.getIdPersonnelType() != 3){
 			btnRegister.setVisible(false);
+		} else {
+			btnRegister.setVisible(true);
 		}
 		try {
 			FXMLLoader solveurLoader = new FXMLLoader(getClass().getResource("../optaplanner/ExamenView.fxml"));

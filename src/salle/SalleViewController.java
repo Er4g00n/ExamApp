@@ -89,10 +89,6 @@ public class SalleViewController implements Initializable {
 
     @FXML
     private void delButtonAction(ActionEvent event) {
-        if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-            GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-            return;
-        }
         BDD bdd = new BDD();
         for (Salle element : salleTable.getItems()) {
             if (element.getStatut().isSelected() == true) {
@@ -105,10 +101,6 @@ public class SalleViewController implements Initializable {
 
     @FXML
     private void addButtonAction(ActionEvent event) throws Exception {
-        if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-            GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-            return;
-        }
         SalleSubStageController salleSubStageController = new SalleSubStageController();
         for (Salle element : salleTable.getItems()) {
             if (element.getStatut().isSelected() == true) {

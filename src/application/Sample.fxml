@@ -106,7 +106,7 @@
                            </image>
                         </ImageView>
                      </graphic></ToggleButton>
-                  <Button fx:id="btnRegister" layoutX="635.0" layoutY="501.0" mnemonicParsing="false" onAction="#register" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #3D58F2; -fx-background-radius: 10;" text="Inscription" textFill="WHITE" />
+                  <Button fx:id="btnRegister" layoutX="635.0" layoutY="501.0" mnemonicParsing="false" onAction="#register" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #3D58F2; -fx-background-radius: 10;" text="Utilisateur" textFill="WHITE" />
                </children>
                <padding>
                   <Insets left="20.0" right="20.0" />

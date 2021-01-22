@@ -17,7 +17,6 @@
 package abstracts;
 
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
-import org.optaplanner.examples.common.app.LoggingMain;
 
 import java.io.File;
 
@@ -27,13 +26,13 @@ import java.io.File;
  *
  * @param <Solution_> the solution type, the class with the {@link PlanningSolution} annotation
  */
-public abstract class AbstractSolutionExporter<Solution_> extends LoggingMain {
+public abstract class AbstractSolutionExporter<Solution_> {
 
     public abstract String getOutputFileSuffix();
 
     public abstract void writeSolution(Solution_ solution, File outputFile);
 
-    public static abstract class OutputBuilder extends LoggingMain {
+    public static abstract class OutputBuilder {
 
     }
 

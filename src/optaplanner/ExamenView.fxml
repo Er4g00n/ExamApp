@@ -29,7 +29,7 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="195.60001220703126" minHeight="10.0" prefHeight="51.4" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="376.79999084472655" minHeight="10.0" prefHeight="376.79999084472655" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="376.79999084472655" minHeight="10.0" prefHeight="350.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Examen" textFill="WHITE">

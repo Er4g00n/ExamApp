@@ -46,31 +46,23 @@ public class PromotionSubStageController implements Initializable {
 	private TableView<Etudiant> etudiantTable;
 	
 	private Promotion promotion;
-
+	BDD bdd = new BDD();
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 
 		validationButton.setOnAction(new EventHandler<ActionEvent>() {
-			BDD bdd = new BDD();
 			@Override
 			public void handle(ActionEvent arg0) {
 				if (promotion != null) {
-					if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-						GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-						return;
-					}
 					promotion.setIdFiliere(nomField.getText());
 					promotion.setFiliere(filiereField.getText());
 					bdd.modifierPromotion(promotion.getIdFiliere(), promotion.getFiliere());
 				}
 				else {
-					if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-						GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-						return;
-					}
 					bdd.ajouterPromotion(filiereField.getText());
 					Promotion e = new Promotion(String.valueOf(bdd.getLastIdPromotion()+1), filiereField.getText());
 				}
+
 				((Stage) validationButton.getScene().getWindow()).close();
 			}
 		});
@@ -85,10 +77,6 @@ public class PromotionSubStageController implements Initializable {
 	@FXML
 	private void modifierListeEtuAction() {
 		try {
-			if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-				GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-				return;
-			}
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../utilisateur/EtudiantListeStage.fxml"));
 			Parent root = loader.load();
 			EtudiantListeStageController controller = loader.getController();

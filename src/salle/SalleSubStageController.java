@@ -41,11 +41,6 @@ public class SalleSubStageController implements Initializable {
         validationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
-                    GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
-                    return;
-                }
-
                 int cap = 0;
                 if (capaciteField.getText().matches("\\d+")) {
                     cap = Integer.parseInt(capaciteField.getText());
