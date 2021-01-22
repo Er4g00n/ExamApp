@@ -1,17 +1,18 @@
 package optaplanner;
 
-import abstracts.AbstractTxtSolutionExporter;
 import connexion.BDD;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
 import salle.Salle;
 import utilisateur.Etudiant;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
 
+/**
+ * The type Initialisation.
+ * Permet de mettre en place la solution prete pour etre resolut
+ */
 public class Initialisation {
 
     private Calendrier calendrier;
@@ -20,10 +21,19 @@ public class Initialisation {
     private Map<Epreuve, Set<Epreuve>> afterMap;
 
 
-    public Initialisation(){
+    /**
+     * Instantiates a new Initialisation.
+     */
+    public Initialisation() {
     }
 
-    public void solverOn(){
+    /**
+     * Solver on.
+     * Recupere les informations
+     * Lance le solver
+     * Exporte la solution vers un fichier data/ressource/resultat.examapp
+     */
+    public void solverOn() {
         calendrier = new Calendrier();
         calendrier.setId(0L);
         readEpreuveListAndEtudiantList();
@@ -41,7 +51,7 @@ public class Initialisation {
         export.writeSolution(solvedCourseSchedule, file);
     }
 
-    private void readEpreuveListAndEtudiantList(){
+    private void readEpreuveListAndEtudiantList() {
         coincidenceMap = new LinkedHashMap<>();
         exclusionMap = new LinkedHashMap<>();
         afterMap = new LinkedHashMap<>();
@@ -54,7 +64,7 @@ public class Initialisation {
         afterMap = BDD.getAfterMap();
     }
 
-    private void readPeriodeList(){
+    private void readPeriodeList() {
         List<Periode> periodeList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
 
@@ -77,11 +87,11 @@ public class Initialisation {
         calendrier.setPeriodeList(periodeList);
     }
 
-    private void readSalleList(){
+    private void readSalleList() {
         calendrier.setSalleList(Salle.getSalles());
     }
 
-    private void readPeriodePenaliteList(){
+    private void readPeriodePenaliteList() {
         int id = 0;
         List<Epreuve> epreuveList = calendrier.getEpreuveList();
         List<PeriodePenalite> periodPenaltyList = new ArrayList<>();
@@ -146,7 +156,7 @@ public class Initialisation {
         calendrier.setPeriodePenaliteList(periodPenaltyList);
     }
 
-    private void readSallePenaliteList(){
+    private void readSallePenaliteList() {
         SallePenalite roomPenalty = new SallePenalite();
         List<SallePenalite> roomPenaltyList = new ArrayList<>();
         roomPenalty.setId((long) 1);
@@ -154,7 +164,7 @@ public class Initialisation {
         calendrier.setSallePenaliteList(roomPenaltyList);
     }
 
-    private void readInstitutionalWeighting(){
+    private void readInstitutionalWeighting() {
         CalendrierContraintes constraintConfiguration = new CalendrierContraintes();
         constraintConfiguration.setId(0L);
         constraintConfiguration.setPeriodeSpreadPenalite(1);
@@ -174,10 +184,10 @@ public class Initialisation {
         Map<Epreuve, ExamenEnCours> leadingEpreuveToExamMap = new HashMap<>(topicList.size());
         for (Epreuve topic : topicList) {
             Examen exam;
-                ExamenEnCours leadingExam = new ExamenEnCours();
-                leadingExam.setExamenSuivantList(new ArrayList<>(10));
-                leadingEpreuveToExamMap.put(topic, leadingExam);
-                exam = leadingExam;
+            ExamenEnCours leadingExam = new ExamenEnCours();
+            leadingExam.setExamenSuivantList(new ArrayList<>(10));
+            leadingEpreuveToExamMap.put(topic, leadingExam);
+            exam = leadingExam;
             exam.setId(topic.getId());
             exam.setEpreuve(topic);
             examList.add(exam);

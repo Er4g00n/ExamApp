@@ -27,6 +27,9 @@ import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
 import org.optaplanner.persistence.xstream.impl.domain.solution.XStreamSolutionFileIO;
 
 /**
+   Cette classe provient des classes communes des exemples d'optaplanner
+   Cette classe centralise les methodes sur les solutions dans le projet
+
  * @param <Solution_> the solution type, the class with the {@link PlanningSolution} annotation
  */
 public class SolutionConverter<Solution_> extends LoggingMain {

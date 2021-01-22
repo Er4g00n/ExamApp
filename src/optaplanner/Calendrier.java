@@ -18,6 +18,9 @@ import utilisateur.Etudiant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Calendrier.
+ */
 @PlanningSolution()
 @XStreamAlias("Calendrier")
 public class Calendrier extends AbstractPersistable {
@@ -37,84 +40,174 @@ public class Calendrier extends AbstractPersistable {
     @XStreamConverter(HardSoftScoreXStreamConverter.class)
     private HardSoftScore score;
 
+    /**
+     * Obtient la configuration de la contrainte.
+     *
+     * @return the constraint configuration
+     */
     @ConstraintConfigurationProvider
     public CalendrierContraintes getConstraintConfiguration() {
         return constraintConfiguration;
     }
 
+    /**
+     * Définit la configuration des contraintes.
+     *
+     * @param constraintConfiguration the constraint configuration
+     */
     public void setConstraintConfiguration(CalendrierContraintes constraintConfiguration) {
         this.constraintConfiguration = constraintConfiguration;
     }
 
+    /**
+     * Gets etudiant list.
+     *
+     * @return the etudiant list
+     */
     public List<Etudiant> getEtudiantList() {
         return etudiantList;
     }
 
+    /**
+     * Sets etudiant list.
+     *
+     * @param etudiantList the etudiant list
+     */
     public void setEtudiantList(List<Etudiant> etudiantList) {
         this.etudiantList = etudiantList;
     }
 
+    /**
+     * Gets epreuve list.
+     *
+     * @return the epreuve list
+     */
     @ProblemFactCollectionProperty
     public List<Epreuve> getEpreuveList() {
         return epreuveList;
     }
 
+    /**
+     * Sets epreuve list.
+     *
+     * @param epreuveList the epreuve list
+     */
     public void setEpreuveList(List<Epreuve> epreuveList) {
         this.epreuveList = epreuveList;
     }
 
+    /**
+     * Gets periode list.
+     *
+     * @return the periode list
+     */
     @ValueRangeProvider(id = "periodeRange")
     @ProblemFactCollectionProperty
     public List<Periode> getPeriodeList() {
         return periodeList;
     }
 
+    /**
+     * Sets periode list.
+     *
+     * @param periodeList the periode list
+     */
     public void setPeriodeList(List<Periode> periodeList) {
         this.periodeList = periodeList;
     }
 
+    /**
+     * Gets salle list.
+     *
+     * @return the salle list
+     */
     @ValueRangeProvider(id = "salleRange")
     @ProblemFactCollectionProperty
     public List<Salle> getSalleList() {
         return salleList;
     }
 
+    /**
+     * Sets salle list.
+     *
+     * @param salleList the salle list
+     */
     public void setSalleList(List<Salle> salleList) {
         this.salleList = salleList;
     }
 
+    /**
+     * Gets periode penalite list.
+     *
+     * @return the periode penalite list
+     */
     @ProblemFactCollectionProperty
     public List<PeriodePenalite> getPeriodePenaliteList() {
         return periodePenaliteList;
     }
 
+    /**
+     * Sets periode penalite list.
+     *
+     * @param periodePenaliteList the periode penalite list
+     */
     public void setPeriodePenaliteList(List<PeriodePenalite> periodePenaliteList) {
         this.periodePenaliteList = periodePenaliteList;
     }
 
+    /**
+     * Gets salle penalite list.
+     *
+     * @return the salle penalite list
+     */
     @ProblemFactCollectionProperty
     public List<SallePenalite> getSallePenaliteList() {
         return sallePenaliteList;
     }
 
+    /**
+     * Sets salle penalite list.
+     *
+     * @param sallePenaliteList the salle penalite list
+     */
     public void setSallePenaliteList(List<SallePenalite> sallePenaliteList) {
         this.sallePenaliteList = sallePenaliteList;
     }
 
+    /**
+     * Gets examen list.
+     *
+     * @return the examen list
+     */
     @PlanningEntityCollectionProperty
     public List<Examen> getExamenList() {
         return examenList;
     }
 
+    /**
+     * Sets examen list.
+     *
+     * @param examenList the examen list
+     */
     public void setExamenList(List<Examen> examenList) {
         this.examenList = examenList;
     }
 
+    /**
+     * Gets score.
+     *
+     * @return the score
+     */
     @PlanningScore
     public HardSoftScore getScore() {
         return score;
     }
 
+    /**
+     * Sets score.
+     *
+     * @param score the score
+     */
     public void setScore(HardSoftScore score) {
         this.score = score;
     }

@@ -3,25 +3,33 @@ package optaplanner;
 import abstracts.AbstractTxtSolutionExporter;
 import abstracts.SolutionConverter;
 
-
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 
+/**
+ * The type Exporteur.
+ * Permet de convertir la solution du solver en fichier .examapp
+ * avec les solutions
+ */
 public class Exporteur extends AbstractTxtSolutionExporter<Calendrier> {
     private static final String OUTPUT_FILE_SUFFIX = "examapp";
-
-    public static void main(String[] args) {
-        SolutionConverter<Calendrier> converter = SolutionConverter.createExportConverter(
-                "ressource", Calendrier.class, new Exporteur());
-        converter.convertAll();
-    }
 
     @Override
     public String getOutputFileSuffix() {
         return OUTPUT_FILE_SUFFIX;
     }
 
+    @Override
+    public TxtOutputBuilder<Calendrier> createTxtOutputBuilder() {
+        return new Exporteur.CalendrierOutputBuilder();
+    }
+
+    /**
+     * The type Calendrier output builder.
+     * Format de l'export - modifier si besoin
+     * TUDO - Exporteur vers fichier excel
+     */
     public static class CalendrierOutputBuilder extends TxtOutputBuilder<Calendrier> {
 
         @Override
@@ -32,9 +40,5 @@ public class Exporteur extends AbstractTxtSolutionExporter<Calendrier> {
             }
         }
 
-    }
-    @Override
-    public TxtOutputBuilder<Calendrier> createTxtOutputBuilder() {
-        return new Exporteur.CalendrierOutputBuilder();
     }
 }
