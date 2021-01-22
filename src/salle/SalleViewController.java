@@ -1,6 +1,7 @@
 package salle;
 
 import connexion.BDD;
+import connexion.Login;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -16,6 +17,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import notification.GestionNotification;
+import promotion.Promotion;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -86,6 +89,10 @@ public class SalleViewController implements Initializable {
 
     @FXML
     private void delButtonAction(ActionEvent event) {
+        if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+            GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+            return;
+        }
         BDD bdd = new BDD();
         for (Salle element : salleTable.getItems()) {
             if (element.getStatut().isSelected() == true) {
@@ -98,7 +105,10 @@ public class SalleViewController implements Initializable {
 
     @FXML
     private void addButtonAction(ActionEvent event) throws Exception {
-
+        if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+            GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+            return;
+        }
         SalleSubStageController salleSubStageController = new SalleSubStageController();
         for (Salle element : salleTable.getItems()) {
             if (element.getStatut().isSelected() == true) {
@@ -114,7 +124,11 @@ public class SalleViewController implements Initializable {
         subStage.initOwner(salleAddButton.getScene().getWindow());
         subStage.setScene(scene);
         subStage.show();
-
+        subStage.setOnCloseRequest(
+                event2 -> {
+                    salleTable.setItems(Salle.getSalles());
+                }
+        );
     }
 
     public TableView<Salle> getSalleTable() {

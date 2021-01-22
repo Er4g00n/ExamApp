@@ -6,10 +6,12 @@ import java.util.ResourceBundle;
 
 import application.SampleController;
 import connexion.BDD;
+import connexion.Login;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +22,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import loader.SplashScreenController;
+import notification.GestionNotification;
 import org.drools.model.Model;
 
 public class PromotionViewController implements Initializable {
@@ -45,6 +49,8 @@ public class PromotionViewController implements Initializable {
 	private Button promotionAddButton;
 
 	private CheckBox promotionSelectAll = new CheckBox();
+
+	BDD bdd = new BDD();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -75,11 +81,8 @@ public class PromotionViewController implements Initializable {
 				}
 				updateNumberSelectedPromotion(promotionDelButton);
 			}
-
 		});
-
 		promotionTable.setItems(Promotion.getPromotions());
-
 	}
 
 	// Met à jour la couleur le nombre de sélection
@@ -96,7 +99,10 @@ public class PromotionViewController implements Initializable {
 
 	@FXML
 	private void delButtonAction(ActionEvent event) {
-		BDD bdd = new BDD();
+		if (Login.getIdPersonnelType() != 1 || Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+			GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+			return;
+		}
 		for (Promotion element : promotionTable.getItems()) {
 			if (element.getStatut().isSelected() == true){
 				bdd.supprimerPromotion(element.getFiliere());
@@ -108,6 +114,10 @@ public class PromotionViewController implements Initializable {
 
 	@FXML
 	private void addButtonAction(ActionEvent event) throws Exception {
+		if (Login.getIdPersonnelType() != 1 || Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+			GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+			return;
+		}
 		//Test instaciation constructeur du controller
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("PromotionSubStage.fxml"));
@@ -120,11 +130,23 @@ public class PromotionViewController implements Initializable {
 		subStage.initOwner(promotionAddButton.getScene().getWindow());
 		subStage.setScene(scene);
 		subStage.show();
-
+		subStage.setOnCloseRequest(
+				event2 -> {
+					promotionTable.setItems(Promotion.getPromotions());
+				}
+		);
 	}
 
 	public TableView<Promotion> getPromotionTable() {
 		return promotionTable;
+	}
+
+	public void setPromotionTableFromDB() {
+		promotionTable.setItems(Promotion.getPromotions());
+	}
+
+	public static void tester(){
+
 	}
 
 }

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import connexion.Login;
+import javafx.scene.control.Label;
 import optaplanner.Epreuve;
 import salle.Salle;
 import optaplanner.ExamenViewController;
@@ -34,6 +36,12 @@ public class SampleController implements Initializable {
 	@FXML
 	public ToggleGroup pageGroup;
 
+	@FXML
+	public Label userEmail;
+
+	@FXML
+	public Label userType;
+
 	Parent solveurView;
 	Parent promotionView;
 	Parent salleView;
@@ -61,7 +69,8 @@ public class SampleController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-
+		userEmail.setText(Login.getEmail());
+		userType.setText(Login.getPersonnelType());
 		try {
 			FXMLLoader solveurLoader = new FXMLLoader(getClass().getResource("../optaplanner/ExamenView.fxml"));
 			solveurView = solveurLoader.load();
@@ -142,5 +151,4 @@ public class SampleController implements Initializable {
 	public ToggleButton getSwitch() {
 		return this.switchButton;
 	}
-
 }

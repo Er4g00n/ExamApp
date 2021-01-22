@@ -57,7 +57,8 @@ public class SplashScreenController implements Initializable {
 
         public void run() {
             try {
-                Thread.sleep(4000);
+                Thread.sleep(1000);
+//                Thread.sleep(4000);
 
                 Platform.runLater(new Runnable() {
                     @Override

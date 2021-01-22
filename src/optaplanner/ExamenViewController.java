@@ -21,6 +21,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import salle.Salle;
 
 public class ExamenViewController implements Initializable {
 
@@ -93,7 +94,6 @@ public class ExamenViewController implements Initializable {
 	}
 
 	@FXML
-
 	private void solve(ActionEvent event) {
 		Initialisation init = new Initialisation();
 		init.solverOn();
@@ -110,5 +110,10 @@ public class ExamenViewController implements Initializable {
 		subStage.setScene(scene);
 		subStage.show();
 
+		subStage.setOnCloseRequest(
+				event2 -> {
+					examenTable.setItems(Epreuve.getExamens());
+				}
+		);
 	}
 }

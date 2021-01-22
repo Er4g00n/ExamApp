@@ -5,14 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import notification.GestionNotification;
+import promotion.PromotionSubStageController;
 import tray.animations.AnimationType;
 import tray.notification.NotificationType;
 import tray.notification.TrayNotification;
@@ -37,20 +37,23 @@ public class ConnexionController implements Initializable{
     private ProgressBar progressBar;
 
     @FXML
+    private Button btnRegister;
+
+    @FXML
     private Label userEmail;
 
     @FXML
     public void login(ActionEvent actionEvent) {
         if (txtEmail.getText().toString().equals("") || txtPassword.getText().toString().equals("")){
             GestionNotification.notification("Vous devez remplir tous les champs !", "WARNING", 1.0);
+            txtPassword.setText("");
             return;
         }
-
         try {
             BDD bdd = new BDD();
             boolean checkLogin = bdd.checkLogin(txtEmail.getText().toString(), txtPassword.getText().toString());
             txtPassword.setText("");
-            if (checkLogin != true){
+            if (checkLogin == true){
                 try {
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("../application/Sample.fxml"));
                     Stage stage = (Stage) (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
@@ -68,9 +71,24 @@ public class ConnexionController implements Initializable{
         }
 
     }
+
+    @FXML
+    public void register(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("../connexion/Enregistrement.fxml"));
+        Parent root = loader.load();
+        EnregistrementController controller = loader.getController();
+        Scene scene = new Scene(root);
+        Stage subStage = new Stage();
+        subStage.setTitle("Ajouter Utilisateur");
+        subStage.initModality(Modality.WINDOW_MODAL);
+        subStage.initOwner(btnRegister.getScene().getWindow());
+        subStage.setScene(scene);
+        subStage.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
     }
 
 }

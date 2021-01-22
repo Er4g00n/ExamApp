@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import optaplanner.Epreuve;
+import org.mindrot.jbcrypt.BCrypt;
 import salle.Salle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -68,6 +69,8 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		BDD bdd = new BDD();
 		launch(args);
+
+
 	}
 
 

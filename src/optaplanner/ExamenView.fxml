@@ -60,7 +60,7 @@
               </rowConstraints>
                <children>
                   <Button fx:id="examenAddButton" mnemonicParsing="false" onAction="#addButtonAction" styleClass="addButton" text="+    Ajouter" />
-                  <Button mnemonicParsing="false" onAction="#solve" text="Solve" GridPane.columnIndex="1" />
+                  <Button mnemonicParsing="false" onAction="#solve" prefHeight="25.0" prefWidth="100.0" style="-fx-font-size: 16; -fx-background-color: #3B55FF; -fx-cursor: hand; -fx-background-radius: 8;" text="Solve" textFill="WHITE" GridPane.columnIndex="1" />
                </children>
             </GridPane>
          </children>

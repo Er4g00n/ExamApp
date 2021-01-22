@@ -64,11 +64,6 @@
             <version>8.0.0.Final</version>
         </dependency>
         <dependency>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-test</artifactId>
-            <version>8.1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
             <version>11.0.1</version>
@@ -77,11 +72,6 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
             <version>11.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.optaplanner</groupId>
-            <artifactId>optaplanner-examples</artifactId>
-            <version>8.1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 

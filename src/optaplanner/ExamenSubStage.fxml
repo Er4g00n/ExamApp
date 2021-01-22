@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
 <GridPane alignment="BOTTOM_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="background-light" stylesheets="@../application/application.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="optaplanner.ExamenSubStageController">
   <columnConstraints>
@@ -13,6 +19,9 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
@@ -30,9 +39,25 @@
          <GridPane.margin>
             <Insets left="40.0" />
          </GridPane.margin></Label>
-      <Button fx:id="validationButton" mnemonicParsing="false" text="Valider" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+      <Button fx:id="validationButton" mnemonicParsing="false" text="Valider" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="7" />
       <TextField fx:id="nomField" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextField fx:id="dureeField" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <ChoiceBox fx:id="filiereBox" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="Salle" GridPane.rowIndex="4">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin></Label>
+      <Label text="Type d'examen" GridPane.rowIndex="5">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin></Label>
+      <ChoiceBox fx:id="salleField" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <ChoiceBox fx:id="typeExamenField" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label text="Label" GridPane.rowIndex="6">
+         <GridPane.margin>
+            <Insets left="40.0" />
+         </GridPane.margin>
+      </Label>
+      <DatePicker fx:id="dateField" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    </children>
 </GridPane>

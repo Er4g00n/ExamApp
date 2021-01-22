@@ -9,6 +9,7 @@ import notification.GestionNotification;
 import optaplanner.Epreuve;
 import optaplanner.Examen;
 import optaplanner.Initialisation;
+import org.mindrot.jbcrypt.BCrypt;
 import promotion.GestionPromotion;
 import utilisateur.Etudiant;
 import salle.Salle;
@@ -94,19 +95,19 @@ public class BDD {
                 String db_idPersonnel = rs.getString("idPersonnel");
                 String db_email = rs.getString("email");
                 String db_mdp = rs.getString("mdp");
+                String db_nom = rs.getString("nom");
+                String db_prenom = rs.getString("prenom");
+                int db_idTypePersonnel = rs.getInt("idTypePersonnel");
 
-                if (email.toLowerCase().equals(db_email.toLowerCase()) && mdp.equals(db_mdp)){
+                if (email.toLowerCase().equals(db_email.toLowerCase()) && BCrypt.checkpw(mdp, db_mdp)){
                     login = true;
-                    ConnexionController notification = new ConnexionController();
+                    new Login(db_nom, db_prenom, db_email, db_idTypePersonnel);
                     GestionNotification.notification("Connexion réussi !", "SUCCES", 1.0);
                 }
                 else {
-                    ConnexionController notification = new ConnexionController();
                     GestionNotification.notification("Erreur identifiants !", "ERROR", 1.0);
                 }
             }
-            System.out.println(login);
-
 
         }catch(Exception ex){
             System.out.println("Error is found to loadPromotions :"+ex);
@@ -264,6 +265,7 @@ public class BDD {
             ResultSet rs = preparedStmt.executeQuery();
             while (rs.next()) {
                 x = rs.getString(1);
+                System.out.println(x);
             }
         }catch(Exception ex){
             System.out.println("Error is found to getIDEtuListe :"+ex);
@@ -328,6 +330,57 @@ public class BDD {
         return lastID;
     }
 
+    // Donne la liste des filières
+    public ObservableList<Object> getFiliere() {
+        ObservableList<Object> listeFiliere = FXCollections.observableArrayList();
+        try{
+            String sql = "SELECT libelle FROM EtuListes";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                listeFiliere.add(rs.getString("libelle"));
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getFiliere :"+ex);
+        }
+        return listeFiliere;
+    }
+
+    // Donne les types d'examens
+    public ObservableList<Object> getTypeExamens() {
+        ObservableList<Object> listeFiliere = FXCollections.observableArrayList();
+        try{
+            String sql = "SELECT libelle FROM ExamenTypes";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                listeFiliere.add(rs.getString("libelle"));
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getFiliere :"+ex);
+        }
+        return listeFiliere;
+    }
+
+    // Donne la liste des salles
+    public ObservableList<Object> getSalle() {
+        ObservableList<Object> listeFiliere = FXCollections.observableArrayList();
+        try{
+            String sql = "SELECT libelle FROM Salles";
+            rs = st.executeQuery(sql);
+
+            while(rs.next()){
+                listeFiliere.add(rs.getString("libelle"));
+            }
+
+        }catch(Exception ex){
+            System.out.println("Error is found to getFiliere :"+ex);
+        }
+        return listeFiliere;
+    }
+
     public ObservableList<Object> getTypeSalle() {
         ObservableList<Object> type = FXCollections.observableArrayList();
         try{
@@ -374,7 +427,6 @@ public class BDD {
 
     public int getIdFromSalle(String libelle) {
         int idFromSalle = 0;
-
         try{
             String query = "SELECT idSalle FROM Salles WHERE libelle = ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -423,6 +475,89 @@ public class BDD {
         }
     }
 
+    public void ajouterExamen(String libelle, int duree, int idSalle, int idExamenType, String date, int idPromotion) {
+        try{
+            String query = "INSERT INTO Examens (libelle, duree, idSalle, idExamenType, date, idPromotion) VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libelle);
+            preparedStmt.setInt(2, duree);
+            preparedStmt.setInt(3, idSalle);
+            preparedStmt.setInt(4, idExamenType);
+            preparedStmt.setString(5, date);
+            preparedStmt.setInt(6, idPromotion);
+
+            preparedStmt.executeUpdate();
+
+        }catch(Exception ex){
+            System.out.println("Error is found to add Examen :"+ex);
+        }
+    }
+
+    public int nomToIdSalle(String nomSalle){
+        Integer x = null;
+        try{
+            String query = "SELECT idSalle FROM Salles WHERE libelle = ? ";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nomSalle);
+            ResultSet rs = preparedStmt.executeQuery();
+            while (rs.next()) {
+                x = rs.getInt(1);
+            }
+        }catch(Exception ex){
+            System.out.println("Error is found to nomToIdSalle :"+ex);
+        }
+        return x;
+    }
+
+    public int nomToExamenType(String libelleExamen){
+        Integer x = null;
+        try{
+            String query = "SELECT idExamenType FROM ExamenTypes WHERE libelle = ? ";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libelleExamen);
+            ResultSet rs = preparedStmt.executeQuery();
+            while (rs.next()) {
+                x = rs.getInt(1);
+            }
+        }catch(Exception ex){
+            System.out.println("Error is found to nomToExamenType :"+ex);
+        }
+        return x;
+    }
+
+    public int nomToIDFiliere(String libelleFiliere){
+        Integer x = null;
+        try{
+            String query = "SELECT idEtuListe FROM EtuListes WHERE libelle = ? ";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, libelleFiliere);
+            ResultSet rs = preparedStmt.executeQuery();
+            while (rs.next()) {
+                x = rs.getInt(1);
+            }
+        }catch(Exception ex){
+            System.out.println("Error is found to nomToIDFiliere :"+ex);
+        }
+        return x;
+    }
+
+    public void ajouterUtilisateur(String nom, String prenom, String email, String password, String personnelType) {
+        try{
+            String mdp = BCrypt.hashpw(password, BCrypt.gensalt(12));
+            String query = "INSERT INTO Personnels (nom, prenom, email, mdp, idTypePersonnel) VALUES (?, ?, ?, ?, ?)";
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, nom);
+            preparedStmt.setString(2, prenom);
+            preparedStmt.setString(3, email);
+            preparedStmt.setString(4, mdp);
+            preparedStmt.setInt(5, Integer.parseInt(personnelType));
+            preparedStmt.executeUpdate();
+            GestionNotification.notification("Vous avez bien été enregistré !", "SUCCES", 1.0);
+        }catch(Exception ex){
+            System.out.println("Error is found to add Utilisateur :"+ex);
+        }
+    }
+
     public static Map<Epreuve, Set<Epreuve>> getCoincidenceMap() {
         return coincidenceMap;
     }
@@ -446,4 +581,6 @@ public class BDD {
     public void setAfterMap(Map<Epreuve, Set<Epreuve>> afterMap) {
         this.afterMap = afterMap;
     }
+
+
 }

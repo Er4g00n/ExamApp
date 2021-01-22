@@ -4,11 +4,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.SampleController;
 import connexion.BDD;
+import connexion.Login;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import loader.SplashScreenController;
+import notification.GestionNotification;
 import org.drools.model.Model;
 import utilisateur.Etudiant;
 import utilisateur.EtudiantListeStageController;
@@ -57,8 +61,7 @@ public class PromotionSubStageController implements Initializable {
 				}
 				else {
 					bdd.ajouterPromotion(filiereField.getText());
-					new Promotion(String.valueOf(bdd.getLastIdPromotion()+1), filiereField.getText());
-
+					Promotion e = new Promotion(String.valueOf(bdd.getLastIdPromotion()+1), filiereField.getText());
 				}
 				((Stage) validationButton.getScene().getWindow()).close();
 			}
@@ -74,6 +77,10 @@ public class PromotionSubStageController implements Initializable {
 	@FXML
 	private void modifierListeEtuAction() {
 		try {
+			if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+				GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+				return;
+			}
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("../utilisateur/EtudiantListeStage.fxml"));
 			Parent root = loader.load();
 			EtudiantListeStageController controller = loader.getController();
