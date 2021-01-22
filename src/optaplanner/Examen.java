@@ -2,10 +2,6 @@ package optaplanner;
 
 import abstracts.AbstractPersistable;
 import com.thoughtworks.xstream.annotations.XStreamInclude;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import optaplanner.solver.ExamenPoidDetermination;
 import optaplanner.solver.SallePoidDetermination;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
