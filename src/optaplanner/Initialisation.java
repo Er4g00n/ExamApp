@@ -1,11 +1,15 @@
 package optaplanner;
 
+
 import connexion.BDD;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
 import salle.Salle;
 import utilisateur.Etudiant;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class Initialisation {
@@ -31,6 +35,9 @@ public class Initialisation {
         SolverFactory<Calendrier> solverFactory = SolverFactory.createFromXmlResource("score/examinationSolverConfig.xml");
         Solver<Calendrier> solver = solverFactory.buildSolver();
         Calendrier solvedCourseSchedule = solver.solve(calendrier);
+//        Exporteur export = new Exporteur();
+//        File file = new File("data/ressource/resultat.examapp");
+//        export.writeSolution(solvedCourseSchedule, file);
     }
 
     private void readEpreuveListAndEtudiantList(){

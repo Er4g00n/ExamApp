@@ -1,6 +1,7 @@
 package salle;
 
 import connexion.BDD;
+import connexion.Login;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import notification.GestionNotification;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,9 +28,8 @@ public class SalleSubStageController implements Initializable {
     @FXML
     private TextField capaciteField;
     private Salle salle;
-
+    BDD bdd = new BDD();
     private void loadTypeSalle() {
-        BDD bdd = new BDD();
         options = bdd.getTypeSalle();
     }
 
@@ -38,10 +39,12 @@ public class SalleSubStageController implements Initializable {
         typeField.setItems(options);
 
         validationButton.setOnAction(new EventHandler<ActionEvent>() {
-            final BDD bdd = new BDD();
-
             @Override
             public void handle(ActionEvent arg0) {
+                if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+                    GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+                    return;
+                }
 
                 int cap = 0;
                 if (capaciteField.getText().matches("\\d+")) {

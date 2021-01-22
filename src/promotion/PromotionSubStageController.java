@@ -55,11 +55,19 @@ public class PromotionSubStageController implements Initializable {
 			@Override
 			public void handle(ActionEvent arg0) {
 				if (promotion != null) {
+					if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+						GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+						return;
+					}
 					promotion.setIdFiliere(nomField.getText());
 					promotion.setFiliere(filiereField.getText());
 					bdd.modifierPromotion(promotion.getIdFiliere(), promotion.getFiliere());
 				}
 				else {
+					if (Login.getIdPersonnelType() != 2 || Login.getIdPersonnelType() != 3){
+						GestionNotification.notification("Vous n'avez pas acces à ces fonctionnalites", "WARNING", 1.0);
+						return;
+					}
 					bdd.ajouterPromotion(filiereField.getText());
 					Promotion e = new Promotion(String.valueOf(bdd.getLastIdPromotion()+1), filiereField.getText());
 				}

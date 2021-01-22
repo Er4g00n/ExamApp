@@ -22,6 +22,5 @@
             <Insets />
          </opaqueInsets>
       </AnchorPane>
-      <Button fx:id="btnRegister" layoutX="635.0" layoutY="501.0" mnemonicParsing="false" onAction="#register" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #3D58F2; -fx-background-radius: 10;" text="Inscription" textFill="WHITE" />
    </children>
 </AnchorPane>
